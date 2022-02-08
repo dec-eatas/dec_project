@@ -3,9 +3,11 @@
 @section('title','トップページ')
 
 @section('side')
-これはサイドです
+
+aa
+
 @endsection
 
 @section('main')
-a
+
 @endsection
