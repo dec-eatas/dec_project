@@ -22,7 +22,7 @@
                 </div>
                 <div class="card-body">
                     <p class="card-text">
-                        {!! nl2br(e(str_limit($topic->content, 300))) !!}
+                        {!! nl2br(e(str_limit($question->content, 300))) !!}
                     </p>
                 </div>
                 <div class="card-footer">
@@ -41,12 +41,15 @@
     </div>
     <div class="card-body">
         <p class="card-text">
-                {!! nl2br(e(str_limit($topic->body, 200))) !!}
+                {!! nl2br(e(str_limit($question->body, 200))) !!}
         </p>
-        <a class="card-link" href="{{ route('topics.show', ['topic' => $topic]) }}">
+        <a class="card-link" href="{{ route('questions.show', ['question' => $question]) }}">
                 続きを読む
         </a>
 </div>
-    
+    <div class="d-flex justify-content-center mb-5">
+            {{ $posts->links() }}
+        </div>
+    </div>
 </div>
 @endsection
