@@ -14,6 +14,7 @@ class CreateUsersTable extends Migration
     public function up()
     {
         Schema::create('users', function (Blueprint $table) {
+            // ⬇︎変化を確認できるよう、artisan:make 後の状態のを残しています。
             // $table->increments('id');
             // $table->string('name');
             // $table->string('email')->unique();
@@ -22,6 +23,7 @@ class CreateUsersTable extends Migration
             // $table->rememberToken();
             // $table->timestamps();
 
+            // ⬇︎編集
             $table->unsignedBigInteger('id', true);
             $table->string('name');
             $table->string('email')->unique();
