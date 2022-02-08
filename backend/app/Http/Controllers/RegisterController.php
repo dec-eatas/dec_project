@@ -32,27 +32,4 @@ class RegisterController extends Controller
 
     }
 
-    public function read()
-    {
-        $models = [
-            new Movie(),
-            new User()
-        ];
-
-        $datas = [];
-
-        foreach($models as $model){
-            $datas[count($datas)] = [
-                'table' => $model->getTable(), //テーブル名取得
-                'coulmn' => Schema::getColumnListing($model->getTable()), //列名取得
-                'type' => $model->getCoulmnType(),
-                'cnt' => $model->getCount(),
-                'items' => $model->getRecent(),
-            ];
-        }
-
-        return view('database.read')->with(['datas' => $datas]);
-
-    }
-
 }
