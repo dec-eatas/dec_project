@@ -25,12 +25,13 @@
             border-bottom:lightgrey solid;border-width:0.5px;}
         *{
             box-sizing:border-box;margin:0;padding:0;color:#4D4D4D;}
-        nav{height:10vh;width:100%;background-color:greenyellow;
-            display:flex;list-style:none;overflow: hidden;}
+        nav{height:10vh;width:100%;background-color:#222;
+            display:flex;list-style:none;overflow:hidden;}
         #menu{display:flex;width:100%;height:100%;list-style-type:none;
             text-align:center;align-items: center;}
         #menu li{text-decoration:none;width:25%;}
-        #menu li a{text-decoration:none;font-weight:bold;}
+        #menu li a{text-decoration:none;font-weight:bold;color:white;}
+        #menu li a:hover{border-width:medium;}
         aside{width:25%;height:90vh;float:left;padding:1ex;overflow:auto;-ms-overflow-style:none;
         scrollbar-width:none;}
         main{width:75%;height:90vh;float:left;background-color:salmon;padding:1ex;overflow:auto;}
@@ -41,10 +42,10 @@
 <body>
     <nav>
         <ul id="menu">
-            <li><a>eata</a></li>
-            <li><a>質問</a></li>
-            <li><a>記事</a></li>
-            <li><a>アカウント</a></li>
+            <li><a href="eata">Eata</a></li>
+            <li><a>Q & A</a></li>
+            <li><a>Topics</a></li>
+            <li><a>Account</a></li>
         </ul>
     </nav>
     <aside>
