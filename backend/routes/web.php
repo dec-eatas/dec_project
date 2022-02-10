@@ -25,6 +25,13 @@ Route::get('/eata', function () {
     return view('account.index');
 });
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::prefix('/eata/account')->group( function () {
 
+    Route::get('/',[App\Http\Controllers\AccountController::class,'index']);
+    Route::get('/detail',[App\Http\Controllers\AccountController::class,'detail']);
+
+});
+
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

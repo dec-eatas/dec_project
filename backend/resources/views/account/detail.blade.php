@@ -39,14 +39,15 @@
         <div class="eval">反応数 {{ 1 }}</div>
         <div class="eval">参考数 {{ 1 }}</div>
     </div>
+
     <div class="side_btns">
-        @if(1==0)
-            <button>フォローする</button>
-        @elseif(1==2)
-            <button>フォローを外す</button>
-        @else
-            <button onclick="location.href='eata'">詳細を見る</button>
-        @endif
+        <button onclick="location.href='eata'">編集する</button>
+    </div>
+    <div class="side_btns">
+        <button onclick="location.href='eata'">メールアドレス変更</button>
+    </div>
+    <div class="side_btns">
+        <button onclick="location.href='eata'">パスワード変更</button>
     </div>
 </div>
 
@@ -82,10 +83,25 @@
     </div>
 </div>
 
+
 @endsection
 
 @section('main')
 
-
+<div class="component">
+    <div class="side_list_title">
+        フォロワーリスト
+    </div>
+    <div class="side_list_content">
+        <div class="side_list_record"><a href="eata">ヨハン・ゼバスティアン・バッハ</a></div>
+        <div class="side_list_record"><a href="eata">ルードヴィヒ・ヴァン・ベートーヴェン</a></div>
+        <div class="side_list_record"><a href="eata">ヴォルフガング・アマデウス・モーツァルト</a></div>
+        <div class="side_list_record"><a href="eata">フランツ・シューベルト</a></div>
+        <div class="side_list_record"><a href="eata">フレデリック・ショパン</a></div>
+    </div>
+    <div class="side_btns">
+        <button onclick="location.href='eata'">もっと見る</button>
+    </div>
+</div>
 
 @endsection

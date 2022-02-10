@@ -13,18 +13,12 @@
         button{
             background-color:transparent;border:none;
             cursor:pointer;outline:none;padding:0;appearance:none;}
-        button:hover{
-            color:grey}
-        button:active{
-            background-color:lightgray; color:white;}
-        aside::-webkit-scrollbar,main::-webkit-scrollbar{
-            display:none;}
-        a,a:visited{
-            text-decoration:none;outline:none;}
-        a:hover{
-            border-bottom:lightgrey solid;border-width:0.5px;}
-        *{
-            box-sizing:border-box;margin:0;padding:0;color:#4D4D4D;}
+        button:hover{color:grey}
+        button:active{background-color:lightgray; color:white;}
+        aside::-webkit-scrollbar,main::-webkit-scrollbar{display:none;}
+        a,a:visited{text-decoration:none;outline:none;}
+        a:hover{border-bottom:lightgrey solid;border-width:0.5px;}
+        *{box-sizing:border-box;margin:0;padding:0;color:#4D4D4D;}
         nav{height:10vh;width:100%;background-color:#222;
             display:flex;list-style:none;overflow:hidden;}
         #menu{display:flex;width:100%;height:100%;list-style-type:none;
@@ -34,9 +28,8 @@
         #menu li a:hover{border-width:medium;}
         aside{width:25%;height:90vh;float:left;padding:1ex;overflow:auto;-ms-overflow-style:none;
         scrollbar-width:none;}
-        main{width:75%;height:90vh;float:left;background-color:salmon;padding:1ex;overflow:auto;}
+        main{width:75%;height:90vh;float:left;padding:1ex;overflow:auto;}
    
-
     </style>
 </head>
 <body>
