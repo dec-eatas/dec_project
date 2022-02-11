@@ -29,8 +29,7 @@ class CreateAnswersTable extends Migration
             // 外部キー制約 user_idはusersテーブルのidが存在するものしか入らない
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('question_id')->references('id')->on('questions');
-
-           
+            
         });
     }
 
