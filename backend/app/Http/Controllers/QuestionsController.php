@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Question;
+use App\Models\Topic;
 use Illuminate\Http\Request;
-use App\Qestion; // 追加
 
 class QuestionsController extends Controller
 {
@@ -25,7 +26,7 @@ public function store(Request $request)
     {
         $params = $request->validate([
             'title' => 'required|max:50',
-            'content' => 'required|max: 800',
+            'content' => 'required|max:800',
         ]);
 
         Question::create($params);
@@ -44,7 +45,7 @@ public function store(Request $request)
 
     public function edit($question_id)
     {
-        $question = Topic::findOrFail($question_id);
+        $question = Question::findOrFail($question_id);
 
         return view('questions.edit',[
             'question' => $question,

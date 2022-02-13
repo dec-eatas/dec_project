@@ -18,7 +18,8 @@
         aside::-webkit-scrollbar,main::-webkit-scrollbar{display:none;}
         a,a:visited{text-decoration:none;outline:none;}
         a:hover{border-bottom:lightgrey solid;border-width:0.5px;}
-        *{box-sizing:border-box;margin:0;padding:0;color:#4D4D4D;}
+        input{border:solid gray;border-width: 0.5px;}
+        *{box-sizing:border-box;margin:0;padding:0;color:#3D3D3D;}
         nav{height:10vh;width:100%;background-color:#222;
             display:flex;list-style:none;overflow:hidden;}
         #menu{display:flex;width:100%;height:100%;list-style-type:none;
@@ -35,10 +36,10 @@
 <body>
     <nav>
         <ul id="menu">
-            <li><a href="eata">Eata</a></li>
-            <li><a>Q & A</a></li>
-            <li><a>Topics</a></li>
-            <li><a>Account</a></li>
+            <li><a href="eataslab">Eata</a></li>
+            <li><a href="eataslab/question">Q & A</a></li>
+            <li><a href="eataslab">Topics</a></li>
+            <li><a href="eataslab/account">Account</a></li>
         </ul>
     </nav>
     <aside>

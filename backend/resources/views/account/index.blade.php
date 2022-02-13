@@ -4,7 +4,7 @@
     .component{
         background-color:white;width:100%;padding:0.5em 1em;margin-bottom:0.5em;
         border:lightgray solid;border-width:0.5px;}
-    #user_name,.side_list_title{
+        .component_title{
         width:100%;text-align:center;font-size:1em;padding:0.8em 0;border-bottom:solid lightgray;
         border-width:0.5px;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;}
     #eval_box{
@@ -28,8 +28,8 @@
 @section('side')
 
 <div class="component">
-    <div id="user_name">
-        ユーザー
+    <div class="component_title">
+        {{ $user->name }}
     </div>
     <div id="eval_box">
         <div class="eval">質問数 {{ 1 }}</div>
@@ -40,18 +40,18 @@
         <div class="eval">参考数 {{ 1 }}</div>
     </div>
     <div class="side_btns">
-        @if(1==0)
+        @if($follow_switch == 0 )
+            <button onclick="location.href='account/detail'">詳細を見る</button>
+        @elseif($follow_switch == 1)
             <button>フォローする</button>
-        @elseif(1==2)
-            <button>フォローを外す</button>
         @else
-            <button onclick="location.href='eata'">詳細を見る</button>
+            <button>フォローを外す</button>
         @endif
     </div>
 </div>
 
 <div class="component">
-    <div class="side_list_title">
+    <div class="component_title">
         フォローリスト
     </div>
     <div class="side_list_content">
@@ -67,7 +67,7 @@
 </div>
 
 <div class="component">
-    <div class="side_list_title">
+    <div class="component_title">
         フォロワーリスト
     </div>
     <div class="side_list_content">
