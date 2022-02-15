@@ -16,7 +16,6 @@ class QuestionsController extends Controller
         ->orderBy('updated_at', 'DESC')
         ->get();
 
-        {{  }}
         return view('questions.index', compact('questions'));
     }
 
@@ -53,19 +52,6 @@ public function store(Request $request)
     }
 
 
-
-
-    public function show($question_id)
-    {
-        $question = Question::findOrFail($question_id);
-
-        return view('questions.show',[
-            'question' => $question,
-        ]);
-    }
-
-
-
     public function edit($id)
     {
         // $question = Question::findOrFail($question_id);
@@ -75,9 +61,23 @@ public function store(Request $request)
         ->get();
 
         $edit_question = Question::find($id);
+        
 
         return view('questions.edit', compact('questions', 'edit_question'));
     }
+
+
+
+    public function show($question_id)
+    {
+        $question = Question::findOrFail($question_id);
+
+        return view('questions.show',[
+            'question' => $question,
+        ]);    
+    }    
+
+
 
 
 
