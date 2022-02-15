@@ -24,13 +24,13 @@ Route::get('/', function () {
 });
 
 
-Route::get('register', function () {
-    return view('welcome');
-});
+// Route::get('register', function () {
+//     return view('welcome');
+// });
 
-Route::get('login', function () {
-    return view('welcome');
-});
+// Route::get('login', function () {
+//     return view('welcome');
+// });
 
 Route::get('/eata', function () {
     return view('account.index');
