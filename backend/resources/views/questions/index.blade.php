@@ -49,8 +49,10 @@
 
 @section('main')
 
+
 @foreach($questions as $question)
   <a href="/edit/{{$question['id']}}" class="card-text d-block">{{$question['content']}}</a><br>
 @endforeach
+
 
 @endsection

@@ -29,7 +29,7 @@
 
 <div class="component">
     <div class="component_title">
-        {{ $user->name }}
+        {{ $user->name ?? 'Laravelさん' }}
     </div>
     <div id="eval_box">
         <div class="eval">質問数 {{ 1 }}</div>
