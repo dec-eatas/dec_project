@@ -1,27 +1,29 @@
-@extends('layouts.app')
+@extends('layout.master')
 
-@section('content')
+@section('main')
+
+
     <div class="container mt-4">
         <div class="border p-4">
             <h1 class="h5 mb-4">
                 投稿の編集
             </h1>
 
-            <form method="POST" action="{{ route('questions.update', ['question' => $question]) }}">
+            <form method="POST" action="">
                 @csrf
-                @method('PUT')
+
 
                 <fieldset class="mb-4">
                     <div class="form-group">
                         <label for="title">
                             タイトル
                         </label>
-                        <input id="title" name="title" class="form-control {{ $errors->has('title') ? 'is-invalid' : '' }}" value="{{ old('title') ?: $question->title }}" type="text">
-                        @if ($errors->has('title'))
+                        <input id="title" name="title" class="form-control " value="" type="text">
+
                             <div class="invalid-feedback">
-                                {{ $errors->first('title') }}
+
                             </div>
-                        @endif
+
                     </div>
 
                     <div class="form-group">
@@ -29,18 +31,17 @@
                             本文
                         </label>
 
-                        <textarea id="content" name="content" class="form-control {{ $errors->has('content') ? 'is-invalid' : '' }}" rows="4">
-                          {{ old('content') ?: $topic->content }}
+                        <textarea id="content" name="content" class="form-control" rows="4">
+                            {{ $edit_question['content'] }}
                         </textarea>
-                        @if ($errors->has('content'))
                             <div class="invalid-feedback">
-                                {{ $errors->first('content') }}
+
                             </div>
-                        @endif
+
                     </div>
 
                     <div class="mt-5">
-                        <a class="btn btn-secondary" href="{{ route('questions.show', ['question' => $question]) }}">
+                        <a class="btn btn-secondary" href="">
                             キャンセル
                         </a>
 
