@@ -45,37 +45,6 @@
     </div>
 </div>
 
-<div class="component">
-    <div class="component_title">
-        フォローリスト
-    </div>
-    <div class="side_list_content">
-        <div class="side_list_record"><a href="eata">トーマス・アルバ・エジソン</a></div>
-        <div class="side_list_record"><a href="eata">アルベルト・アインシュタイン</a></div>
-        <div class="side_list_record"><a href="eata">レオナルド・ダ・ヴィンチ</a></div>
-        <div class="side_list_record"><a href="eata">ガリレオ・ガリレイ</a></div>
-        <div class="side_list_record"><a href="eata">サー・アイザック・ニュートン</a></div>
-    </div>
-    <div class="side_btns">
-        <button onclick="location.href='eata'">もっと見る</button>
-    </div>
-</div>
-
-<div class="component">
-    <div class="component_title">
-        フォロワーリスト
-    </div>
-    <div class="side_list_content">
-        <div class="side_list_record"><a href="eata">ヨハン・ゼバスティアン・バッハ</a></div>
-        <div class="side_list_record"><a href="eata">ルードヴィヒ・ヴァン・ベートーヴェン</a></div>
-        <div class="side_list_record"><a href="eata">ヴォルフガング・アマデウス・モーツァルト</a></div>
-        <div class="side_list_record"><a href="eata">フランツ・シューベルト</a></div>
-        <div class="side_list_record"><a href="eata">フレデリック・ショパン</a></div>
-    </div>
-    <div class="side_btns">
-        <button onclick="location.href='eata'">もっと見る</button>
-    </div>
-</div>
 
 @endsection
 
