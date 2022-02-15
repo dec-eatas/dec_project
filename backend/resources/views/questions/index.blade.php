@@ -50,6 +50,6 @@
 
 @section('main')
 
-
+@include('components.main_list')
 
 @endsection
