@@ -5,13 +5,15 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Movie;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Schema;
 
 class RegisterController extends Controller
 {
+
     public function create()
     {
-        return view('regist.register');
+        return view('auth.register');
     }
 
     public function store(Request $request)
@@ -28,7 +30,29 @@ class RegisterController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        return view('regist.complete',compact('user'));
+        return view('auth.complete',compact('user'));
+
+    }
+
+    
+    public function index()
+    {
+        return view('auth.login');
+    }
+
+    public function authenticate(Request $request)
+    {
+        $credentials = $request->only('email','password');
+
+        if(Auth::attempt($credentials)){
+            $request->session()->regenerate();
+
+            return redirect()->intended('eataslab');
+        }
+        
+        return back()->withErrors([
+            'massage' => 'メールアドレスまたはパスワードが正しくありません',
+        ]);
 
     }
 

@@ -21,7 +21,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin
 Route::get('register', function () {
     return view('welcome');
 });
@@ -98,3 +101,4 @@ Route::get('logout', [App\Http\Controllers\HomeController::class, 'index'])->nam
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 
+Route::get('logout', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
