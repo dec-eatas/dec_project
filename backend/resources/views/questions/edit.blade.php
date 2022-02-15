@@ -32,7 +32,7 @@
                         </label>
 
                         <textarea id="content" name="content" class="form-control" rows="4">
-                            {{ $edit_question['content'] }}
+                            {{$edit_question['content']}}
                         </textarea>
                             <div class="invalid-feedback">
 

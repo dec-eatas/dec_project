@@ -24,13 +24,13 @@ Route::get('/', function () {
 });
 
 
-Route::get('register', function () {
-    return view('welcome');
-});
+// Route::get('register', function () {
+//     return view('welcome');
+// });
 
-Route::get('login', function () {
-    return view('welcome');
-});
+// Route::get('login', function () {
+//     return view('welcome');
+// });
 
 Route::get('/eata', function () {
     return view('account.index');
@@ -92,10 +92,10 @@ Route::post('/questionfunc', [QuestionsController::class, 'store'])->name('store
 
 // ⬇︎質問一覧取得
 Route::get('/home', [QuestionsController::class, 'index'])->name('home');
-// Route::get('logout', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('logout', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 // ⬇︎質問編集
-Route::get('/edit/{$id}', [QuestionsController::class, 'edit'])->name('edit');
+Route::get('/edit/{id}', [QuestionsController::class, 'edit'])->name('edit');
 
 
 
