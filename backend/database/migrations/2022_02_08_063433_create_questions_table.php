@@ -20,7 +20,7 @@ class CreateQuestionsTable extends Migration
             // 外部キー制約があるのでunseined 🟡第二引数をtrueにすると自動で数が上がる、なくても同じ？
             $table->unsignedBigInteger('id', true);
             $table->unsignedBigInteger('user_id');
-            $table->string('titil',100);
+            $table->string('title',100);
             $table->longText('content');
             // timestampと書いてしまうと、レコード挿入時、更新時に値が入らないので、DB::rawで直接書いてます
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));

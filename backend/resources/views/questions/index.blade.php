@@ -45,11 +45,14 @@
     </div>
 </div>
 
-
 @endsection
 
 @section('main')
 
-@include('components.main_list')
+
+@foreach($questions as $question)
+  <a href="/edit/{{$question['id']}}" class="card-text d-block">{{$question['content']}}</a><br>
+@endforeach
+
 
 @endsection

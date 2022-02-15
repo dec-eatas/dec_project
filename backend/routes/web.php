@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\QuestionsController; //使う先のコントローラファイルまでuseする
 // ↓追加
 
 /*
@@ -14,12 +15,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
 // ↓追加
 Route::get('/account',[App\Http\Controllers\AccountController::class,'index']);
 
 Route::get('/', function () {
     return view('welcome');
 });
+
 
 Route::get('register', function () {
     return view('welcome');
@@ -34,7 +37,6 @@ Route::get('/eata', function () {
 });
 
 Route::prefix('/eataslab')->group( function () {
-
     Route::get('/',[App\Http\Controllers\AccountController::class,'index']);
 
 
@@ -52,26 +54,51 @@ Route::prefix('/eataslab')->group( function () {
         
     });
 
+
+    Route::get('/', function () {
+        return view('account.index');
+    });
+
+
 });
 
-Route::prefix('/authent')->group( function () {
+// Route::prefix('/authent')->group( function () {
 
-    Route::get('/register',[App\Http\Controllers\RegisterController::class,'create'])
-        ->middleware('guest')
-        ->name('register');
+//     Route::get('/register',[App\Http\Controllers\RegisterController::class,'create'])
+//         ->middleware('guest')
+//         ->name('register');
     
-    Route::post('/register',[App\Http\Controllers\RegisterController::class,'store'])
-    ->middleware('guest');
+//     Route::post('/register',[App\Http\Controllers\RegisterController::class,'store'])
+//     ->middleware('guest');
 
-    Route::get('/login',[App\Http\Controllers\RegisterController::class,'index'])
-    ->middleware('guest')
-    ->name('login');
+//     Route::get('/login',[App\Http\Controllers\RegisterController::class,'index'])
+//     ->middleware('guest')
+//     ->name('login');
 
-    Route::post('/login',[App\Http\Controllers\RegisterController::class,'authenticate'])
-    ->middleware('guest');
+//     Route::post('/login',[App\Http\Controllers\RegisterController::class,'authenticate'])
+//     ->middleware('guest');
     
-});
+// });
+
+Auth::routes();
 
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('logout', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+// ⬇︎質問機能を作成
+// Route::get('/questionfunc', [App\Http\Controllers\QuestionsController::class, 'create'])->name('create');  //useで簡略化
+Route::get('/questionfunc', [QuestionsController::class, 'create'])->name('create');
+Route::post('/questionfunc', [QuestionsController::class, 'store'])->name('store');
+
+// ⬇︎質問一覧取得
+Route::get('/home', [QuestionsController::class, 'index'])->name('home');
+// Route::get('logout', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+// ⬇︎質問編集
+Route::get('/edit/{$id}', [QuestionsController::class, 'edit'])->name('edit');
+
+
+
+
+
+
