@@ -36,10 +36,10 @@
 <body>
     <nav>
         <ul id="menu">
-            <li><a href="http://127.0.0.1:8080/eataslab/">e+lab</a></li>
-            <li><a href="http://127.0.0.1:8080/eataslab/question">Q & A</a></li>
-            <li><a href="http://127.0.0.1:8080/eataslab/">Topics</a></li>
-            <li><a href="http://127.0.0.1:8080/eataslab/account">Account</a></li>
+            <li><a href="{{ route('eataslab') }}">e+lab</a></li>
+            <li><a href="{{ route('question') }}">Q & A</a></li>
+            <li><a href="{{ route('eataslab') }}">Topics</a></li>
+            <li><a href="{{ route('account') }}">Account</a></li>
         </ul>
     </nav>
     <aside>
