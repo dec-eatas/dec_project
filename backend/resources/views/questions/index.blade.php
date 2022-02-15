@@ -1,55 +1,55 @@
-@extends('layouts.app')
+@extends('layout.master')
+<style>
 
-@section('content')
-    <div class="container mt-4">
-        <div class="mb-4">
-            <a href="{{ route('questions.create') }}" class="btn btn-primary">
-                投稿を新規作成する
-            </a>
-        </div>
-        @foreach ($questions as $question)
-            <div class="card mb-4">
-                <div class="card-header">
-                    {{ $question->title }}
-                </div>
+    .component{
+        background-color:white;width:100%;padding:0.5em 1em;margin-bottom:0.5em;
+        border:lightgray solid;border-width:0.5px;}
+        .component_title{
+        width:100%;text-align:center;font-size:1em;padding:0.8em 0;border-bottom:solid lightgray;
+        border-width:0.5px;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;}
+    .input_box{
+        width:100%;padding:0.8em 0;}
+    .input{
+        width:100%;font-size:1em}
+    .subject{
+        width:100%;font-size:0.8em;}
+    .eval{
+        width:50%;font-size:0.8em;padding:0.5em 0;text-align:center}
+    .side_btns{
+        width:100%;padding-bottom:0.5em;}
+    .side_btns button{
+        width:100%;font-size:0.8em;padding:0.5em 0;border:lightgray solid;border-width:0.5px;}
+    .side_list_content{
+        width:100%;padding:0.8em 0;}
+    .side_list_record{
+        width:100%;padding:0.3em 0;font-size:0.8em;
+        white-space:nowrap;text-overflow:ellipsis;overflow:hidden;}
 
-@section('content')
-    <div class="container mt-4">
-        @foreach ($questions as $question)
-            <div class="card mb-4">
-                <div class="card-header">
-                    {{ $question->title }}
-                </div>
-                <div class="card-body">
-                    <p class="card-text">
-                        {!! nl2br(e(str_limit($question->content, 300))) !!}
-                    </p>
-                </div>
-                <div class="card-footer">
-                    <span class="mr-2">
-                        投稿日時 {{ $question->created_at->format('Y.m.d') }}
-                    </span>
+</style>
 
-                    @if ($question->answers->count())
-                        <span class="badge badge-primary">
-                            コメント {{ $question->answers->count() }}件
-                        </span>
-                    @endif
-                </div>
-            </div>
-        @endforeach
+@section('title','トップページ')
+
+@section('side')
+
+<div class="component">
+    <div class="component_title">
+        質問を検索する
     </div>
-    <div class="card-body">
-        <p class="card-text">
-                {!! nl2br(e(str_limit($question->body, 200))) !!}
-        </p>
-        <a class="card-link" href="{{ route('questions.show', ['question' => $question]) }}">
-                続きを読む
-        </a>
-</div>
-    <div class="d-flex justify-content-center mb-5">
-            {{ $posts->links() }}
-        </div>
+    <div class="input_box">
+        <label class="subject">キーワード</label>
+        <input type="text" name="keyword" class="input">
+    </div>
+
+    <div class="side_btns">
+        <button onclick="location.href='index'">検索</button>
     </div>
 </div>
+
+
+@endsection
+
+@section('main')
+
+
+
 @endsection
