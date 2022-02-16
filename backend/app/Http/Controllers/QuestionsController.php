@@ -21,27 +21,20 @@ class QuestionsController extends Controller
 
 
 
-//追加した
-public function create()
-{
-    return view('questions.create');
-}
-
-
-
-
-public function store(Request $request)
+    //追加した
+    public function create()
     {
-        // $params = $request->validate([
-        //     'title' => 'required|max:50',
-        //     'content' => 'required|max:800',
-        // ]);
+        return view('questions.create');
+    }
 
-        // Question::create($params);
 
-        // return redirect()->route('questions.index');
-    // サイトから変更
+
+    // 質問を
+    public function store(Request $request)
+    {
+
         $question = $request->all();
+        dd($question);
         Question::insert([
             'user_id' => \Auth::id(),
             'title' => '\''.$question['title'].'\'',
@@ -55,17 +48,35 @@ public function store(Request $request)
     public function edit($id)
     {
         // $question = Question::findOrFail($question_id);
+        // ⬇︎一覧表示する時に使う配列です
         $questions = Question::select('questions.*')
         ->whereNull('deleted_at')
         ->orderBy('updated_at', 'DESC')
         ->get();
 
+        // 編集したい質問内容を編集画面で使うための配列
         $edit_question = Question::find($id);
+        // dd($edit_question);
         
 
         return view('questions.edit', compact('questions', 'edit_question'));
     }
 
+
+    
+    public function update(Request $request)
+    {
+
+        $posts = $request->all();
+        // dd($posts);
+    
+        Question::where('id',$posts['question_id'])->update(['content' => $posts['content']]);
+        
+
+
+        return redirect( route('home'));
+
+    }
 
 
     public function show($question_id)
@@ -79,31 +90,14 @@ public function store(Request $request)
 
 
 
-
-
-    public function update($question_id, Request $request)
+    public function destroy(Request $request)
     {
-        $params = $request->validate([
-            'title' => 'required|max:50',
-            'content' => 'required|max:800',
-        ]);
+        $posts = $request->all();
+        // dd($posts);
+        //論理削除
+        Question::where('id',$posts['question_id'])->update(['deleted_at' => date("Y-m-d H:i:s", time())]);
+        return redirect( route('home'));
 
-        $question = question::findOrFail($question_id);
-        $question->fill($params)->save();
-
-        return redirect()->route('questions.show', ['question' => $question]);
     }
 
-
-
-    public function destroy($question_id)
-    {
-        $question = Question::findOrFail($question_id);
-
-        $question->delete();
-
-        return redirect()->route('questions.index');
-    }
-
-    
 }
