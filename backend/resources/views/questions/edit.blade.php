@@ -10,11 +10,10 @@
                 <form class="card-body" action="{{ route('destroy') }}" method="POST">
                     @csrf
                     <input type="hidden" name="question_id" value="{{ $edit_question['id']  }}">
-        
                     <button type="submit">削除</button>
                 </form>
             </h1>
-            
+
             <form method="POST" action="{{ route('update') }}">
                 @csrf
                 <!-- 更新のeditメソッドを実行するのに実行するのに、question id のものを編集するかわかるようにpost時の連想配列に追加 -->
@@ -26,32 +25,25 @@
                             タイトル
                         </label>
                         <input id="title" name="title" class="form-control " value="{{$edit_question['title']}}" type="text">
-
                             <div class="invalid-feedback">
-
                             </div>
-
                     </div>
 
                     <div class="form-group">
                         <label for="content">
                             本文
                         </label>
-
                         <textarea id="content" name="content" class="form-control" rows="4">
                             {{$edit_question['content']}}
                         </textarea>
                             <div class="invalid-feedback">
-
                             </div>
-
                     </div>
 
                     <div class="mt-5">
                         <a class="btn btn-secondary" href="">
                             キャンセル
                         </a>
-
                         <button type="submit" class="btn btn-primary">
                             更新する
                         </button>
