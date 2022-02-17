@@ -22,31 +22,38 @@ use App\Http\Controllers\AccountController as Acc;
 */
 
 
-// ↓追加
-
 Route::get('/', function () {
     return view('welcome');
 });
 
+// ⬇︎laravelUIのデフォルト
+//[needs updateing]現状はクッキーを消さないとログインレジスターボタンがでない。
+// コントローラが修正加わってたのでまずはデフォルトに戻した方がいいかも？？🟡現状を整理してレンレンと相談してから決める
+Auth::routes();
+Route::get('logout', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+// ⬇︎ホーム画面からのルーティンググループ
 Route::prefix('/eataslab')->group( function () {
 
+    // ⬇︎ホーム画面の表示
+    // 🟡[needs updating]ログインと登録からの遷移
     Route::get('/',[Acc::class,'index'])->name('eataslab');
 
+    // ⬇︎アカウントの画面に遷移
     Route::prefix('/account')->group( function () {
         Route::get('/',[Acc::class,'index']);
         Route::get('/detail',[Acc::class,'detail']);
     });
 
+    // ⬇︎質問機能の画面へ遷移
     Route::prefix('/question')->group( function () {
         Route::get('/',[Que::class,'index']);
+        // 🟡[needs Reconciling perceptions] /detailがわからない。Q.レンレンこれは何用のメソッドとして用意した？？ => A.
         Route::get('/detail',[Que::class,'detail']);
     });
 
 });
-
-Auth::routes();
-Route::get('logout', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
 
 
 Route::prefix('/question')->group( function () {
@@ -57,7 +64,7 @@ Route::prefix('/question')->group( function () {
     // Route::post('/show', [Questioncontroller::class,'show'])->name('show');
 
     // ⬇︎ 質問機能を作成 🟡一覧画面からになっているので、詳細画面からの形にする。
-    // Route::get('/questionfunc', [App\Http\Controllers\QuestionsController::class, 'create'])->name('create');  //useで簡略化
+    // [knowledge sharing] Route::get('/questionfunc', [App\Http\Controllers\QuestionsController::class, 'create'])->name('create');  //useで簡略化
     Route::get('/create', [QuestionsController::class, 'create'])->name('create');
     Route::post('/questionfunc', [QuestionsController::class, 'store'])->name('store');
 

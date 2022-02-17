@@ -98,4 +98,7 @@ class QuestionsController extends Controller
 
     }
 
+
+    //🟡[needs Reconciling perceptions] ditail()がなんなのかわからない。web.phpに詳細あり。レンレン見てたら確認お願い。
+
 }
