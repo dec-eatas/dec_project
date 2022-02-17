@@ -85,11 +85,11 @@ class QuestionsController extends Controller
         $posts = $request->all();
         // dd($posts);
 
-        // Question::where('id',$posts['question_id'])
-        //     ->update([
-        //         'content' => $posts['content'],
-        //         'title' => $posts['title']
-        //     ]);
+        Question::where('id',$posts['question_id'])
+            ->update([
+                'content' => $posts['content'],
+                'title' => $posts['title']
+            ]);
 
         return redirect( route('Quehome'));
 
