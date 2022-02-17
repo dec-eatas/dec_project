@@ -41,13 +41,17 @@ class QuestionsController extends Controller
     public function store(Request $request)
     {
         $question = $request->all();
-        dd($question);//🟡[error]
-        // ⬇︎🟡[needs modifing]DBに格納される値に’’が入ってしまうので、ここの配列に代入してる値修正した方いい。
+        // dd(\Auth::id());//🟡[error]DBに入れる質問を作成したユーザー（ログインしているユーザ）のidを取得したいがエラー
+        // dd(auth()->id());// [knowledge sharing]こっちだとログインしてるuser_idを取れる。ログインしてないとNull。
+        // dd($question);
+        // ⬇︎[needs modifing]DBに格納される値に’’が入ってしまうので、ここの配列に代入してる値修正した方いい。＝＞
         Question::insert([
-            'user_id' => \Auth::id(),
-            'title' => '\''.$question['title'].'\'',
-            'content' =>'\''.$question['content'].'\''
+            'title' => $question['title'],
+            'content' =>$question['content'],
+            'user_id' => auth()->id()
         ]);
+
+    // 🟡[needs update] 質問を作成した後なので,投稿詳細画面に飛ぶようにする
     return redirect( route('create'));
     }
 
