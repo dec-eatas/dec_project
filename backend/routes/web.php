@@ -30,6 +30,8 @@ Route::get('/', function () {
 //[needs updateing]現状はクッキーを消さないとログインレジスターボタンがでない。
 // コントローラが修正加わってたのでまずはデフォルトに戻した方がいいかも？？🟡現状を整理してレンレンと相談してから決める
 Auth::routes();
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
 Route::get('logout', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 
