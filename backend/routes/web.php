@@ -36,16 +36,18 @@ Route::get('/', function () {
 Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+
 Route::get('logout', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 
-// ⬇︎ホーム画面からのルーティンググループ
-// 🟡これってレイアウトの共通化ができてる？？navバーからかく機能グループへ飛ぶようになってるが、他の画面（/topics）からtobukotohadekiruka?
 
+// ⬇︎ホーム画面からのルーティンググループ
+// 🟡 これってレイアウトの共通化ができてる？？navバーからかく機能グループへ飛ぶようになってるが、他の画面（/topics）からtobukotohadekiruka?
 Route::prefix('/eataslab')->group( function () {
 
     // ⬇︎ホーム画面の表示
-    // 🟡[needs updating]ログインと登録からの遷移
+    // 🟡 [needs updating]ログインと登録から/eataslabに遷移するように
+    // 🟡 なぜここにアカウントコントローラを使用したのがあるの？
     Route::get('/',[Acc::class,'index'])->name('eataslab');
 
     // ⬇︎アカウントの画面に遷移
@@ -78,7 +80,31 @@ Route::prefix('/eataslab')->group( function () {
 });
 
 
+
 Route::prefix('/question')->group( function () {
+
+    // ⬇︎質問一覧取得 (「/home」は 「/」だけにした方がわかりやすいかも)
+    Route::get('/', [QuestionsController::class, 'index'])->name('Quehome');
+    // ⬇︎質問詳細取得
+    Route::get('/show', [Questioncontroller::class,'show'])->name('Queshow');
+
+    // ⬇︎ 質問機能を作成 🟡一覧画面からになっているので、詳細画面からの形にする。
+    // [knowledge sharing] Route::get('/questionfunc', [App\Http\Controllers\QuestionsController::class, 'create'])->name('create');  //useで簡略化
+    Route::get('/create', [QuestionsController::class, 'create'])->name('Quecreate');
+    Route::post('/store', [QuestionsController::class, 'store'])->name('Questore');
+
+    // ⬇︎質問編集
+    Route::get('/edit/{id}', [QuestionsController::class, 'edit'])->name('Queedit');
+    // ⬇︎質問更新
+    Route::post('/update', [QuestionsController::class, 'update'])->name('Queupdate');
+    // ⬇︎質問削除
+    Route::post('/destroy', [QuestionsController::class, 'destroy'])->name('Quedestroy');
+
+});
+
+
+// ゆきさんへ 今は画面上にあるメニューバーのTopicsを押すと、下の/topicsのルーティンググループを呼び出すようにしたけど、中身は上のをコピペしたから質問一覧が表示されるようになってるから、記事一覧になるようにこれから機能を作成して行って！
+Route::prefix('/topics')->group( function () {
 
     // ⬇︎質問一覧取得 (「/home」は 「/」だけにした方がわかりやすいかも)
     Route::get('/', [QuestionsController::class, 'index'])->name('Quehome');

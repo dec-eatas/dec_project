@@ -45,7 +45,7 @@ class QuestionsController extends Controller
     public function store(Request $request)
     {
         $question = $request->all();
-        // dd(\Auth::id());//🟡[error]DBに入れる質問を作成したユーザー（ログインしているユーザ）のidを取得したいがエラー
+        // dd(\Auth::id());//🟡[error]DBに入れる質問を作成したユーザー（ログインしているユーザ）のidを取得したいがエラー 🟡 レンレンが使ってるAuth::user()も同じことかな？ -> こっちのメソッドはユーザー名を取得か
         // dd(auth()->id());// [knowledge sharing]こっちだとログインしてるuser_idを取れる。ログインしてないとNull。
         // dd($question);
         // ⬇︎[needs modifing]DBに格納される値に’’が入ってしまうので、ここの配列に代入してる値修正した方いい。＝＞
