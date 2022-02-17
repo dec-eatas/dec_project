@@ -20,6 +20,7 @@ class QuestionsController extends Controller
         return view('questions.index', compact('questions'));
     }
 
+
     // ⬇︎質問詳細画面の表示
     public function show($id)
     {
@@ -27,21 +28,24 @@ class QuestionsController extends Controller
     dd($question);
         return view('questions.show',
             // 'question' => $question,
-            compact( 'question')
+            compact('question')
         );
     }
 
-    //⬇︎質問の作成
+
+
+    //⬇︎質問の作成(view)
     public function create()
     {
         return view('questions.create');
     }
 
-    // 質問をDBに追加
+
+    // 質問をDBに追加(DB)
     public function store(Request $request)
     {
         $question = $request->all();
-        // dd(\Auth::id());//🟡[error]DBに入れる質問を作成したユーザー（ログインしているユーザ）のidを取得したいがエラー
+        // dd(\Auth::id());//🟡[error]DBに入れる質問を作成したユーザー（ログインしているユーザ）のidを取得したいがエラー 🟡 レンレンが使ってるAuth::user()も同じことかな？ -> こっちのメソッドはユーザー名を取得か
         // dd(auth()->id());// [knowledge sharing]こっちだとログインしてるuser_idを取れる。ログインしてないとNull。
         // dd($question);
         // ⬇︎[needs modifing]DBに格納される値に’’が入ってしまうので、ここの配列に代入してる値修正した方いい。＝＞
@@ -50,12 +54,13 @@ class QuestionsController extends Controller
             'content' =>$question['content'],
             'user_id' => auth()->id()
         ]);
-
     // 🟡[needs update] 質問を作成した後なので,投稿詳細画面に飛ぶようにする
-    return redirect( route('create'));
+    return redirect( route('Quecreate'));
     }
 
-    // ⬇︎質問の編集(現在一覧画面(index.blade)のタイトルと本文がaタグになっていていてそこから編集に飛ぶ感じになってます)
+
+
+    // ⬇︎質問の編集(view)(現在一覧画面(index.blade)のタイトルと本文がaタグになっていていてそこから編集に飛ぶ感じになってます)
     // 🟡[needs modifing]あと、この機能は、ログインしてるユーザー本人の質問内容のみ編集できるようにしないとダメ。
     public function edit($id)
     {
@@ -66,7 +71,7 @@ class QuestionsController extends Controller
         ->orderBy('updated_at', 'DESC')
         ->get();
 
-        // 編集したい質問内容を編集画面で使うための配列
+        // ⬇︎編集したい質問内容を編集画面で使うための配列
         $edit_question = Question::find($id);
         // dd($edit_question);
 
@@ -74,17 +79,19 @@ class QuestionsController extends Controller
     }
 
 
-    // ⬇︎質問を編集した内容をDBに保存
+    // ⬇︎質問を編集した内容をDBに保存(DB)
     public function update(Request $request)
     {
         $posts = $request->all();
         // dd($posts);
 
-        Question::where('id',$posts['question_id'])->update(['content' => $posts['content']]);
+        Question::where('id',$posts['question_id'])
+            ->update([
+                'content' => $posts['content'],
+                'title' => $posts['title']
+            ]);
 
-
-
-        return redirect( route('home'));
+        return redirect( route('Quehome'));
 
     }
 
@@ -98,7 +105,7 @@ class QuestionsController extends Controller
         // dd($posts);
         //論理削除
         Question::where('id',$posts['question_id'])->update(['deleted_at' => date("Y-m-d H:i:s", time())]);
-        return redirect( route('home'));
+        return redirect( route('Quehome'));
 
     }
 
