@@ -1,12 +1,12 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\QuestionsController; //使う先のコントローラファイルまでuseする
-use App\Http\Controllers\QuestionsController as Que; 
-//🟥レンレンへ as 使うときは上のパス指定の省略が使えなくなってしまうので、他の人にコーディング任せたものは残しておいてね。
-// group question のルーティングが動作しなくなって
-// Target class [QuestionsController] does not exist. ってエラー吐かれます。
-// 長くなって嫌かもでけど残しておいてね
+use App\Http\Controllers\QuestionsController; // 使う先のコントローラファイルまでuseする。 とりあえずは福冨さんもわかりやすいようこっちを採用したままにするね
+use App\Http\Controllers\QuestionsController as Que;
+// 🟥[error update]レンレンへ as 使うときは上のパス指定の省略が使えなくなってしまうので、他の人にコーディング任せたものは残しておいてね。
+//  group question のルーティングが動作しなくなって
+//  Target class [QuestionsController] does not exist. ってエラー吐かれます。
+//  短い期間での開発だと細かい修正は後の方がいいから、長くなって嫌かもでけど残しておいてね。🟡消えた部分のcommitを見れたりする拡張機能ないかな？それがあればコミットメッセージちゃんと書いてもらえてば後々の修正は楽かも？
 use App\Http\Controllers\AccountController as Acc;
 // ↓追加
 
@@ -29,21 +29,17 @@ Route::get('/', function () {
 });
 
 Route::prefix('/eataslab')->group( function () {
-    
-    Route::get('/',[Acc::class,'index']);
+
+    Route::get('/',[Acc::class,'index'])->name('eataslab');
 
     Route::prefix('/account')->group( function () {
-
         Route::get('/',[Acc::class,'index']);
         Route::get('/detail',[Acc::class,'detail']);
-        
     });
-    
-    Route::prefix('/question')->group( function () {
 
+    Route::prefix('/question')->group( function () {
         Route::get('/',[Que::class,'index']);
         Route::get('/detail',[Que::class,'detail']);
-        
     });
 
 });

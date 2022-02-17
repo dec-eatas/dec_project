@@ -16,7 +16,7 @@ class QuestionsController extends Controller
         ->whereNull('deleted_at')
         ->orderBy('updated_at', 'DESC')
         ->get();
-        
+
         return view('questions.index', compact('questions'));
     }
 
@@ -42,7 +42,7 @@ class QuestionsController extends Controller
     {
         $question = $request->all();
         dd($question);//🟡[error]
-        // ⬇︎🟡[modify]DBに格納される値に’’が入ってしまうので、ここの配列に代入してる値修正した方いい。
+        // ⬇︎🟡[needs modifing]DBに格納される値に’’が入ってしまうので、ここの配列に代入してる値修正した方いい。
         Question::insert([
             'user_id' => \Auth::id(),
             'title' => '\''.$question['title'].'\'',
