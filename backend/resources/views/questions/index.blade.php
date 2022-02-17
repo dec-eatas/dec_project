@@ -64,8 +64,8 @@
         <p>-----------------------------------------</p>
         <div class="list_content">
             <div class="list_type type_{{ $type ?? 'Question' }}">{{ $type ?? 'Question' }}</div>
-            <a href="edit/{{$question['id']}}" class="card-text d-block">{{$question['title']}}</a><br>
-            <a href="edit/{{$question['id']}}" class="card-text d-block">{{$question['content']}}</a><br>
+            <a href="question/edit/{{$question['id']}}" class="card-text d-block">{{$question['title']}}</a><br>
+            <a href="question/edit/{{$question['id']}}" class="card-text d-block">{{$question['content']}}</a><br>
             <div class="list_title">{{ $title ?? 'これは質問のタイトルです。' }}</div>
         </div>
     </div>
