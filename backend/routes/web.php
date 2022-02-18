@@ -10,7 +10,7 @@ use App\Http\Controllers\QuestionsController as Que;
 use App\Http\Controllers\AccountController as Acc;
 
 // 
-use App\Http\Controllers\TopicsController; // 使う先のコントローラファイルまでuseする。 とりあえずは福冨さんもわかりやすいようこっちを採用したままにするね
+use App\Http\Controllers\AlticlesController; // 使う先のコントローラファイルまでuseする。 とりあえずは福冨さんもわかりやすいようこっちを採用したままにするね
 
 
 
@@ -50,43 +50,37 @@ Route::prefix('/eataslab')->group( function () {
     // 🟡 なぜここにアカウントコントローラを使用したのがあるの？
     Route::get('/',[Acc::class,'index'])->name('eataslab');
 
+
+    // ⬇︎質問機能の画面へ遷移
+    Route::prefix('/question')->group( function () {
+        Route::get('/',[Que::class,'index']);
+        // 🟡[needs Reconciling perceptions] /detailがわからない。Q.レンレンこれは何用のメソッドとして用意した？？ => A.
+        Route::get('/detail',[Que::class,'detail']);
+    });
+
+
+    // ⬇︎記事機能の画面へ遷移
+    Route::prefix('/topics')->group( function () {
+        Route::get('/',[TopicsController::class,'index']);
+    });
+
+
     // ⬇︎アカウントの画面に遷移
     Route::prefix('/account')->group( function () {
         Route::get('/',[Acc::class,'index']);
         Route::get('/detail',[Acc::class,'detail']);
     });
 
-    // ⬇︎質問機能の画面へ遷移
-    Route::prefix('/question')->group( function () {
-        Route::get('/',[Que::class,'index']);
-        // 🟡[needs Reconciling perceptions] /detailがわからない。Q.レンレンこれは何用のメソッドとして用意した？？ => A.
-        Route::get('/detail',[Que::class,'detail']);
-    });
-
-    // ⬇︎質問機能の画面へ遷移
-    Route::prefix('/question')->group( function () {
-        Route::get('/',[Que::class,'index']);
-        // 🟡[needs Reconciling perceptions] /detailがわからない。Q.レンレンこれは何用のメソッドとして用意した？？ => A.
-        Route::get('/detail',[Que::class,'detail']);
-    });
-
-    // ⬇︎記事機能の画面へ遷移
-    Route::prefix('/topics')->group( function () {
-        Route::get('/',[Que::class,'index']);
-        // 🟡[needs Reconciling perceptions] /detailがわからない。Q.レンレンこれは何用のメソッドとして用意した？？ => A.
-        Route::get('/detail',[Que::class,'detail']);
-    });
-    
 });
 
 
 
 Route::prefix('/question')->group( function () {
 
-    // ⬇︎質問一覧取得 (「/home」は 「/」だけにした方がわかりやすいかも)
+    // ⬇︎質問一覧取得 (「/home」は 「/」だけにした方がgetする時わかりやすいかも)
     Route::get('/', [QuestionsController::class, 'index'])->name('Quehome');
     // ⬇︎質問詳細取得
-    Route::get('/show', [Questioncontroller::class,'show'])->name('Queshow');
+    Route::get('/show', [Questionscontroller::class,'show'])->name('Queshow');
 
     // ⬇︎ 質問機能を作成 🟡一覧画面からになっているので、詳細画面からの形にする。
     // [knowledge sharing] Route::get('/questionfunc', [App\Http\Controllers\QuestionsController::class, 'create'])->name('create');  //useで簡略化
@@ -102,28 +96,6 @@ Route::prefix('/question')->group( function () {
 
 });
 
-
-// ゆきさんへ 今は画面上にあるメニューバーのTopicsを押すと、下の/topicsのルーティンググループを呼び出すようにしたけど、中身は上のをコピペしたから質問一覧が表示されるようになってるから、記事一覧になるようにこれから機能を作成して行って！
-Route::prefix('/topics')->group( function () {
-
-    // ⬇︎質問一覧取得 (「/home」は 「/」だけにした方がわかりやすいかも)
-    Route::get('/', [QuestionsController::class, 'index'])->name('Quehome');
-    // ⬇︎質問詳細取得
-    Route::get('/show', [Questioncontroller::class,'show'])->name('Queshow');
-
-    // ⬇︎ 質問機能を作成 🟡一覧画面からになっているので、詳細画面からの形にする。
-    // [knowledge sharing] Route::get('/questionfunc', [App\Http\Controllers\QuestionsController::class, 'create'])->name('create');  //useで簡略化
-    Route::get('/create', [QuestionsController::class, 'create'])->name('Quecreate');
-    Route::post('/store', [QuestionsController::class, 'store'])->name('Questore');
-
-    // ⬇︎質問編集
-    Route::get('/edit/{id}', [QuestionsController::class, 'edit'])->name('Queedit');
-    // ⬇︎質問更新
-    Route::post('/update', [QuestionsController::class, 'update'])->name('Queupdate');
-    // ⬇︎質問削除
-    Route::post('/destroy', [QuestionsController::class, 'destroy'])->name('Quedestroy');
-
-});
 
 
 
