@@ -6,7 +6,7 @@
             <h1 class="h5 mb-4">
                 質問の新規作成
             </h1>
-            <form action="{{route('Questore')}}" method="POST">
+            <form action="{{route('Que.store')}}" method="POST">
                 @csrf
                 <div>
                     <p>タイトル</p>

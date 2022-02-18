@@ -83,21 +83,21 @@ Route::prefix('/eataslab')->group( function () {
 Route::prefix('/question')->group( function () {
 
     // ⬇︎質問一覧取得 (「/home」は 「/」だけにした方がわかりやすいかも)
-    Route::get('/', [QuestionsController::class, 'index'])->name('Quehome');
-    // ⬇︎質問詳細取得
-    Route::get('/show', [Questioncontroller::class,'show'])->name('Queshow');
-
+    Route::get('/', [QuestionsController::class, 'index'])->name('Que.home');
+    
     // ⬇︎ 質問機能を作成 🟡一覧画面からになっているので、詳細画面からの形にする。
     // [knowledge sharing] Route::get('/questionfunc', [App\Http\Controllers\QuestionsController::class, 'create'])->name('create');  //useで簡略化
-    Route::get('/create', [QuestionsController::class, 'create'])->name('Quecreate');
+    Route::get('/create', [QuestionsController::class, 'create'])->name('Que.create');
     Route::post('/store', [QuestionsController::class, 'store'])->name('Questore');
-
+    
+    // ⬇︎質問詳細取得
+    Route::get('/{id}', [Questionscontroller::class,'show'])->name('Que.show');
     // ⬇︎質問編集
-    Route::get('/edit/{id}', [QuestionsController::class, 'edit'])->name('Queedit');
+    Route::get('/{id}/edit', [QuestionsController::class, 'edit'])->name('Que.edit');
     // ⬇︎質問更新
-    Route::post('/update', [QuestionsController::class, 'update'])->name('Queupdate');
+    Route::post('/update', [QuestionsController::class, 'update'])->name('Que.update');
     // ⬇︎質問削除
-    Route::post('/destroy', [QuestionsController::class, 'destroy'])->name('Quedestroy');
+    Route::post('/destroy', [QuestionsController::class, 'destroy'])->name('Que.destroy');
 
 });
 

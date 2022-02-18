@@ -16,20 +16,8 @@ class QuestionsController extends Controller
         ->whereNull('deleted_at')
         ->orderBy('updated_at', 'DESC')
         ->get();
-
+// dd($questions);
         return view('questions.index', compact('questions'));
-    }
-
-
-    // ⬇︎質問詳細画面の表示
-    public function show($id)
-    {
-        $show_question = Question::find($id);
-    dd($show_question);
-        return view('questions.show',
-            // 'question' => $question,
-            compact('show_question')
-        );
     }
 
 
@@ -39,6 +27,7 @@ class QuestionsController extends Controller
     {
         return view('questions.create');
     }
+
 
 
     // 質問をDBに追加(DB)
@@ -54,8 +43,25 @@ class QuestionsController extends Controller
             'content' =>$question['content'],
             'user_id' => auth()->id()
         ]);
-    // 🟡[needs update] 質問を作成した後なので,投稿詳細画面に飛ぶようにする
-    return redirect( route('Quecreate'));
+        // 🟡[needs update] 質問を作成した後なので,投稿詳細画面に飛ぶようにする
+        return redirect( route('Quecreate'));
+    }
+
+
+
+    // ⬇︎質問詳細画面の表示
+    public function show($id)
+    {
+        $questions = Question::select('questions.*')
+        ->whereNull('deleted_at')
+        ->orderBy('updated_at', 'DESC')
+        ->get();
+        // dd($id);
+        // dd($questions);
+
+        $show_question = Question::find($id);
+        // dd($show_question);
+        return view('questions.show',compact('show_question'));
     }
 
 
@@ -77,6 +83,7 @@ class QuestionsController extends Controller
 
         return view('questions.edit', compact('questions', 'edit_question'));
     }
+
 
 
     // ⬇︎質問を編集した内容をDBに保存(DB)
