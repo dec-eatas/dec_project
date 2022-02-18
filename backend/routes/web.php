@@ -119,8 +119,8 @@ Route::prefix('/article')->group( function () {
     Route::get('/edit/{id}', [ArticlesController::class, 'edit'])->name('Artedit');
     // // ⬇︎記事更新
     Route::post('/update', [ArticlesController::class, 'update'])->name('Artupdate');
-    // // ⬇︎記事削除
-    // Route::post('/destroy', [ArticlesController::class, 'destroy'])->name('Artdestroy');
+    // ⬇︎記事削除
+    Route::post('/destroy', [ArticlesController::class, 'destroy'])->name('Artdestroy');
 
 });
 

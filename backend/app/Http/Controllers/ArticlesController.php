@@ -69,18 +69,18 @@ class ArticlesController extends Controller
     // 🟡[needs modifing]あと、この機能は、ログインしてるユーザー本人の質問内容のみ編集できるようにしないとダメ。
     public function edit($id)
     {
-        // $question = Question::findOrFail($question_id);
+       // $question = Article::findOrFail($question_id);
         // ⬇︎一覧表示する時に使う配列です
-        $article = Article::select('article.*')
+        $articles = Article::select('articles.*')
         ->whereNull('deleted_at')
         ->orderBy('updated_at', 'DESC')
         ->get();
 
-        // ⬇︎編集したい記事内容を編集画面で使うための配列
+        // ⬇︎編集したい質問内容を編集画面で使うための配列
         $edit_article = Article::find($id);
-        //dd($edit_question);
+        // dd($edit_question);
 
-        return view('article.edit', compact('article', 'edit_article'));
+        return view('article.edit', compact('articles', 'edit_article'));
     }
 
 
@@ -88,9 +88,9 @@ class ArticlesController extends Controller
     public function update(Request $request)
     {
         $posts = $request->all();
-        // dd($posts);
+        //dd($posts);
 
-        Question::where('id',$posts['question_id'])
+        Article::where('id',$posts['article_id'])
             ->update([
                 'content' => $posts['content'],
                 'title' => $posts['title']
