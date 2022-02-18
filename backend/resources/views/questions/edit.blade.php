@@ -7,18 +7,25 @@
         <div class="border p-4">
             <h1 class="h5 mb-4">
                 投稿の編集
+                <form class="card-body" action="{{ route('destroy') }}" method="POST">
+                    @csrf
+                    <input type="hidden" name="question_id" value="{{ $edit_question['id']  }}">
+        
+                    <button type="submit">削除</button>
+                </form>
             </h1>
-
-            <form method="POST" action="">
+            
+            <form method="POST" action="{{ route('update') }}">
                 @csrf
-
+                <!-- 更新のeditメソッドを実行するのに実行するのに、question id のものを編集するかわかるようにpost時の連想配列に追加 -->
+                <input type="hidden" name="question_id" value="{{ $edit_question['id']  }}">
 
                 <fieldset class="mb-4">
                     <div class="form-group">
                         <label for="title">
                             タイトル
                         </label>
-                        <input id="title" name="title" class="form-control " value="" type="text">
+                        <input id="title" name="title" class="form-control " value="{{$edit_question['title']}}" type="text">
 
                             <div class="invalid-feedback">
 
