@@ -44,7 +44,7 @@ class QuestionsController extends Controller
             'user_id' => auth()->id()
         ]);
         // 🟡[needs update] 質問を作成した後なので,投稿詳細画面に飛ぶようにする
-        return redirect( route('Quecreate'));
+        return redirect( route('Que.create'));
     }
 
 
@@ -98,7 +98,7 @@ class QuestionsController extends Controller
                 'title' => $posts['title']
             ]);
 
-        return redirect( route('Quehome'));
+        return redirect( route('Que.home'));
 
     }
 
@@ -112,7 +112,7 @@ class QuestionsController extends Controller
         // dd($posts);
         //論理削除
         Question::where('id',$posts['question_id'])->update(['deleted_at' => date("Y-m-d H:i:s", time())]);
-        return redirect( route('Quehome'));
+        return redirect( route('Que.home'));
 
     }
 

@@ -8,9 +8,16 @@
             <h1 class="h5 mb-4">
                 投稿の詳細
             </h1>
-            <a href="/question/{{ $show_question['id'] }}/edit">
-                <button>編集</button>
-            </a>
+            @if (Route::has('login'))
+                <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
+                    @auth
+                        <a href="/question/{{ $show_question['id'] }}/edit" class="text-sm text-gray-700 dark:text-gray-500 underline">編集</a>
+                    @else
+                        <span>no edit</span>
+                    @endauth
+                </div>
+            @endif
+
 
 
             @csrf

@@ -88,7 +88,7 @@ Route::prefix('/question')->group( function () {
     // ⬇︎ 質問機能を作成 🟡一覧画面からになっているので、詳細画面からの形にする。
     // [knowledge sharing] Route::get('/questionfunc', [App\Http\Controllers\QuestionsController::class, 'create'])->name('create');  //useで簡略化
     Route::get('/create', [QuestionsController::class, 'create'])->name('Que.create');
-    Route::post('/store', [QuestionsController::class, 'store'])->name('Questore');
+    Route::post('/store', [QuestionsController::class, 'store'])->name('Que.store');
     
     // ⬇︎質問詳細取得
     Route::get('/{id}', [Questionscontroller::class,'show'])->name('Que.show');
