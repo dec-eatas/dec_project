@@ -24,11 +24,11 @@ class QuestionsController extends Controller
     // ⬇︎質問詳細画面の表示
     public function show($id)
     {
-        $question = Question::find($id);
-    dd($question);
+        $show_question = Question::find($id);
+    dd($show_question);
         return view('questions.show',
             // 'question' => $question,
-            compact('question')
+            compact('show_question')
         );
     }
 
