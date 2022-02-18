@@ -12,10 +12,13 @@ class ArticlesController extends Controller
     // ⬇記事一覧画面の表示
     public function index()
     {
-        $article = Article::select('articles.*')
+        //ここでデータを取得
+        $articles = Article::select('articles.*')
+        
         ->whereNull('deleted_at')
         ->orderBy('updated_at', 'DESC')
         ->get();
+        // dd($articles);
 
         return view('article.index', compact('articles'));
     }
@@ -45,17 +48,19 @@ class ArticlesController extends Controller
     public function store(Request $request)
     {
         $article = $request->all();
+        //dd(auth()->id());
+
         // dd(\Auth::id());//🟡[error]DBに入れる質問を作成したユーザー（ログインしているユーザ）のidを取得したいがエラー 🟡 レンレンが使ってるAuth::user()も同じことかな？ -> こっちのメソッドはユーザー名を取得か
         // dd(auth()->id());// [knowledge sharing]こっちだとログインしてるuser_idを取れる。ログインしてないとNull。
         // dd($question);
         // ⬇︎[needs modifing]DBに格納される値に’’が入ってしまうので、ここの配列に代入してる値修正した方いい。＝＞
-        Question::insert([
+        Article::insert([
             'title' => $article['title'],
             'content' =>$article['content'],
             'user_id' => auth()->id()
         ]);
     // 🟡[needs update] 質問を作成した後なので,投稿詳細画面に飛ぶようにする
-    return redirect( route('Quecreate'));
+    return redirect( route('Artcreate'));
     }
 
 
@@ -66,16 +71,16 @@ class ArticlesController extends Controller
     {
         // $question = Question::findOrFail($question_id);
         // ⬇︎一覧表示する時に使う配列です
-        $article = Article::select('questions.*')
+        $article = Article::select('article.*')
         ->whereNull('deleted_at')
         ->orderBy('updated_at', 'DESC')
         ->get();
 
         // ⬇︎編集したい記事内容を編集画面で使うための配列
         $edit_article = Article::find($id);
-        // dd($edit_question);
+        //dd($edit_question);
 
-        return view('questions.edit', compact('questions', 'edit_question'));
+        return view('article.edit', compact('article', 'edit_article'));
     }
 
 

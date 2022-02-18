@@ -112,13 +112,13 @@ Route::prefix('/article')->group( function () {
 
     // ⬇︎ 記事機能を作成 🟡一覧画面からになっているので、詳細画面からの形にする。
     // [knowledge sharing] Route::get('/questionfunc', [App\Http\Controllers\QuestionsController::class, 'create'])->name('create');  //useで簡略化
-    Route::get('/create', [ArticlesController::class, 'create']);
+    Route::get('/create', [ArticlesController::class, 'create'])->name('Artcreate');
     Route::post('/store', [ArticlesController::class, 'store'])->name('Artstore');
 
     // // ⬇︎記事編集
-    // Route::get('/edit/{id}', [ArticlesController::class, 'edit'])->name('Artedit');
+    Route::get('/edit/{id}', [ArticlesController::class, 'edit'])->name('Artedit');
     // // ⬇︎記事更新
-    // Route::post('/update', [ArticlesController::class, 'update'])->name('Artupdate');
+    Route::post('/update', [ArticlesController::class, 'update'])->name('Artupdate');
     // // ⬇︎記事削除
     // Route::post('/destroy', [ArticlesController::class, 'destroy'])->name('Artdestroy');
 
