@@ -23,17 +23,17 @@ class ArticlesController extends Controller
         return view('article.index', compact('articles'));
     }
 
-
-    // ⬇︎記事詳細画面の表示
-    public function show($id)
+    // ⬇︎記事詳細画面の表示 public function detail関数の定義(Request $request)引数
+    //詳細表示は、articleで単数で　記事一覧の時は、articlesで複数形に
+    public function detail($id)
     {
+
         $article = Article::find($id);
-    dd($article);
-        return view('article.show',
-            // 'question' => $question,
-            compact('articles')
-        );
+        //dd($article);
+        return view('article.show', compact('article'));
     }
+
+    
 
 
 
@@ -67,20 +67,16 @@ class ArticlesController extends Controller
 
     // ⬇︎記事の編集(view)(現在一覧画面(index.blade)のタイトルと本文がaタグになっていていてそこから編集に飛ぶ感じになってます)
     // 🟡[needs modifing]あと、この機能は、ログインしてるユーザー本人の質問内容のみ編集できるようにしないとダメ。
-    public function edit($id)
+    public function edit(Request $request)
     {
-       // $question = Article::findOrFail($question_id);
-        // ⬇︎一覧表示する時に使う配列です
-        $articles = Article::select('articles.*')
-        ->whereNull('deleted_at')
-        ->orderBy('updated_at', 'DESC')
-        ->get();
+        $data = $request->only(['id','title','content']);
+        $article = [
+            'id' => $data['id'],
+            'title' => $data['title'],
+            'content' => $data['content'],
+        ];
 
-        // ⬇︎編集したい質問内容を編集画面で使うための配列
-        $edit_article = Article::find($id);
-        // dd($edit_question);
-
-        return view('article.edit', compact('articles', 'edit_article'));
+        return view('article.edit', compact('article'));
     }
 
 

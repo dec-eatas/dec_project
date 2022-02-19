@@ -4,9 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\DB;
-
-
-class CreateArticlesTable extends Migration
+class CreateArticleUserTable extends Migration
 {
     /**
      * Run the migrations.
@@ -15,23 +13,21 @@ class CreateArticlesTable extends Migration
      */
     public function up()
     {
-        Schema::create('articles', function (Blueprint $table) {
-            // $table->id();
-            // 外部キー制約があるのでunseined 🟡第二引数をtrueにすると自動で数が上がる、なくても同じ？
+        Schema::create('article_user', function (Blueprint $table) {
+            
             $table->unsignedBigInteger('id', true);
             $table->unsignedBigInteger('user_id');
-            $table->string('title',100);
-            $table->longText('content');
+            $table->unsignedBigInteger('article_id');
             // timestampと書いてしまうと、レコード挿入時、更新時に値が入らないので、DB::rawで直接書いてます
-            $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));
+           
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->unique(['user_id', 'article_id']);
             // 論理削除を定義→deleted_atを自動生成
-            $table->softDeletes();
             // 外部キー制約 user_idはusersテーブルのidが存在するものしか入らない
-            $table->foreign('user_id')->references('id')->on('users');
-            
+            //$table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            //$table->foreign('article_id')->references('id')->on('articles')->onDelete('cascade');
+
         });
-        
     }
 
     /**
@@ -41,6 +37,6 @@ class CreateArticlesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('articles');
+        Schema::dropIfExists('article_reaction');
     }
 }

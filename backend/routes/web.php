@@ -18,6 +18,7 @@ use App\Http\Controllers\ArticlesController; // 使う先のコントローラ�
 use App\Http\Controllers\ArticlesController as Art; // 使う先のコントローラファイルまでuseする。 とりあえずは福冨さんもわかりやすいようこっちを採用したままにするね
 
 use App\Http\Controllers\FavoriteController;
+use App\Http\Controllers\FavoriteController as Fav;
 
 
 
@@ -140,33 +141,26 @@ Route::prefix('/article')->group( function () {
 
     // ⬇︎記事一覧取得 (「/home」は 「/」だけにした方がわかりやすいかも)
     Route::get('/', [ArticlesController::class, 'index'])->name('Arthome');
-    // // ⬇︎記事詳細取得
-    // Route::get('/show', [ArticlesController::class,'show'])->name('Artshow');
-
-
-// Route::prefix('/question')->group( function () {
-
-//     // ⬇︎質問一覧取得 (「/home」は 「/」だけにした方がgetする時わかりやすいかも)
-//     Route::get('/', [QuestionsController::class, 'index'])->name('Quehome');
-//     // ⬇︎質問詳細取得
-//     Route::get('/show', [Questionscontroller::class,'show'])->name('Queshow');
-
+    
 
     // ⬇︎ 記事機能を作成 🟡一覧画面からになっているので、詳細画面からの形にする。
     // [knowledge sharing] Route::get('/questionfunc', [App\Http\Controllers\QuestionsController::class, 'create'])->name('create');  //useで簡略化
     Route::get('/create', [ArticlesController::class, 'create'])->name('Artcreate');
     Route::post('/store', [ArticlesController::class, 'store'])->name('Artstore');
-
+    //詳細ページに飛ぶ
+    Route::get('/detail/{id}', [ArticlesController::class, 'detail'])->name('Artdetail');
+    Route::post('/detail', [ArticlesController::class, 'edit'])->name('Artedit');
     // // ⬇︎記事編集
-    Route::get('/edit/{id}', [ArticlesController::class, 'edit'])->name('Artedit');
+    //Route::get('/edit/{id}', [ArticlesController::class, 'edit'])->name('Artedit');
     // // ⬇︎記事更新
     Route::post('/update', [ArticlesController::class, 'update'])->name('Artupdate');
     // ⬇︎記事削除
     Route::post('/destroy', [ArticlesController::class, 'destroy'])->name('Artdestroy');
+    //⬇︎「いいね」の保存と削除
+    Route::post('article/favorites/{article}', [FavoriteController::class, 'store'])->name('favorites');
+    Route::post('article/unfavorites/{article}', [FavoriteController::class, 'destroy'])->name('unfavorites');
 
 });
-
-
 
 
 
