@@ -6,25 +6,25 @@
     <div class="container mt-4">
         <div class="border p-4">
             <h1 class="h5 mb-4">
-                投稿の編集
-                <form class="card-body" action="{{ route('Quedestroy') }}" method="POST">
+                記事の編集
+                <form class="card-body" action="{{ route('Artdestroy') }}" method="POST">
                     @csrf
-                    <input type="hidden" name="question_id" value="{{ $edit_question['id']  }}">
+                    <input type="hidden" name="article_id" value="{{ $edit_article['id']  }}">
                     <button type="submit">削除</button>
                 </form>
             </h1>
 
-            <form method="POST" action="{{ route('Queupdate') }}">
+            <form method="POST" action="{{ route('Artupdate') }}">
                 @csrf
                 <!-- 更新のeditメソッドを実行するのに実行するのに、question id のものを編集するかわかるようにpost時の連想配列に追加 -->
-                <input type="hidden" name="question_id" value="{{ $edit_question['id']  }}">
+                <input type="hidden" name="article_id" value="{{ $edit_article['id']  }}">
 
                 <fieldset class="mb-4">
                     <div class="form-group">
                         <label for="title">
                             タイトル
                         </label>
-                        <input id="title" name="title" class="form-control " value="{{$edit_question['title']}}" type="text">
+                        <input id="title" name="title" class="form-control " value="{{$edit_article['title']}}" type="text">
                             <div class="invalid-feedback">
                             </div>
                     </div>
@@ -34,7 +34,7 @@
                             本文
                         </label>
                         <textarea id="content" name="content" class="form-control" rows="4">
-                            {{$edit_question['content']}}
+                            {{$edit_article['content']}}
                         </textarea>
                             <div class="invalid-feedback">
                             </div>

@@ -32,7 +32,7 @@
 @section('side')
     <div class="component">
         <div class="component_title">
-            質問を検索する
+            記事を検索する
         </div>
         <div class="input_box">
             <label class="subject">キーワード</label>
@@ -46,7 +46,7 @@
 @endsection
 
 @section('main')
-    @foreach($questions as $question)
+    @foreach($articles as $article)
     <div class="component">
         <div class="list_status">
             <div class="list_category">{{ $category ?? 'カテゴリー' }}</div>
@@ -64,8 +64,8 @@
         <p>-----------------------------------------</p>
         <div class="list_content">
             <div class="list_type type_{{ $type ?? 'Question' }}">{{ $type ?? 'Question' }}</div>
-            <a href="question/edit/{{$question['id']}}" class="card-text d-block">{{$question['title']}}</a><br>
-            <a href="question/edit/{{$question['id']}}" class="card-text d-block">{{$question['content']}}</a><br>
+            <a href="article/edit/{{$article['id']}}" class="card-text d-block">{{$article['title']}}</a><br>
+            <a href="article/edit/{{$article['id']}}" class="card-text d-block">{{$article['content']}}</a><br>
             <div class="list_title">{{ $title ?? 'これは質問のタイトルです。' }}</div>
         </div>
     </div>

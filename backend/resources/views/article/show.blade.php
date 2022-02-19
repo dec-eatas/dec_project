@@ -1,51 +1,4 @@
-@extends('layout.app')
-
-
-@section('main')
-
-    <div class="container mt-4">
-        <div class="border p-4">
-            <h1 class="h5 mb-4">
-                投稿の詳細
-                <form class="card-body" action="{{ route('Quedestroy') }}" method="POST">
-                    @csrf
-                    <input type="hidden" name="question_id" value="{{ $edit_question['id']  }}">
-                    <button type="submit">削除</button>
-                </form>
-            </h1>
-
-            <form method="POST" action="{{ route('Queshow') }}">
-                @csrf
-                <!-- 更新のeditメソッドを実行するのに実行するのに、question id のものを編集するかわかるようにpost時の連想配列に追加 -->
-                <input type="hidden" name="question_id" value="{{ $edit_question['id']  }}">
-
-                <fieldset class="mb-4">
-                    <div class="form-group">
-                        <q>タイトル</q>
-                        <span name="title">{{$show_question['title']}}</span>
-                    </div>
-
-                    <div class="form-group">
-                        <p>本文</p>
-                        <span name="content">{{$show_question['content']}}</span>
-                    </div>
-
-                    <div class="mt-5">
-                        <a class="btn btn-secondary" href="">
-                            キャンセル
-                        </a>
-                        <button type="submit" class="btn btn-primary">
-                            更新する
-                        </button>
-                    </div>
-                </fieldset>
-            </form>
-        </div>
-    </div>
-
-@endsection
-
-
+@extends('layouts.app')
 
 @section('content')
     <div class="container mt-4">
@@ -114,13 +67,3 @@
                     </div>
                 @endif
             </div>
-
-            <div class="mt-4">
-                <button type="submit" class="btn btn-primary">
-                    コメントする
-                </button>
-            </div>
-        </form>
-        </div>
-    </div>
-@endsection
