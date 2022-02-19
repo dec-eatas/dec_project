@@ -1,6 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+
+use App\Http\Controllers\AnswersController; 
+use App\Http\Controllers\AnswersController as Ans; 
+
 use App\Http\Controllers\QuestionsController; // 使う先のコントローラファイルまでuseする。 とりあえずは福冨さんもわかりやすいようこっちを採用したままにするね
 use App\Http\Controllers\QuestionsController as Que;
 // 🟥[error update]レンレンへ as 使うときは上のパス指定の省略が使えなくなってしまうので、他の人にコーディング任せたものは残しておいてね。
@@ -95,6 +99,40 @@ Route::prefix('/question')->group( function () {
    // ⬇︎質問削除
    Route::post('/destroy', [QuestionsController::class, 'destroy'])->name('Quedestroy');
 });
+
+
+
+Route::prefix('/question')->group( function () {
+
+    // ⬇︎質問一覧取得 (「/home」は 「/」だけにした方がわかりやすいかも)
+    Route::get('/', [QuestionsController::class, 'index'])->name('Que.home');
+    
+    // ⬇︎ 質問機能を作成 🟡一覧画面からになっているので、詳細画面からの形にする。
+    // [knowledge sharing] Route::get('/questionfunc', [App\Http\Controllers\QuestionsController::class, 'create'])->name('create');  //useで簡略化
+    Route::get('/create', [QuestionsController::class, 'create'])->name('Que.create');
+    Route::post('/store', [QuestionsController::class, 'store'])->name('Que.store');
+    
+    // ⬇︎質問詳細取得
+    Route::get('/{id}', [Questionscontroller::class,'show'])->name('Que.show');
+    // ⬇︎質問編集
+    Route::get('/{id}/edit', [QuestionsController::class, 'edit'])->name('Que.edit');
+    // ⬇︎質問更新
+    Route::post('/update', [QuestionsController::class, 'update'])->name('Que.update');
+    // ⬇︎質問削除
+    Route::post('/destroy', [QuestionsController::class, 'destroy'])->name('Que.destroy');
+
+
+    // ⬇︎answerの作成
+    // Route::prefix('/{id}')->group( function () {
+        // Route::resource('/answers', [AnswersController::class, ['only' => ['store']]);
+        // Route::get('/{id}', [AnswersController::class, 'index'])->name('Ans.index');
+        Route::post('/answer/store', [Ans::class, 'store'])->name('Ans.store');
+        // Route::get('/{id}/edit', [AnswersController::class, 'edit'])->name('Ans.edit');
+        // Route::post('/update', [AnswersController::class, 'update'])->name('Ans.update');
+        // Route::post('/destroy', [AnswersController::class, 'destroy'])->name('Ans.destroy');
+    // });
+});
+
 
 
 // ゆきさんへ 今は画面上にあるメニューバーのTopicsを押すと、下の/topicsのルーティンググループを呼び出すようにしたけど、中身は上のをコピペしたから質問一覧が表示されるようになってるから、記事一覧になるようにこれから機能を作成して行って！

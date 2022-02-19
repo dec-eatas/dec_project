@@ -1,4 +1,9 @@
-@extends('layout.app')
+@extends('layout.master')
+
+
+@section('side')
+@yield('create_answer')
+@endsection
 
 
 @section('main')
@@ -7,120 +12,67 @@
         <div class="border p-4">
             <h1 class="h5 mb-4">
                 投稿の詳細
-                <form class="card-body" action="{{ route('Quedestroy') }}" method="POST">
-                    @csrf
-                    <input type="hidden" name="question_id" value="{{ $edit_question['id']  }}">
-                    <button type="submit">削除</button>
-                </form>
             </h1>
-
-            <form method="POST" action="{{ route('Queshow') }}">
-                @csrf
-                <!-- 更新のeditメソッドを実行するのに実行するのに、question id のものを編集するかわかるようにpost時の連想配列に追加 -->
-                <input type="hidden" name="question_id" value="{{ $edit_question['id']  }}">
-
-                <fieldset class="mb-4">
-                    <div class="form-group">
-                        <q>タイトル</q>
-                        <span name="title">{{$show_question['title']}}</span>
-                    </div>
-
-                    <div class="form-group">
-                        <p>本文</p>
-                        <span name="content">{{$show_question['content']}}</span>
-                    </div>
-
-                    <div class="mt-5">
-                        <a class="btn btn-secondary" href="">
-                            キャンセル
-                        </a>
-                        <button type="submit" class="btn btn-primary">
-                            更新する
-                        </button>
-                    </div>
-                </fieldset>
-            </form>
-        </div>
-    </div>
-
-@endsection
-
-
-
-@section('content')
-    <div class="container mt-4">
-        <div class="border p-4">
-            <h1 class="h5 mb-4">
-                {{ $question->title }}
-            </h1>
-
-            <p class="mb-5">
-                {!! nl2br(e($question->body)) !!}
-            </p>
-        </div>
-    </div>
- @section('content')
-    <div class="container mt-4">
-        <div class="border p-4">
-            <div class="mb-4 text-right">
-                <a class="btn btn-primary" href="{{ route('questions.edit', ['question' => $question]) }}">
-                    編集する
-                </a>
-                <form style="display: inline-block;" method="POST" action="{{ route('questions.destroy', ['question' => $question]) }}">
-                    @csrf
-                    @method('DELETE')
-                    <button class="btn btn-danger">削除する</button>
-                </form>
+        @if (Route::has('login'))
+            <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
+                @auth
+                    <a href="/question/{{ $show_question['id'] }}/edit" class="text-sm text-gray-700 dark:text-gray-500 underline">編集</a>
+                @else
+                    <span>no edit</span>
+                @endauth
             </div>
-            <h1 class="h5 mb-4">
-                {{ $question->title }}
-            </h1>
-
-            <p class="mb-5">
-                {!! nl2br(e($question->content)) !!}
-            </p>
-            <section>
-                <h2 class="h5 mb-4">
-                    コメント
-                </h2>
-
-                @forelse($question->answers as $answer)
-                    <div class="border-top p-4">
-                        <time class="text-secondary">
-                            {{ $answer->created_at->format('Y.m.d H:i') }}
-                        </time>
-                        <p class="mt-2">
-                            {!! nl2br(e($answer->body)) !!}
-                        </p>
-                    </div>
-                @empty
-                    <p>コメントはまだありません。</p>
-                @endforelse
-            </section>
-        <form class="mb-4" method="POST" action="{{ route('answer.store') }}">
-            @csrf
-
-            <input name="question_id" type="hidden" value="{{ $question->id }}">
+        @endif
 
             <div class="form-group">
-                <label for="body">
-                    本文
-                </label>
-
-                <textarea id="body" name="body" class="form-control {{ $errors->has('body') ? 'is-invalid' : '' }}" rows="4">{{ old('body') }}</textarea>
-                @if ($errors->has('body'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('body') }}
-                    </div>
-                @endif
+                <h3>タイトル</h3>
+                <span name="title">{{$show_question['title']}}</span>
             </div>
 
-            <div class="mt-4">
-                <button type="submit" class="btn btn-primary">
-                    コメントする
-                </button>
+            <div class="form-group">
+                <h3>本文</h3>
+                <span name="content">{{$show_question['content']}}</span>
             </div>
-        </form>
+        </div>
+<p>-----------------------------------------</p>
+    <div>
+        <!-- 回答作成は画面に飛ぶか、ここで作成した反映するか？今後のことを考えると自分が回答したものをコンポーネント化して表示されていればおけ -->
+        <!-- kaitou作成は埋め込む形にするように、@extendでブレードファイルをつくって送る形がいい -->
+
+        <div class="border p-4">
+            <h2 class="h5 mb-4">
+                回答作成
+            </h2>
+            <form action="{{ route('Ans.store') }}" method="POST">
+                
+                @csrf
+                <!-- 埋め込まれるまえにvalueの中身が送られてくる -->
+                <input type="hidden" name="question_id" value="{{$show_question['id']}}">
+                <div>
+                    <p>内容</p>
+                    <textarea name="content" cols="100" rows="5"></textarea>
+                </div>
+
+                <p><input type="submit" value="送信"></p>
+
+            </form>
+        </div>
+<p>-------------------------------------------</p>
+        <h3>回答の一覧</h3>
+        @foreach($answers as $answer)
+    <div class="component">
+        <div class="list_content">
+            <div class="list_type type_{{ $type ?? 'Question' }}">{{ $type ?? 'Question' }}</div>
+            <a href="/question/{{ $answer['id'] }}/edit" class="card-text d-block">{{$answer['content']}}</a><br>
+            <p>ここに回答してユーザの名前が欲しい。answerのDB設計もう一度</p>
+            <div class="list_title">{{ $title ?? 'これは質問のタイトルです。' }}</div>
+            <p>------------------------</p>
         </div>
     </div>
+    @endforeach
+
+    </div>
+    </div>
+
 @endsection
+
+

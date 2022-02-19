@@ -1,11 +1,12 @@
 @extends('layout.master')
+<!-- 使えなかったので消してよし -->
 
-@section('main')
-    <div class="container mt-4">
+@section('answer')
+
         <div class="border p-4">
-            <h1 class="h5 mb-4">
-                質問の新規作成
-            </h1>
+            <h2 class="h5 mb-4">
+                回答作成
+            </h2>
             <form action="{{route('Que.store')}}" method="POST">
                 @csrf
                 <div>
@@ -22,5 +23,5 @@
 
             </form>
         </div>
-    </div>
+
 @endsection

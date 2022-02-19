@@ -3,20 +3,44 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Question;
+use App\Models\Question;
+use App\Models\Answer;
+use Illuminate\Support\Facades\DB;
 
 class AnswersController extends Controller
 {
+//     public function index()
+//     {
+//         $answers = Answer::select('aswers.*')
+//         ->whereNull('deleted_at')
+//         ->orderBy('updated_at', 'DESC')
+//         ->get();
+
+// // dd($questions);
+//         return view('questions.show', compact('answers'));
+//     }
+
     public function store(Request $request)
     {
-        $params = $request->validate([
-            'question_id' => 'required|exists:questions,id',
-            'body' => 'required|max:300',
+        $answer = $request->all();
+
+        $question_id = $answer['question_id'];
+
+
+        Answer::insert([
+            'user_id' => auth()->id(),
+            'question_id' => $answer['question_id'], // パラメータから取っても良さそう
+            'content' =>$answer['content'],
         ]);
 
-        $question = Question::findOrFail($params['question_id']);
-        $question->comments()->create($params);
+        $answers = Answer::select('answers.*')
+        ->whereNull('deleted_at')
+        ->orderBy('updated_at', 'DESC')
+        ->get();
 
-        return redirect()->route('questions.show', ['question' => $question]);
+        // question/showを返したいからこうしてるけど、
+        return redirect( route('Que.show'));
+
     }
 }
+
