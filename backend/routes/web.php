@@ -17,6 +17,7 @@ use App\Http\Controllers\AccountController as Acc;
 use App\Http\Controllers\ArticlesController; // 使う先のコントローラファイルまでuseする。 とりあえずは福冨さんもわかりやすいようこっちを採用したままにするね
 use App\Http\Controllers\ArticlesController as Art; // 使う先のコントローラファイルまでuseする。 とりあえずは福冨さんもわかりやすいようこっちを採用したままにするね
 
+use App\Http\Controllers\FavoriteController;
 
 
 
@@ -81,6 +82,23 @@ Route::prefix('/eataslab')->group( function () {
 
 });
 
+Route::prefix('/question')->group( function () {
+
+    // ⬇︎質問一覧取得 (「/home」は 「/」だけにした方がわかりやすいかも)
+   Route::get('/', [QuestionsController::class, 'index'])->name('Quehome');
+   // ⬇︎質問詳細取得
+   Route::get('/show', [Questioncontroller::class,'show'])->name('Queshow');
+   // ⬇︎ 質問機能を作成 🟡一覧画面からになっているので、詳細画面からの形にする。
+   // [knowledge sharing] Route::get('/questionfunc', [App\Http\Controllers\QuestionsController::class, 'create'])->name('create');  //useで簡略化
+   Route::get('/create', [QuestionsController::class, 'create'])->name('Quecreate');
+   Route::post('/store', [QuestionsController::class, 'store'])->name('Questore');
+   // ⬇︎質問編集
+   Route::get('/edit/{id}', [QuestionsController::class, 'edit'])->name('Queedit');
+   // ⬇︎質問更新
+   Route::post('/update', [QuestionsController::class, 'update'])->name('Queupdate');
+   // ⬇︎質問削除
+   Route::post('/destroy', [QuestionsController::class, 'destroy'])->name('Quedestroy');
+});
 
 
 
@@ -136,19 +154,17 @@ Route::prefix('/article')->group( function () {
 
     // ⬇︎ 記事機能を作成 🟡一覧画面からになっているので、詳細画面からの形にする。
     // [knowledge sharing] Route::get('/questionfunc', [App\Http\Controllers\QuestionsController::class, 'create'])->name('create');  //useで簡略化
-    Route::get('/create', [ArticlesController::class, 'create']);
+    Route::get('/create', [ArticlesController::class, 'create'])->name('Artcreate');
     Route::post('/store', [ArticlesController::class, 'store'])->name('Artstore');
 
     // // ⬇︎記事編集
-    // Route::get('/edit/{id}', [ArticlesController::class, 'edit'])->name('Artedit');
+    Route::get('/edit/{id}', [ArticlesController::class, 'edit'])->name('Artedit');
     // // ⬇︎記事更新
-    // Route::post('/update', [ArticlesController::class, 'update'])->name('Artupdate');
-    // // ⬇︎記事削除
-    // Route::post('/destroy', [ArticlesController::class, 'destroy'])->name('Artdestroy');
+    Route::post('/update', [ArticlesController::class, 'update'])->name('Artupdate');
+    // ⬇︎記事削除
+    Route::post('/destroy', [ArticlesController::class, 'destroy'])->name('Artdestroy');
 
 });
-
-
 
 
 

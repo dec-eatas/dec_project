@@ -46,6 +46,10 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-
-
+    //以下はUser モデルは article モデルと多対多の連携をすることを示す
+    public function articles()
+    {
+        return $this->belongsToMany(Article::class);
+    }
 }
+

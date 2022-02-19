@@ -15,7 +15,6 @@ class CreateArticlesTable extends Migration
     {
         Schema::create('articles', function (Blueprint $table) {
             // $table->id();
-            
             // 外部キー制約があるのでunseined 🟡第二引数をtrueにすると自動で数が上がる、なくても同じ？
             $table->unsignedBigInteger('id', true);
             $table->unsignedBigInteger('user_id');
@@ -30,6 +29,7 @@ class CreateArticlesTable extends Migration
             $table->foreign('user_id')->references('id')->on('users');
             
         });
+        
     }
 
     /**

@@ -7,7 +7,7 @@
         <h1 class="h5 mb-4">
             ブログの新規作成
         </h1>
-        <form action="{{ route（'Artcreate'） }}" method="POST">
+        <form action="{{ route('Artstore') }}" method="POST">
             @csrf
             <div>
                 <p>タイトル</p>
