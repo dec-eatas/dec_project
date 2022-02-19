@@ -14,6 +14,7 @@ use App\Http\Controllers\ArticlesController; // 使う先のコントローラ�
 use App\Http\Controllers\ArticlesController as Art; // 使う先のコントローラファイルまでuseする。 とりあえずは福冨さんもわかりやすいようこっちを採用したままにするね
 
 use App\Http\Controllers\FavoriteController;
+use App\Http\Controllers\FavoriteController as Fav;
 
 
 
@@ -125,10 +126,11 @@ Route::prefix('/article')->group( function () {
     Route::post('/update', [ArticlesController::class, 'update'])->name('Artupdate');
     // ⬇︎記事削除
     Route::post('/destroy', [ArticlesController::class, 'destroy'])->name('Artdestroy');
+    //⬇︎「いいね」の保存と削除
+    Route::post('article/{article}/favorites', [FavoriteController::class, 'store'])->name('favorites');
+    Route::post('article/{article}/unfavorites', [FavoriteController::class, 'destroy'])->name('unfavorites');
 
 });
-
-
 
 
 
