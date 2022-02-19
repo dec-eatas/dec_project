@@ -99,6 +99,16 @@ Route::prefix('/question')->group( function () {
     // ⬇︎質問削除
     Route::post('/destroy', [QuestionsController::class, 'destroy'])->name('Que.destroy');
 
+
+    // ⬇︎answerの作成
+    // Route::prefix('/answer')->group( function () {
+        // Route::resource('/answers', [AnswersController::class, ['only' => ['store']]);
+        // Route::get('/{id}', [AnswersController::class, 'index'])->name('Ans.index');
+        Route::post('/show/answer', [AnswersController::class, 'store'])->name('Ans.store');
+        // Route::get('/{id}/edit', [AnswersController::class, 'edit'])->name('Ans.edit');
+        // Route::post('/update', [AnswersController::class, 'update'])->name('Ans.update');
+        // Route::post('/destroy', [AnswersController::class, 'destroy'])->name('Ans.destroy');
+    // });
 });
 
 

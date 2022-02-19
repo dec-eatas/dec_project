@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Question;
-use App\Models\Topic;
+use App\Models\Answer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -19,8 +19,31 @@ class QuestionsController extends Controller
 // dd($questions);
         return view('questions.index', compact('questions'));
     }
+    
+    
+    // ⬇︎質問詳細画面の表示
+    public function show($id)
+    {
+        $questions = Question::select('questions.*')
+        ->whereNull('deleted_at')
+        ->orderBy('updated_at', 'DESC')
+        ->get();
+        // dd($id);
+        // dd($questions);
+
+        $show_question = Question::find($id);
+        // dd($show_question);
 
 
+        $answers = Answer::select('answers.*')
+        ->whereNull('deleted_at')
+        ->orderBy('updated_at', 'DESC')
+        ->get();
+
+        return view('questions.show',compact('show_question' , 'answers'));
+
+    }
+    
 
     //⬇︎質問の作成(view)
     public function create()
@@ -44,25 +67,10 @@ class QuestionsController extends Controller
             'user_id' => auth()->id()
         ]);
         // 🟡[needs update] 質問を作成した後なので,投稿詳細画面に飛ぶようにする
-        return redirect( route('Que.create'));
+        return redirect( route('Ans.show'));
     }
 
 
-
-    // ⬇︎質問詳細画面の表示
-    public function show($id)
-    {
-        $questions = Question::select('questions.*')
-        ->whereNull('deleted_at')
-        ->orderBy('updated_at', 'DESC')
-        ->get();
-        // dd($id);
-        // dd($questions);
-
-        $show_question = Question::find($id);
-        // dd($show_question);
-        return view('questions.show',compact('show_question'));
-    }
 
 
 
@@ -108,6 +116,7 @@ class QuestionsController extends Controller
 
     public function destroy(Request $request)
     {
+
         $posts = $request->all();
         // dd($posts);
         //論理削除
