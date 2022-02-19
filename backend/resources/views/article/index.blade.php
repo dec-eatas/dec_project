@@ -1,4 +1,5 @@
 @extends('layout.master')
+
 <style>
 
     .component{
@@ -46,7 +47,9 @@
 @endsection
 
 @section('main')
+
     @foreach($articles as $article)
+
     <div class="component">
         <div class="list_status">
             <div class="list_category">{{ $category ?? 'カテゴリー' }}</div>
@@ -64,8 +67,9 @@
         <p>-----------------------------------------</p>
         <div class="list_content">
             <div class="list_type type_{{ $type ?? 'Question' }}">{{ $type ?? 'Question' }}</div>
-            <a href="article/edit/{{$article['id']}}" class="card-text d-block">{{$article['title']}}</a><br>
-            <a href="article/edit/{{$article['id']}}" class="card-text d-block">{{$article['content']}}</a><br>
+            <!-- ↓route関数　 -->
+            <a href="{{ route('Artdetail',['id'=>$article['id']]) }}" class="card-text d-block">{{$article['title']}}</a><br>
+            <a href="{{ route('Artdetail',['id'=>$article['id']]) }}" class="card-text d-block">{{$article['content']}}</a><br>
             <div class="list_title">{{ $title ?? 'これは質問のタイトルです。' }}</div>
             <!-- ↓追加 -->
                     <!-- favorite 状態で条件分岐 -->
