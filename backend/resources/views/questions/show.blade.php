@@ -42,7 +42,7 @@
             <h2 class="h5 mb-4">
                 回答作成
             </h2>
-            <form action="{{route('Que.store')}}" method="POST">
+            <form action="{{ route('Ans.store') }}" method="POST">
                 
                 @csrf
                 <!-- 埋め込まれるまえにvalueの中身が送られてくる -->
@@ -60,25 +60,12 @@
         <h3>回答の一覧</h3>
         @foreach($answers as $answer)
     <div class="component">
-        <div class="list_status">
-            <div class="list_category">{{ $category ?? 'カテゴリー' }}</div>
-            <div class="list_tags">
-                @foreach($tags ?? ['タグ1あああああいいいい','2','3','4','5'] as $tag)
-                <div class="list_tag">
-                    <a>{{ $tag }}</a>
-                </div>
-                @endforeach
-            </div>
-            <div class="list_reaction">♡ {{ $reaction ?? '∞' }}</div>
-            <div class="list_comment">💬 {{ $comment ?? '∞' }}</div>
-            <div class="list_datetime">{{ $datetime ?? '2022/02/15' }}</div>
-        </div>
-        <p>---------------------</p>
         <div class="list_content">
             <div class="list_type type_{{ $type ?? 'Question' }}">{{ $type ?? 'Question' }}</div>
             <a href="/question/{{ $answer['id'] }}/edit" class="card-text d-block">{{$answer['content']}}</a><br>
             <p>ここに回答してユーザの名前が欲しい。answerのDB設計もう一度</p>
             <div class="list_title">{{ $title ?? 'これは質問のタイトルです。' }}</div>
+            <p>------------------------</p>
         </div>
     </div>
     @endforeach

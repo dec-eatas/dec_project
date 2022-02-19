@@ -1,6 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+
+use App\Http\Controllers\AnswersController; 
+use App\Http\Controllers\AnswersController as Ans; 
+
 use App\Http\Controllers\QuestionsController; // 使う先のコントローラファイルまでuseする。 とりあえずは福冨さんもわかりやすいようこっちを採用したままにするね
 use App\Http\Controllers\QuestionsController as Que;
 // 🟥[error update]レンレンへ as 使うときは上のパス指定の省略が使えなくなってしまうので、他の人にコーディング任せたものは残しておいてね。
@@ -101,10 +105,10 @@ Route::prefix('/question')->group( function () {
 
 
     // ⬇︎answerの作成
-    // Route::prefix('/answer')->group( function () {
+    // Route::prefix('/{id}')->group( function () {
         // Route::resource('/answers', [AnswersController::class, ['only' => ['store']]);
         // Route::get('/{id}', [AnswersController::class, 'index'])->name('Ans.index');
-        Route::post('/show/answer', [AnswersController::class, 'store'])->name('Ans.store');
+        Route::post('/answer/store', [Ans::class, 'store'])->name('Ans.store');
         // Route::get('/{id}/edit', [AnswersController::class, 'edit'])->name('Ans.edit');
         // Route::post('/update', [AnswersController::class, 'update'])->name('Ans.update');
         // Route::post('/destroy', [AnswersController::class, 'destroy'])->name('Ans.destroy');

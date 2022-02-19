@@ -67,7 +67,7 @@ class QuestionsController extends Controller
             'user_id' => auth()->id()
         ]);
         // 🟡[needs update] 質問を作成した後なので,投稿詳細画面に飛ぶようにする
-        return redirect( route('Ans.show'));
+        return redirect( route('Que.show'));
     }
 
 
