@@ -6,45 +6,25 @@ use App\Models\Question;
 use App\Models\Answer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Services\ListService;
 
 class QuestionsController extends Controller
 {
     // ⬇︎質問一覧画面の表示
     public function index()
     {
-        $questions = Question::select('questions.*')
+        $questions_before = Question::select('questions.*')
         ->whereNull('deleted_at')
         ->orderBy('updated_at', 'DESC')
         ->get();
-// dd($questions);
+
+        $questions = ListService::shape_questions($questions_before);
+
         return view('questions.index', compact('questions'));
     }
+
+
     
-    
-    // ⬇︎質問詳細画面の表示
-    public function show($id)
-    {
-        $questions = Question::select('questions.*')
-        ->whereNull('deleted_at')
-        ->orderBy('updated_at', 'DESC')
-        ->get();
-        // dd($id);
-        // dd($questions);
-
-        $show_question = Question::find($id);
-        // dd($show_question);
-
-
-        $answers = Answer::select('answers.*')
-        ->whereNull('deleted_at')
-        ->orderBy('updated_at', 'DESC')
-        ->get();
-
-        return view('questions.show',compact('show_question' , 'answers'));
-
-    }
-    
-
     //⬇︎質問の作成(view)
     public function create()
     {
@@ -64,7 +44,7 @@ class QuestionsController extends Controller
         Question::insert([
             'title' => $question['title'],
             'content' =>$question['content'],
-            'user_id' => auth()->id()
+            'user_id' => 1
         ]);
         // 🟡[needs update] 質問を作成した後なので,投稿詳細画面に飛ぶようにする
         return redirect( route('Que.show'));
@@ -72,6 +52,14 @@ class QuestionsController extends Controller
 
 
 
+    // ⬇︎質問詳細画面の表示
+    public function show($id)
+    {
+        $question = ListService::shape_question(Question::find($id));
+        
+        return view('questions.show',compact('question'));
+    }
+    
 
 
     // ⬇︎質問の編集(view)(現在一覧画面(index.blade)のタイトルと本文がaタグになっていていてそこから編集に飛ぶ感じになってます)
@@ -109,8 +97,6 @@ class QuestionsController extends Controller
         return redirect( route('Que.home'));
 
     }
-
-
 
 
 

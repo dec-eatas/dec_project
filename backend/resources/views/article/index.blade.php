@@ -68,8 +68,8 @@
         <div class="list_content">
             <div class="list_type type_{{ $type ?? 'Question' }}">{{ $type ?? 'Question' }}</div>
             <!-- ↓route関数　 -->
-            <a href="{{ route('Artdetail',['id'=>$article['id']]) }}" class="card-text d-block">{{$article['title']}}</a><br>
-            <a href="{{ route('Artdetail',['id'=>$article['id']]) }}" class="card-text d-block">{{$article['content']}}</a><br>
+            <a href="{{ route('Art.show',['id'=>$article['id']]) }}" class="card-text d-block">{{$article['title']}}</a><br>
+            <a href="{{ route('Art.show',['id'=>$article['id']]) }}" class="card-text d-block">{{$article['content']}}</a><br>
             <div class="list_title">{{ $title ?? 'これは質問のタイトルです。' }}</div>
             <!-- ↓追加 -->
                     <!-- favorite 状態で条件分岐 -->
