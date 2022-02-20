@@ -7,14 +7,14 @@
         <div class="border p-4">
             <h1 class="h5 mb-4">
                 投稿の編集
-                <form class="card-body" action="{{ route('Quedestroy') }}" method="POST">
+                <form class="card-body" action="{{ route('Que.destroy') }}" method="POST">
                     @csrf
                     <input type="hidden" name="question_id" value="{{ $edit_question['id']  }}">
                     <button type="submit">削除</button>
                 </form>
             </h1>
 
-            <form method="POST" action="{{ route('Queupdate') }}">
+            <form method="POST" action="{{ route('Que.update') }}">
                 @csrf
                 <!-- 更新のeditメソッドを実行するのに実行するのに、question id のものを編集するかわかるようにpost時の連想配列に追加 -->
                 <input type="hidden" name="question_id" value="{{ $edit_question['id']  }}">

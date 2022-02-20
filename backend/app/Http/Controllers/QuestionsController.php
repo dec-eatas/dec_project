@@ -3,42 +3,34 @@
 namespace App\Http\Controllers;
 
 use App\Models\Question;
-use App\Models\Topic;
+use App\Models\Answer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Services\ListService;
 
 class QuestionsController extends Controller
 {
     // ⬇︎質問一覧画面の表示
     public function index()
     {
-        $questions = Question::select('questions.*')
+        $questions_before = Question::select('questions.*')
         ->whereNull('deleted_at')
         ->orderBy('updated_at', 'DESC')
         ->get();
+
+        $questions = ListService::shape_questions($questions_before);
 
         return view('questions.index', compact('questions'));
     }
 
 
-    // ⬇︎質問詳細画面の表示
-    public function show($id)
-    {
-        $show_question = Question::find($id);
-    dd($show_question);
-        return view('questions.show',
-            // 'question' => $question,
-            compact('show_question')
-        );
-    }
-
-
-
+    
     //⬇︎質問の作成(view)
     public function create()
     {
         return view('questions.create');
     }
+
 
 
     // 質問をDBに追加(DB)
@@ -52,12 +44,22 @@ class QuestionsController extends Controller
         Question::insert([
             'title' => $question['title'],
             'content' =>$question['content'],
-            'user_id' => auth()->id()
+            'user_id' => 1
         ]);
-    // 🟡[needs update] 質問を作成した後なので,投稿詳細画面に飛ぶようにする
-    return redirect( route('Quecreate'));
+        // 🟡[needs update] 質問を作成した後なので,投稿詳細画面に飛ぶようにする
+        return redirect( route('Que.show'));
     }
 
+
+
+    // ⬇︎質問詳細画面の表示
+    public function show($id)
+    {
+        $question = ListService::shape_question(Question::find($id));
+        
+        return view('questions.show',compact('question'));
+    }
+    
 
 
     // ⬇︎質問の編集(view)(現在一覧画面(index.blade)のタイトルと本文がaタグになっていていてそこから編集に飛ぶ感じになってます)
@@ -79,6 +81,7 @@ class QuestionsController extends Controller
     }
 
 
+
     // ⬇︎質問を編集した内容をDBに保存(DB)
     public function update(Request $request)
     {
@@ -91,21 +94,20 @@ class QuestionsController extends Controller
                 'title' => $posts['title']
             ]);
 
-        return redirect( route('Quehome'));
+        return redirect( route('Que.home'));
 
     }
 
 
 
-
-
     public function destroy(Request $request)
     {
+
         $posts = $request->all();
         // dd($posts);
         //論理削除
         Question::where('id',$posts['question_id'])->update(['deleted_at' => date("Y-m-d H:i:s", time())]);
-        return redirect( route('Quehome'));
+        return redirect( route('Que.home'));
 
     }
 

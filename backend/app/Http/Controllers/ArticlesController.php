@@ -25,16 +25,6 @@ class ArticlesController extends Controller
 
     // ⬇︎記事詳細画面の表示 public function detail関数の定義(Request $request)引数
     //詳細表示は、articleで単数で　記事一覧の時は、articlesで複数形に
-    public function detail($id)
-    {
-
-        $article = Article::find($id);
-        //dd($article);
-        return view('article.show', compact('article'));
-    }
-
-    
-
 
 
     //⬇︎記事の作成(view)
@@ -62,6 +52,19 @@ class ArticlesController extends Controller
     // 🟡[needs update] 質問を作成した後なので,投稿詳細画面に飛ぶようにする
     return redirect( route('Art.create'));
     }
+
+
+
+    public function show($id)
+    {
+
+        $article = Article::find($id);
+        //dd($article);
+        return view('article.show', compact('article'));
+    }
+
+    
+
 
 
 
