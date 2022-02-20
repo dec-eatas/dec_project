@@ -1,16 +1,11 @@
 <style>
 
-    .question_tags{
-        width:100%;border-bottom:solid lightgray 0.5px;display:flex;font-size:0.8em;align-items:center;
-        padding-bottom: 0.5em;}
-    .question_tag{
-        width:20%;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;}
-    .question_contents{
-        width:100%;padding:1em 0 0.5em 0;}
-    .question_title{
-        width:100%;font-weight:bold;font-size:1.5em;padding:0 0 0.5em 0;}
     .question_datetime{
-        width:100%;font-size:0.8em;}
+        width:100%;font-size:0.8em;text-align:right;}
+    .question_contents{
+        width:100%;padding:0.5em 0 0.5em 0;}
+    .question_title{
+        width:100%;border-bottom:solid lightgray 0.5px;font-weight:bold;font-size:1.5em;padding:0.3em 0 0.3em 0;}
     .question_content{
         width:100%;padding:1em 0 0.5em 0;}
     .question_status{
@@ -27,17 +22,9 @@
 
 <div class="component">
 
-    <div class="question_tags">
-        @foreach(['タグ1','タグ2','タグ3','タグ4','タグ5'] as $tag)
-            <div class="question_tag">
-                <a>{{ $tag }}</a>
-            </div>
-        @endforeach
-    </div>
-
     <div class="question_contents">
-        <div class="question_title">{{ $content['title'] }}</div>
         <div class="question_datetime">{{ $content['updated_at'] }}</div>
+        <div class="question_title">{{ $content['title'] }}</div>
         <div class="question_content">{{ $content['content'] }}</div>
     </div>
     <div class="question_status">

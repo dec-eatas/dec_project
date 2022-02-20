@@ -28,7 +28,7 @@ class ListService
                 // 'comment' => '回答やコメントの数',
                 'updated_at' => $record['updated_at'],
                 'diff' => $time_ex['diff'].$time_ex['exp'], 
-                'route' => 'que.detail',
+                'route' => 'Que.show',
             ];
 
             $contents[count($contents)] = $content;
@@ -55,7 +55,7 @@ class ListService
             // 'comment' => '回答やコメントの数',
             'updated_at' => $record['updated_at'],
             'diff' => $time_ex['diff'].$time_ex['exp'], 
-            'route' => 'que.detail',
+            'route' => 'Que.show',
         ];
 
         return $content;
