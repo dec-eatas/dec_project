@@ -60,7 +60,7 @@ class ArticlesController extends Controller
             'user_id' => auth()->id()
         ]);
     // 🟡[needs update] 質問を作成した後なので,投稿詳細画面に飛ぶようにする
-    return redirect( route('Artcreate'));
+    return redirect( route('Art.create'));
     }
 
 
@@ -92,7 +92,7 @@ class ArticlesController extends Controller
                 'title' => $posts['title']
             ]);
 
-        return redirect( route('Arthome'));
+        return redirect( route('Art.home'));
 
     }
 
@@ -106,7 +106,7 @@ class ArticlesController extends Controller
         // dd($posts);
         //論理削除
         Article::where('id',$posts['article_id'])->update(['deleted_at' => date("Y-m-d H:i:s", time())]);
-        return redirect( route('Arthome'));
+        return redirect( route('Art.home'));
 
     }
 

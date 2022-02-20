@@ -68,14 +68,14 @@
         <div class="list_content">
             <div class="list_type type_{{ $type ?? 'Question' }}">{{ $type ?? 'Question' }}</div>
             <!-- ↓route関数　 -->
-            <a href="{{ route('Artdetail',['id'=>$article['id']]) }}" class="card-text d-block">{{$article['title']}}</a><br>
-            <a href="{{ route('Artdetail',['id'=>$article['id']]) }}" class="card-text d-block">{{$article['content']}}</a><br>
+            <a href="{{ route('Art.detail',['id'=>$article['id']]) }}" class="card-text d-block">{{$article['title']}}</a><br>
+            <a href="{{ route('Art.detail',['id'=>$article['id']]) }}" class="card-text d-block">{{$article['content']}}</a><br>
             <div class="list_title">{{ $title ?? 'これは質問のタイトルです。' }}</div>
             <!-- ↓追加 -->
                     <!-- favorite 状態で条件分岐 -->
                     @if($article->users()->where('user_id', Auth::id())->exists())
                     <!-- unfavorite ボタン -->
-                    <form action="{{ route('unfavorites',$article) }}" method="POST" class="text-left">
+                    <form action="{{ route('un.favorites',$article) }}" method="POST" class="text-left">
                       @csrf
                       <button type="submit" class="flex mr-2 ml-2 text-sm hover:bg-gray-200 hover:shadow-none text-red py-1 px-2 focus:outline-none focus:shadow-outline">
                         <svg class="h-6 w-6 text-red-500" fill="red" viewBox="0 0 24 24" stroke="red">
