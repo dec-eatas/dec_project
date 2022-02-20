@@ -22,17 +22,9 @@ class QuestionsController extends Controller
 
         return view('questions.index', compact('questions'));
     }
-    
-    
-    // ⬇︎質問詳細画面の表示
-    public function detail($id)
-    {
-        $question = ListService::shape_question(Question::find($id));
-        
-        return view('questions.detail',compact('question'));
-    }
-    
 
+
+    
     //⬇︎質問の作成(view)
     public function create()
     {
@@ -60,6 +52,14 @@ class QuestionsController extends Controller
 
 
 
+    // ⬇︎質問詳細画面の表示
+    public function show($id)
+    {
+        $question = ListService::shape_question(Question::find($id));
+        
+        return view('questions.show',compact('question'));
+    }
+    
 
 
     // ⬇︎質問の編集(view)(現在一覧画面(index.blade)のタイトルと本文がaタグになっていていてそこから編集に飛ぶ感じになってます)
@@ -97,8 +97,6 @@ class QuestionsController extends Controller
         return redirect( route('Que.home'));
 
     }
-
-
 
 
 

@@ -1,25 +1,14 @@
 <style>
 
-    .question_tags{
+    .contents{
         width:100%;border-bottom:solid lightgray 0.5px;display:flex;font-size:0.8em;align-items:center;
-        padding-bottom: 0.5em;}
-    .question_tag{
-        width:20%;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;}
-    .question_contents{
-        width:100%;padding:1em 0 0.5em 0;}
-    .question_title{
-        width:100%;font-weight:bold;font-size:1.5em;padding:0 0 0.5em 0;}
-    .question_datetime{
-        width:100%;font-size:0.8em;}
-    .question_content{
-        width:100%;padding:1em 0 0.5em 0;}
-    .question_status{
-        width:100%;display:flex;font-size:0.8em;align-items:center;
-        justify-content: flex-end;padding-bottom: 0.5em;}
-    .question_reaction{
-        width:10%;color:orangered;text-align:right;}
-    .question_comment{
-        width:10%;color:green;text-align:right;}
+        padding-bottom:0.5em;}
+    textarea{
+        resize:none;width:100%;height:6em;padding:0.5em;}
+    .main_btns{
+        width:100%;padding-bottom:0.5em;}
+    .main_btns button{
+        width:100%;font-size:0.8em;padding:0.5em 0;border:lightgray solid;border-width:0.5px;}
 
 
 </style>
@@ -27,21 +16,15 @@
 
 <div class="component">
 
-    <div class="question_tags">
-        @foreach(['タグ1','タグ2','タグ3','タグ4','タグ5'] as $tag)
-            <div class="question_tag">
-                <a>{{ $tag }}</a>
-            </div>
-        @endforeach
-    </div>
+    <form action="{{ route('ans.store') }}" method="post">
+        <input type="hidden" name="question_id" value="{{ $content['id'] }}">
+        <input type="hidden" name="title" value="{{ $content['title'] }}">
+        <input type="hidden" name="content" value="{{ $content['content'] }}">
+        <input type="hidden" name="updated_at" value="{{ $content['updated_at'] }}">
+        <textarea name="answer" placeholder="回答を入力"></textarea>
+        <div class="main_btns">
+            <button type="submit">回答する</button>
+        </div>
+    </form>
 
-    <div class="question_contents">
-        <div class="question_title">これは質問のタイトルです。</div>
-        <div class="question_datetime">2022/02/15</div>
-        <div class="question_content">これは質問の本文です。</div>
-    </div>
-    <div class="question_status">
-        <div class="question_reaction">♡ ∞</div>
-        <div class="question_comment">💬 ∞</div>
-    </div>
 </div>
