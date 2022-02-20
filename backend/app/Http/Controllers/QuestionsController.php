@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Question;
-use App\Models\Topic;
+use App\Models\Answer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Services\ListService;
@@ -22,8 +22,8 @@ class QuestionsController extends Controller
 
         return view('questions.index', compact('questions'));
     }
-
-
+    
+    
     // ⬇︎質問詳細画面の表示
     public function detail($id)
     {
@@ -31,14 +31,14 @@ class QuestionsController extends Controller
         
         return view('questions.detail',compact('question'));
     }
-
-
+    
 
     //⬇︎質問の作成(view)
     public function create()
     {
         return view('questions.create');
     }
+
 
 
     // 質問をDBに追加(DB)
@@ -54,9 +54,11 @@ class QuestionsController extends Controller
             'content' =>$question['content'],
             'user_id' => 1
         ]);
-    // 🟡[needs update] 質問を作成した後なので,投稿詳細画面に飛ぶようにする
-    return redirect( route('Quecreate'));
+        // 🟡[needs update] 質問を作成した後なので,投稿詳細画面に飛ぶようにする
+        return redirect( route('Que.show'));
     }
+
+
 
 
 
@@ -79,6 +81,7 @@ class QuestionsController extends Controller
     }
 
 
+
     // ⬇︎質問を編集した内容をDBに保存(DB)
     public function update(Request $request)
     {
@@ -91,7 +94,7 @@ class QuestionsController extends Controller
                 'title' => $posts['title']
             ]);
 
-        return redirect( route('Quehome'));
+        return redirect( route('Que.home'));
 
     }
 
@@ -101,11 +104,12 @@ class QuestionsController extends Controller
 
     public function destroy(Request $request)
     {
+
         $posts = $request->all();
         // dd($posts);
         //論理削除
         Question::where('id',$posts['question_id'])->update(['deleted_at' => date("Y-m-d H:i:s", time())]);
-        return redirect( route('Quehome'));
+        return redirect( route('Que.home'));
 
     }
 
