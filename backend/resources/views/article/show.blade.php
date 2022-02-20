@@ -41,7 +41,7 @@
                     </div>
 
                     {{-- z--}}
-                        <form action="{{ route('Artedit') }}" method="post" >
+                        <form action="{{ route('Art.edit') }}" method="post" >
                             @csrf
                             <input type="hidden" name="title" value="{{ $article->title }}">
                             <input type="hidden" name="content" value="{{ $article['content'] }}">
