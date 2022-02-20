@@ -11,13 +11,13 @@ class FavoriteController extends Controller
     public function store(Article $article)
     {
         $article->users()->attach(Auth::id());
-        return redirect()->route('Arthome');
+        return redirect()->route('Art.home');
     }
 
    
     function destroy(Article $article)
     {
         $article->users()->detach(Auth::id());
-        return redirect()->route('Arthome');
+        return redirect()->route('Art.home');
     }
 }

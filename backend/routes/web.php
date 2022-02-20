@@ -188,24 +188,24 @@ Route::prefix('/question')->group( function () {
 Route::prefix('/article')->group( function () {
 
     // ⬇︎記事一覧取得 (「/home」は 「/」だけにした方がわかりやすいかも)
-    Route::get('/', [ArticlesController::class, 'index'])->name('Arthome');
+    Route::get('/', [ArticlesController::class, 'index'])->name('Art.home');
     
 
     // ⬇︎ 記事機能を作成 🟡一覧画面からになっているので、詳細画面からの形にする。
     // [knowledge sharing] Route::get('/questionfunc', [App\Http\Controllers\QuestionsController::class, 'create'])->name('create');  //useで簡略化
-    Route::get('/create', [ArticlesController::class, 'create'])->name('Artcreate');
-    Route::post('/store', [ArticlesController::class, 'store'])->name('Artstore');
-    //詳細ページに飛ぶ
-    Route::get('/show/{id}', [ArticlesController::class, 'detail'])->name('Art.show');
-    Route::post('/detail', [ArticlesController::class, 'edit'])->name('Artedit');
+    Route::get('/create', [ArticlesController::class, 'create'])->name('Art.create');
+    Route::post('/store', [ArticlesController::class, 'store'])->name('Art.store');
+    //詳細showページに飛ぶ
+    Route::get('/show/{id}', [ArticlesController::class, 'show'])->name('Art.show');
+    Route::post('/show', [ArticlesController::class, 'edit'])->name('Art.show');
     // // ⬇︎記事編集
-    //Route::get('/edit/{id}', [ArticlesController::class, 'edit'])->name('Artedit');
+    //Route::get('/edit/{id}', [ArticlesController::class, 'edit'])->name('Art.edit');
     // // ⬇︎記事更新
-    Route::post('/update', [ArticlesController::class, 'update'])->name('Artupdate');
+    Route::post('/update', [ArticlesController::class, 'update'])->name('Art.update');
     // ⬇︎記事削除
-    Route::post('/destroy', [ArticlesController::class, 'destroy'])->name('Artdestroy');
+    Route::post('/destroy', [ArticlesController::class, 'destroy'])->name('Art.destroy');
     //⬇︎「いいね」の保存と削除
     Route::post('article/favorites/{article}', [FavoriteController::class, 'store'])->name('favorites');
-    Route::post('article/unfavorites/{article}', [FavoriteController::class, 'destroy'])->name('unfavorites');
+    Route::post('article/unfavorites/{article}', [FavoriteController::class, 'destroy'])->name('un.favorites');
 
 });
