@@ -1,29 +1,14 @@
 <?php
 
-<<<<<<< HEAD
-use App\Http\Controllers\AccountController as Acc;
-use App\Http\Controllers\RegisterController as Reg;
-use App\Http\Controllers\QuestionsController as Que; //使う先のコントローラファイルまでuseする
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Auth;
-// ↓追加
-=======
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\QuestionsController; // 使う先のコントローラファイルまでuseする。 とりあえずは福冨さんもわかりやすいようこっちを採用したままにするね
 use App\Http\Controllers\QuestionsController as Que;
-// 🟥[error update]レンレンへ as 使うときは上のパス指定の省略が使えなくなってしまうので、他の人にコーディング任せたものは残しておいてね。
+// [error update]レンレンへ as 使うときは上のパス指定の省略が使えなくなってしまうので、他の人にコーディング任せたものは残しておいてね。
 //  group question のルーティングが動作しなくなって
 //  Target class [QuestionsController] does not exist. ってエラー吐かれます。
 //  短い期間での開発だと細かい修正は後の方がいいから、長くなって嫌かもでけど残しておいてね。🟡消えた部分のcommitを見れたりする拡張機能ないかな？それがあればコミットメッセージちゃんと書いてもらえてば後々の修正は楽かも？
 use App\Http\Controllers\AccountController as Acc;
-
-
-use App\Http\Controllers\ArticlesController; // 使う先のコントローラファイルまでuseする。 とりあえずは福冨さんもわかりやすいようこっちを採用したままにするね
 use App\Http\Controllers\ArticlesController as Art; // 使う先のコントローラファイルまでuseする。 とりあえずは福冨さんもわかりやすいようこっちを採用したままにするね
-
-
-
->>>>>>> 7ace0e693ad88a17c3f78bb8cf9da76c54a5bbeb
+use App\Http\Controllers\AnswersController as Ans;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,17 +22,13 @@ use App\Http\Controllers\ArticlesController as Art; // 使う先のコントロ�
 */
 
 
-<<<<<<< HEAD
 // ↓追加
 Route::get('/account',[Acc::class,'index']);
 
-=======
->>>>>>> 7ace0e693ad88a17c3f78bb8cf9da76c54a5bbeb
 Route::get('/', function () {
     return view('welcome');
 });
 
-<<<<<<< HEAD
 
 // Route::get('register', function () {
 //     return view('welcome');
@@ -56,10 +37,6 @@ Route::get('/', function () {
 // Route::get('login', function () {
 //     return view('welcome');
 // });
-
-Route::get('/eata', function () {
-    return view('account.index');
-});
 
 Route::prefix('/eataslab')->group( function () {
     
@@ -74,52 +51,40 @@ Route::prefix('/eataslab')->group( function () {
     
     Route::prefix('/question')->group( function () {
 
-        Route::get('/',[Que::class,'index'])->name('question');
-        Route::get('/detail',[Que::class,'detail'])->name('question_detail');
+        Route::get('/',[Que::class,'index'])->name('Question');
+        Route::get('/detail/{id}',[Que::class,'detail'])->name('que.detail');
+        Route::post('/edit',[Que::class,'edit'])->name('que.edit');
+        Route::get('/show', [Que::class,'show'])->name('Queshow');
+        Route::post('/store', [Que::class, 'store'])->name('Questore');
+        Route::get('/create', [Que::class, 'create'])->name('Quecreate');
+        Route::post('/edit', [Que::class,'edit'])->name('que.edit');
+        Route::post('/update', [Que::class, 'update'])->name('Queupdate');
+        Route::post('/destroy', [Que::class, 'destroy'])->name('Quedestroy');
         
+    });
+
+    Route::prefix('/answer')->group( function () {
+
+        Route::post('/store',[Ans::class,'store'])->name('ans.store');
+        Route::get('/edit',[Ans::class,'store'])->name('ans.edit');
+        Route::post('/edit',[Ans::class,'update'])->name('ans.update');
+        Route::post('/destroy', [Ans::class, 'destroy'])->name('ans.destroy');
+        
+    });
+
+    Route::prefix('/article')->group( function () {
+
+        Route::get('/',[Art::class,'index']);
+        Route::get('/detail',[Art::class,'detail']);
+
     });
 
 });
 
-<<<<<<< HEAD
-Route::prefix('/authent')->group( function () {
-
-    Route::get('/register',[Reg::class,'create'])
-        ->middleware('guest')
-        ->name('register');
-    
-    Route::post('/register',[Reg::class,'store'])
-    ->middleware('guest');
-
-    Route::get('/login',[Reg::class,'index'])
-    ->middleware('guest')
-    ->name('login');
-
-    Route::post('/login',[Reg::class,'authenticate'])
-    ->middleware('guest');
-    
-});
-
-// Auth::routes();
-
-// ⬇︎質問機能を作成
-// Route::get('/questionfunc', [Que::class, 'create'])->name('create');  //useで簡略化
-Route::get('/questionfunc', [Que::class, 'create'])->name('create');
-Route::post('/questionfunc', [Que::class, 'store'])->name('store');
-
-// ⬇︎質問一覧取得
-Route::get('/home', [QuestionsController::class, 'index'])->name('home');
-Route::get('logout', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-// ⬇︎質問編集
-Route::get('/edit/{id}', [QuestionsController::class, 'edit'])->name('edit');
-=======
-=======
 // ⬇︎laravelUIのデフォルト
 //[needs updateing]現状はクッキーを消さないとログインレジスターボタンがでない。
 // コントローラが修正加わってたのでまずはデフォルトに戻した方がいいかも？？🟡現状を整理してレンレンと相談してから決める
->>>>>>> 7ace0e693ad88a17c3f78bb8cf9da76c54a5bbeb
-Auth::routes();
+// Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 
@@ -129,45 +94,10 @@ Route::get('logout', [App\Http\Controllers\HomeController::class, 'index'])->nam
 
 // ⬇︎ホーム画面からのルーティンググループ
 // 🟡 これってレイアウトの共通化ができてる？？navバーからかく機能グループへ飛ぶようになってるが、他の画面（/topics）からtobukotohadekiruka?
-Route::prefix('/eataslab')->group( function () {
 
-    // ⬇︎ホーム画面の表示
-    // 🟡 [needs updating]ログインと登録から/eataslabに遷移するように
-    // 🟡 なぜここにアカウントコントローラを使用したのがあるの？
-    Route::get('/',[Acc::class,'index'])->name('eataslab');
-
-
-    // ⬇︎質問機能の画面へ遷移
-    Route::prefix('/question')->group( function () {
-        Route::get('/',[Que::class,'index']);
-        // 🟡[needs Reconciling perceptions] /detailがわからない。Q.レンレンこれは何用のメソッドとして用意した？？ => A.
-        Route::get('/detail',[Que::class,'detail']);
-    });
-
-
-    // ⬇︎記事機能の画面へ遷移
-    Route::prefix('/article')->group( function () {
-        Route::get('/',[Art::class,'index']);
-        Route::get('/detail',[Art::class,'detail']);
-
-    });
-
-
-    // ⬇︎アカウントの画面に遷移
-    Route::prefix('/account')->group( function () {
-        Route::get('/',[Acc::class,'index']);
-        Route::get('/detail',[Acc::class,'detail']);
-    });
-
-});
-
-
-
-<<<<<<< HEAD
 // // ⬇︎質問編集
-// Route::get('/edit/{id}', [Que::class, 'edit'])->name('edit');
->>>>>>> 15700bab03f7688d491ca67a2df3cb7c04282c12
-=======
+// Route::get('/show', [Questionscontroller::class,'show'])->name('Queshow');
+
 // ゆきさんへ 今は画面上にあるメニューバーのTopicsを押すと、下の/topicsのルーティンググループを呼び出すようにしたけど、中身は上のをコピペしたから質問一覧が表示されるようになってるから、記事一覧になるようにこれから機能を作成して行って！
 Route::prefix('/article')->group( function () {
 
@@ -198,12 +128,6 @@ Route::prefix('/article')->group( function () {
     Route::post('/destroy', [ArticlesController::class, 'destroy'])->name('Artdestroy');
 
 });
-
-
-
-
-
->>>>>>> 7ace0e693ad88a17c3f78bb8cf9da76c54a5bbeb
 
 
 

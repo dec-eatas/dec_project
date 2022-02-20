@@ -6,30 +6,30 @@ use App\Models\Question;
 use App\Models\Topic;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Services\ListService;
 
 class QuestionsController extends Controller
 {
     // ⬇︎質問一覧画面の表示
     public function index()
     {
-        $questions = Question::select('questions.*')
+        $questions_before = Question::select('questions.*')
         ->whereNull('deleted_at')
         ->orderBy('updated_at', 'DESC')
         ->get();
+
+        $questions = ListService::shape_questions($questions_before);
 
         return view('questions.index', compact('questions'));
     }
 
 
     // ⬇︎質問詳細画面の表示
-    public function show($id)
+    public function detail($id)
     {
-        $show_question = Question::find($id);
-    dd($show_question);
-        return view('questions.show',
-            // 'question' => $question,
-            compact('show_question')
-        );
+        $question = ListService::shape_question(Question::find($id));
+        
+        return view('questions.detail',compact('question'));
     }
 
 
@@ -52,7 +52,7 @@ class QuestionsController extends Controller
         Question::insert([
             'title' => $question['title'],
             'content' =>$question['content'],
-            'user_id' => auth()->id()
+            'user_id' => 1
         ]);
     // 🟡[needs update] 質問を作成した後なので,投稿詳細画面に飛ぶようにする
     return redirect( route('Quecreate'));
