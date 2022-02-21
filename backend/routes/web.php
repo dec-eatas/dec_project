@@ -55,8 +55,8 @@ Route::prefix('/eataslab')->group( function () {
     
     Route::prefix('/question')->group( function () {
 
-        Route::get('/',[Que::class,'index'])->name('Question');
-        Route::get('/show/{id}/{tentative?}',[Que::class,'show'])->name('Que.show');
+        Route::get('/',[Que::class,'index'])->name('Que.home');
+        Route::get('/show/{id}',[Que::class,'show'])->name('Que.show');
         Route::post('/edit',[Que::class,'edit'])->name('Que.edit');
         Route::post('/store', [Que::class, 'store'])->name('Que.store');
         Route::get('/create', [Que::class, 'create'])->name('Que.create');
@@ -67,6 +67,7 @@ Route::prefix('/eataslab')->group( function () {
 
     Route::prefix('/answer')->group( function () {
         Route::post('/confirm',[Ans::class,'confirm'])->name('Ans.confirm');
+        Route::post('/back',[Ans::class,'back'])->name('Ans.back');
         Route::post('/store',[Ans::class,'store'])->name('Ans.store');
         Route::get('/edit',[Ans::class,'store'])->name('Ans.edit');
         Route::post('/update',[Ans::class,'update'])->name('Ans.update');

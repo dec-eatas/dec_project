@@ -18,13 +18,15 @@
 
 <div class="component">
 
-    <form action="{{ route('Ans.store') }}" method="post">
+    <form action="{{ route('Ans.confirm') }}" method="post">
+        @csrf
         <input type="hidden" name="question_id" value="{{ $content['id'] }}">
         <input type="hidden" name="title" value="{{ $content['title'] }}">
         <input type="hidden" name="content" value="{{ $content['content'] }}">
         <input type="hidden" name="updated_at" value="{{ $content['updated_at'] }}">
+        <input type="hidden" name="diff" value="{{ $content['diff'] }}">
         <div class="ans_contents">
-            <textarea class="ans_textarea" name="answer" placeholder="回答を入力"></textarea>
+            <textarea class="ans_textarea" name="answer" placeholder="回答を入力">{{ nl2br($answer) }}</textarea>
         </div>
         <div class="ans_main_btns">
             <button type="submit">回答する</button>
