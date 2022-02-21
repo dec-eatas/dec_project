@@ -6,14 +6,7 @@ use App\Http\Controllers\AccountController as Acc;
 use App\Http\Controllers\ArticlesController as Art; 
 use App\Http\Controllers\AnswersController as Ans;
 use App\Http\Controllers\FavoriteController as Fav;
-
-
-
-Route::get('/account',[Acc::class,'index']);
-Route::get('/', function () {
-    return view('welcome');
-});
-
+use Illuminate\Support\Facades\Auth;
 
 Route::prefix('/eataslab')->group( function () {
     
@@ -29,7 +22,7 @@ Route::prefix('/eataslab')->group( function () {
     Route::prefix('/question')->group( function () {
 
         Route::get('/',[Que::class,'index'])->name('Question');
-        Route::get('/show/{id}',[Que::class,'show'])->name('Que.show');
+        Route::get('/show/{id}/{tentative?}',[Que::class,'show'])->name('Que.show');
         Route::post('/edit',[Que::class,'edit'])->name('Que.edit');
         Route::post('/store', [Que::class, 'store'])->name('Que.store');
         Route::get('/create', [Que::class, 'create'])->name('Que.create');
