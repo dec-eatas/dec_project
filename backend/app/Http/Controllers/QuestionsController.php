@@ -54,10 +54,13 @@ class QuestionsController extends Controller
 
     // ⬇︎質問詳細画面の表示
     public function show($id)
-    {
-        $question = ListService::shape_question(Question::find($id));
+    {    
+        //インスタンスの作成（$question）
+        //compact('question','que_list')
+        $question = Question::find($id);
+        $que_list = ListService::shape_question($question);
         
-        return view('questions.show',compact('question'));
+        return view('questions.show',compact('question','que_list'));
     }
     
 

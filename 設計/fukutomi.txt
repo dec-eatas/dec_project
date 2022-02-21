@@ -1,0 +1,45 @@
+クラスとインスタンスについて（中林）
+
+「関係性」
+クラス＝設計書
+インスタンス＝実態
+
+「車の例え話」
+クラス＝プリウス　インスタンス＝実際に出来上がるプリウス
+
+「インスタンス」
+宣言＝初期化する必要がある
+
+「クラス」
+プロパティ＝プリウスが何で構成されているか　色、シートのデザイン
+メソッド　＝プリウスがどういう動きをするのか
+
+$article->id　プリウス->カラーの意味
+
+「コンストラクタ＝車のディーラー兼工場」
+・プロパティの指定
+・実際に作ってくれる
+
+「流れ」
+設計書を元に、色を指定し、出来上がったプリウスに乗って音楽を聴きながら走る
+
+
+ select exists(select * from `users` inner join `questions`　テーブルです 
+ on `users`.`id` = `questions`.`user_id` 
+ where `questions`.`question_id` = 2 and `user_id` = 1) as `exists`
+
+
+全件取得　select *　
+内部結合　inner join
+join句　 where句　命令文
+on　基準　
+where　条件式
+`usersテーブルの`.`id` 
+exists　値が重複してないか見る 
+
+
+情報を見る
+var_dump($article);
+処理を止める
+exit();
+

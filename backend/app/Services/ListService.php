@@ -4,7 +4,7 @@ namespace App\Services;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\DB;
 use App\Services\TimeService;
-
+//コントローラーに処理を
 class ListService
 {
     /* questions */
@@ -28,7 +28,7 @@ class ListService
                 // 'comment' => '回答やコメントの数',
                 'updated_at' => $record['updated_at'],
                 'diff' => $time_ex['diff'].$time_ex['exp'], 
-                'route' => 'que.detail',
+                'route' => 'Que.show',
             ];
 
             $contents[count($contents)] = $content;
