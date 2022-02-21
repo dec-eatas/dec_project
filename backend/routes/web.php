@@ -6,7 +6,7 @@ use App\Http\Controllers\AccountController as Acc;
 use App\Http\Controllers\ArticlesController as Art; 
 use App\Http\Controllers\AnswersController as Ans;
 use App\Http\Controllers\FavoriteController as Fav;
-use Illuminate\Support\Facades\Auth;
+// use Illuminate\Support\Facades\Auth;
 
 Route::prefix('/eataslab')->group( function () {
     
@@ -69,7 +69,7 @@ Route::prefix('/eataslab')->group( function () {
 });
 
 
-Auth::routes();
+// Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('logout', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
