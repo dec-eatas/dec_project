@@ -53,7 +53,7 @@ class QuestionsController extends Controller
         //compact('question','que_list')
         $question = Question::find($id);
         $que_list = ListService::shape_question($question);
-    
+        
         // $answers  = Answer::get_que_answers($id);
         $answers  = ListService::shape_answers(Answer::get_que_answers($id));
         $answer = '';
