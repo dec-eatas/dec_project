@@ -44,8 +44,8 @@
 
 @section('main')
 
-@include('components.main.question',['content'=>$question])
-@include('components.main.ans_input',['content'=>$question,'answer'=>$answer])
+@include('components.main.question',['content'=>$que_list,'question',$question])
+@include('components.main.ans_input',['content'=>$que_list,'answer'=>$answer])
 @include('components.main.ans_list',['contents'=>$answers])
 
 @endsection

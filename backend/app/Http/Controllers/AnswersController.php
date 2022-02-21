@@ -24,12 +24,14 @@ class AnswersController extends Controller
     public function confirm(Request $request)
     {
 
-        $question = $request->only(['question_id','title','content','updated_at','diff']);
+        $que_list = $request->only(['question_id','title','content','updated_at','diff']);
         $param = $request->only(['question_id','answer']);
-       
+        $question = Question::find($param['question_id']);
+        $que_list = ListService::shape_question($question);
+
         $confirms = FormService::get_confirm($param,['質問id','回答内容'],'01');
 
-        return view('answer.confirm',compact('question','confirms'));
+        return view('answer.confirm',compact('question','confirms','que_list'));
 
     }
 
@@ -37,11 +39,12 @@ class AnswersController extends Controller
     {
 
         $param = $request->only(['question_id','answer']);
-      
-        $question = ListService::shape_question(Question::find($param['question_id']));
+        $question = Question::find($param['question_id']);
+        $que_list = ListService::shape_question($question);
+        $answers  = ListService::shape_answers(Answer::get_que_answers($param['question_id']));
         $answer = $param['answer'];
         
-        return view('questions.show',compact('question','answer'));
+        return view('questions.show',compact('question','que_list','answer','answers'));
 
     }
 
