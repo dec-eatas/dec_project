@@ -2,11 +2,8 @@
 
 namespace App\Services;
 
-use Carbon\Carbon;
 use DateTime;
 use DateTimeZone;
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Support\Facades\DB;
 
 class TimeService
 {
@@ -65,7 +62,7 @@ class TimeService
                 $week = 0;
                 $cnt = 7;
                 $work = $diff_split[$i];
-                while( $work-$cnt > 0 ){
+                while( $work-$cnt >= 0 ){
                     $week++;
                     $cnt+=7;
                 }

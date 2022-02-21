@@ -23,12 +23,12 @@ class ListService
                 'title' => $record['title'],
                 // 'category' => 'カテゴリ名',
                 // 'tags' => ['タグ1','タグ2','タグ3','タグ4','タグ5'],
-                'content' => $record['content'],
                 // 'reaction' => $record[''],
                 // 'comment' => '回答やコメントの数',
                 'updated_at' => $record['updated_at'],
                 'diff' => $time_ex['diff'].$time_ex['exp'], 
                 'route' => 'Que.show',
+                'route_param' => ['id' => $record['id']]
             ];
 
             $contents[count($contents)] = $content;
@@ -41,24 +41,107 @@ class ListService
 
     public static function shape_question($record){
 
-        $time_ex = TimeService::get_elapse($record['updated_at']->format('Y-m-d h:m:s'));
+        if(is_null($record)) {
 
-        $content = [
-            'id' => $record['id'],
-            'user' => $record['user_id'],
-            'type' => 'Question',
-            'title' => $record['title'],
-            // 'category' => 'カテゴリ名',
-            // 'tags' => ['タグ1','タグ2','タグ3','タグ4','タグ5'],
-            'content' => $record['content'],
-            // 'reaction' => $record[''],
-            // 'comment' => '回答やコメントの数',
-            'updated_at' => $record['updated_at'],
-            'diff' => $time_ex['diff'].$time_ex['exp'], 
-            'route' => 'que.detail',
-        ];
+            $time_ex = TimeService::get_elapse($record['updated_at']->format('Y-m-d h:m:s'));
+
+            $content = [
+                'id' => $record['id'],
+                'user' => $record['user_id'],
+                'type' => 'Question',
+                'title' => $record['title'],
+                // 'category' => 'カテゴリ名',
+                // 'tags' => ['タグ1','タグ2','タグ3','タグ4','タグ5'],
+                'content' => $record['content'],
+                // 'reaction' => $record[''],
+                // 'comment' => '回答やコメントの数',
+                'updated_at' => $record['updated_at'],
+                'diff' => $time_ex['diff'].$time_ex['exp'], 
+            ];    
+
+        }else{
+
+            $time_ex = TimeService::get_elapse($record['updated_at']->format('Y-m-d h:m:s'));
+
+            $content = [
+                'id' => $record['id'],
+                'user' => $record['user_id'],
+                'type' => 'Question',
+                'title' => $record['title'],
+                // 'category' => 'カテゴリ名',
+                // 'tags' => ['タグ1','タグ2','タグ3','タグ4','タグ5'],
+                'content' => $record['content'],
+                // 'reaction' => $record[''],
+                // 'comment' => '回答やコメントの数',
+                'updated_at' => $record['updated_at'],
+                'diff' => $time_ex['diff'].$time_ex['exp'], 
+            ];    
+
+        }
+
 
         return $content;
+
+    }
+
+    public static function shape_answers($records){
+
+        $contents = [];
+
+        foreach($records as $record){
+
+            $time_ex = TimeService::get_elapse($record['updated_at']->format('Y-m-d h:m:s'));
+
+            $content = [
+                'id' => $record['id'],
+                'user' => $record['user_id'],
+                'user_name' => $record['user_name'],
+                'type' => 'Answer',
+                'title' => $record['content'],
+                // 'category' => 'カテゴリ名',
+                // 'tags' => ['タグ1','タグ2','タグ3','タグ4','タグ5'],
+                // 'reaction' => $record[''],
+                // 'comment' => '回答やコメントの数',
+                'updated_at' => $record['updated_at'],
+                'diff' => $time_ex['diff'].$time_ex['exp'], 
+                'route' => 'Que.show',
+                'route_param' => ['id' => $record['question_id']]
+            ];
+
+            $contents[count($contents)] = $content;
+
+        }
+
+        return $contents;
+
+    }
+
+    public static function shape_show_answers($records){
+
+        $contents = [];
+
+        foreach($records as $record){
+
+            $time_ex = TimeService::get_elapse($record['updated_at']->format('Y-m-d h:m:s'));
+
+            $content = [
+                'id' => $record['id'],
+                'user' => $record['user_id'],
+                'user_name' => $record['name'],
+                'title' => $record['content'],
+                // 'reaction' => $record[''],
+                // 'comment' => '回答やコメントの数',
+                'updated_at' => $record['updated_at'],
+                'diff' => $time_ex['diff'].$time_ex['exp'], 
+                'route' => 'Que.show',
+                'route_param' => ['id' => $record['question_id']]
+            ];
+
+            $contents[count($contents)] = $content;
+
+        }
+
+        return $contents;
 
     }
 

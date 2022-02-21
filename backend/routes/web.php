@@ -46,11 +46,14 @@ Route::prefix('/eataslab')->group( function () {
     Route::prefix('/answer')->group( function () {
 
         Route::post('/store',[Ans::class,'store'])->name('ans.store');
-        Route::get('/edit',[Ans::class,'store'])->name('ans.edit');
-        Route::post('/edit',[Ans::class,'update'])->name('ans.update');
-        Route::post('/destroy', [Ans::class, 'destroy'])->name('ans.destroy');
+        Route::post('/back',[Ans::class,'back'])->name('Ans.back');
+        Route::post('/store',[Ans::class,'store'])->name('Ans.store');
+        Route::get('/edit',[Ans::class,'store'])->name('Ans.edit');
+        Route::post('/update',[Ans::class,'update'])->name('Ans.update');
+        Route::post('/destroy', [Ans::class, 'destroy'])->name('Ans.destroy');
         Route::post('/favorites/{answer}', [Fav::class, 'ans_store'])->name('ans.favorites');
         Route::post('/un.favorites/{answer}', [Fav::class, 'ans_destroy'])->name('ans.unfavorites');
+        Route::post('/confirm',[Ans::class,'confirm'])->name('Ans.confirm');
         
     });
 
