@@ -48,13 +48,16 @@ class QuestionsController extends Controller
 
     // ⬇︎質問詳細画面の表示
     public function show($id)
-    {
-
+    {    
+        //インスタンスの作成（$question）
+        //compact('question','que_list')
+        $question = Question::find($id);
+        $que_list = ListService::shape_question($question);
+    
         // $answers  = Answer::get_que_answers($id);
         $answers  = ListService::shape_answers(Answer::get_que_answers($id));
-        $question = ListService::shape_question(Question::find($id));
         $answer = '';
-        return view('questions.show',compact('question','answers','answer'));
+        return view('questions.show',compact('question','que_list','answers','answer'));
     }
     
     public function edit($id)

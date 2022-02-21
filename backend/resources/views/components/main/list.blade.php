@@ -48,6 +48,7 @@
             <div class="list_reaction">♡ {{ $row['reaction'] ?? '∞' }}</div>
             <div class="list_comment">💬 {{ $row['comment'] ?? '∞' }}</div>
             <div class="list_datetime">{{ $row['diff'] ?? '2022/02/15' }}</div>
+            
         </div>
         <a href="{{ route($row['route'],['id'=>$row['id']]) }}">
             <div class="list_content">
