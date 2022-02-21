@@ -55,23 +55,23 @@ Route::prefix('/eataslab')->group( function () {
     
     Route::prefix('/question')->group( function () {
 
-        Route::get('/',[Que::class,'index'])->name('Question');
-        Route::get('/detail/{id}',[Que::class,'detail'])->name('que.detail');
-        Route::post('/edit',[Que::class,'edit'])->name('que.edit');
-        Route::post('/store', [Que::class, 'store'])->name('Questore');
-        Route::get('/create', [Que::class, 'create'])->name('Quecreate');
-        Route::post('/edit', [Que::class,'edit'])->name('que.edit');
-        Route::post('/update', [Que::class, 'update'])->name('Queupdate');
-        Route::post('/destroy', [Que::class, 'destroy'])->name('Quedestroy');
+        Route::get('/',[Que::class,'index'])->name('Que.home');
+        Route::get('/show/{id}',[Que::class,'show'])->name('Que.show');
+        Route::post('/edit',[Que::class,'edit'])->name('Que.edit');
+        Route::post('/store', [Que::class, 'store'])->name('Que.store');
+        Route::get('/create', [Que::class, 'create'])->name('Que.create');
+        Route::post('/update', [Que::class, 'update'])->name('Que.update');
+        Route::post('/destroy', [Que::class, 'destroy'])->name('Que.destroy');
         
     });
 
     Route::prefix('/answer')->group( function () {
-
-        Route::post('/store',[Ans::class,'store'])->name('ans.store');
-        Route::get('/edit',[Ans::class,'store'])->name('ans.edit');
-        Route::post('/edit',[Ans::class,'update'])->name('ans.update');
-        Route::post('/destroy', [Ans::class, 'destroy'])->name('ans.destroy');
+        Route::post('/confirm',[Ans::class,'confirm'])->name('Ans.confirm');
+        Route::post('/back',[Ans::class,'back'])->name('Ans.back');
+        Route::post('/store',[Ans::class,'store'])->name('Ans.store');
+        Route::get('/edit',[Ans::class,'store'])->name('Ans.edit');
+        Route::post('/update',[Ans::class,'update'])->name('Ans.update');
+        Route::post('/destroy', [Ans::class, 'destroy'])->name('Ans.destroy');
         
     });
 
@@ -149,36 +149,36 @@ Route::get('logout', [App\Http\Controllers\HomeController::class, 'index'])->nam
 
 
 
-Route::prefix('/question')->group( function () {
+// Route::prefix('/question')->group( function () {
 
-    // ⬇︎質問一覧取得 (「/home」は 「/」だけにした方がわかりやすいかも)
-    Route::get('/', [QuestionsController::class, 'index'])->name('Que.home');
+//     // ⬇︎質問一覧取得 (「/home」は 「/」だけにした方がわかりやすいかも)
+//     Route::get('/', [QuestionsController::class, 'index'])->name('Que.home');
     
-    // ⬇︎ 質問機能を作成 🟡一覧画面からになっているので、詳細画面からの形にする。
-    // [knowledge sharing] Route::get('/questionfunc', [App\Http\Controllers\QuestionsController::class, 'create'])->name('create');  //useで簡略化
-    Route::get('/create', [QuestionsController::class, 'create'])->name('Que.create');
-    Route::post('/store', [QuestionsController::class, 'store'])->name('Que.store');
+//     // ⬇︎ 質問機能を作成 🟡一覧画面からになっているので、詳細画面からの形にする。
+//     // [knowledge sharing] Route::get('/questionfunc', [App\Http\Controllers\QuestionsController::class, 'create'])->name('create');  //useで簡略化
+//     Route::get('/create', [QuestionsController::class, 'create'])->name('Que.create');
+//     Route::post('/store', [QuestionsController::class, 'store'])->name('Que.store');
     
-    // ⬇︎質問詳細取得
-    Route::get('/{id}', [Questionscontroller::class,'show'])->name('Que.show');
-    // ⬇︎質問編集
-    Route::get('/{id}/edit', [QuestionsController::class, 'edit'])->name('Que.edit');
-    // ⬇︎質問更新
-    Route::post('/update', [QuestionsController::class, 'update'])->name('Que.update');
-    // ⬇︎質問削除
-    Route::post('/destroy', [QuestionsController::class, 'destroy'])->name('Que.destroy');
+//     // ⬇︎質問詳細取得
+//     Route::get('/{id}', [QuestionsController::class,'show'])->name('Que.show');
+//     // ⬇︎質問編集
+//     Route::get('/{id}/edit', [QuestionsController::class, 'edit'])->name('Que.edit');
+//     // ⬇︎質問更新
+//     Route::post('/update', [QuestionsController::class, 'update'])->name('Que.update');
+//     // ⬇︎質問削除
+//     Route::post('/destroy', [QuestionsController::class, 'destroy'])->name('Que.destroy');
 
 
-    // ⬇︎answerの作成
-    // Route::prefix('/{id}')->group( function () {
-        // Route::resource('/answers', [AnswersController::class, ['only' => ['store']]);
-        // Route::get('/{id}', [AnswersController::class, 'index'])->name('Ans.index');
-        Route::post('/answer/store', [Ans::class, 'store'])->name('Ans.store');
-        // Route::get('/{id}/edit', [AnswersController::class, 'edit'])->name('Ans.edit');
-        // Route::post('/update', [AnswersController::class, 'update'])->name('Ans.update');
-        // Route::post('/destroy', [AnswersController::class, 'destroy'])->name('Ans.destroy');
-    // });
-});
+//     // ⬇︎answerの作成
+//     // Route::prefix('/{id}')->group( function () {
+//         // Route::resource('/answers', [AnswersController::class, ['only' => ['store']]);
+//         // Route::get('/{id}', [AnswersController::class, 'index'])->name('Ans.index');
+//         Route::post('/answer/store', [Ans::class, 'store'])->name('Ans.store');
+//         // Route::get('/{id}/edit', [AnswersController::class, 'edit'])->name('Ans.edit');
+//         // Route::post('/update', [AnswersController::class, 'update'])->name('Ans.update');
+//         // Route::post('/destroy', [AnswersController::class, 'destroy'])->name('Ans.destroy');
+//     // });
+// });
 
 
 // // ⬇︎質問編集

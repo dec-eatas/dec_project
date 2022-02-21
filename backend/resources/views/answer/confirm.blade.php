@@ -45,7 +45,6 @@
 @section('main')
 
 @include('components.main.question',['content'=>$question])
-@include('components.main.ans_input',['content'=>$question,'answer'=>$answer])
-@include('components.main.ans_list',['contents'=>$answers])
+@include('components.main.form_confirm',['confirms'=>$confirms,'next'=>'Ans.store','back'=>'Ans.back'])
 
 @endsection
