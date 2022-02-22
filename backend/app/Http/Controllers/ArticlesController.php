@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Article;
+use App\Models\Tag;
+use App\Models\ArticleTag;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class ArticlesController extends Controller
@@ -31,13 +34,41 @@ class ArticlesController extends Controller
     public function store(Request $request)  // 記事をDBに追加(DB)
     {
         $article = $request->all();
-        //dd(auth()->id());dd(\Auth::id());dd(auth()->id());dd($article);
-        Article::insert([
-            'title' => $article['title'],
-            'content' =>$article['content'],
-            'user_id' => auth()->id()
-        ]);
+            // dd(Auth::id());
+            //dd(auth()->id());dd(\Auth::id());dd(auth()->id());dd($article);
+
+        // タグ追加機能 ⬇︎機能要件整理
+        //  画面：インプット欄がある。入力したタグが表示される。△チェックボックスで追加か書き込んだらタグが表示されていく形、△すでに存在しているタグかわかる、
+        // 機能：全ての人が共通のタグを利用。タグからデータを活用するためにタグに対して各記事、質問とユーザーがわかれば良い。△小文字と大文字は区別しない。△tagsテーブルにuser_idがあるとどんな人がタグを作るか、入力するかの分析につながりそうだがRDBではいらない
+        
+        // トランザクションの追加＝＝＝＝＝＝＝＝＝＝
+        DB::transaction(function() use($article){
+            // ⬇︎△送られてきたarticle_idを取得するとともにinsertする＝＝> 結合するarticleテーブルを作成  
+            // [sharing knowledge]insertGetId()とは？何ができる？＝＞インサートするとともに、そのデータのID(ここではarticle_id)を返してくれる。
+            $article_id = Article::insertGetId([
+                'title' => $article['title'],
+                'content' => $article['content'],
+                'user_id' => Auth::id()
+            ]);
+            // ⬇︎同じタグが存在しないように、既存タグがぞんざいするかtrue or falseでの判定を返す = タグが入力されているかチェック
+            $tag_exists = Tag::where(
+                'name', '=', $article['create_tag'])
+                ->exists();
+
+            // ⬇︎「新しいタグが入力されており、既存のタグがない」という条件でDBにインサートする
+            if( !empty($article['create_tag']) || $article['create_tag']==="0" &&  !$tag_exists){
+                $tag_id = Tag::insertGetId( ['name' => $article['create_tag']] );
+                // 🟡 □マイグレーション作成＆記述する
+                ArticleTag::insert([
+                    'article_id' => $article_id,
+                    'tag_id' => $tag_id
+                ]);
+            }
+        });
+
+        // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
     
+        // [needs modify?] リダイレクト先は詳細画面じゃなくていいか？
         return redirect( route('Art.create'));
     }
 
