@@ -20,9 +20,11 @@
             </div>
 
             <input type="text" class="" name="create_tag" placeholder="タグを追加" > 
+
             @foreach($tags as $tag)
 
-                <div class="" type="checkbox" name="tags[]" id="{{ $tag['id'} }}" value="$tag['id']" >
+                <div class="">
+                    <input  type="checkbox" name="tags[]" id="{{ $tag['id'] }}" value="$tag['id']" >
                     <label for="{{ $tag['id'] }}">{{ $tag['name'] }}</label>
                 </div>
 

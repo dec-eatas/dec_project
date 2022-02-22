@@ -25,7 +25,7 @@ class ArticlesController extends Controller
         // ⬇︎tagの表示処理追加🟡コンポーネントに合わせてできたら修正する。
         $tags = Tag::whereNull('deleted_at')->orderBy('id','DESC')
             ->get();
-        dd($tags);
+        // dd($tags);
 
 
         return view('article.index', compact('articles', 'tags'));
@@ -36,7 +36,14 @@ class ArticlesController extends Controller
 
     public function create()
     {
-        return view('article.create');
+
+        // ⬇︎tagの表示処理追加🟡コンポーネントに合わせてできたら修正する。
+        $tags = Tag::whereNull('deleted_at')->orderBy('id','DESC')
+        ->get();
+        // dd($tags);
+    
+
+        return view('article.create', compact('tags'));
     }
 
 
@@ -44,7 +51,7 @@ class ArticlesController extends Controller
     public function store(Request $request)  // 記事をDBに追加(DB)
     {
         $article = $request->all();
-        dd('$article');
+        // dd($article);
             // dd(Auth::id());
             //dd(auth()->id());dd(\Auth::id());dd(auth()->id());dd($article);
 
@@ -66,11 +73,13 @@ class ArticlesController extends Controller
                 'name', '=', $article['create_tag'])
                 ->exists();
 
-            dd($article_id,$tag_exists);
+            // dd($article_id,$tag_exists);
 
             // ⬇︎「新しいタグが入力されており、既存のタグがない」という条件でDBにインサートする
             if( !empty($article['create_tag']) || $article['create_tag']==="0" &&  !$tag_exists){
-                $tag_id = Tag::insertGetId( ['name' => $article['create_tag']] );
+                $tag_id = Tag::insertGetId( [
+                    'user_id' => Auth::id(),
+                    'name' => $article['create_tag']] );
                 // 🟡 □マイグレーション作成＆記述する
                 ArticleTag::insert([
                     'article_id' => $article_id,
@@ -80,7 +89,8 @@ class ArticlesController extends Controller
 
 
             // ⬇︎index()で表示されたタグをPOSTで受け取る。nameはtags[]と配列で渡ってくる
-            if(!empty($article['tags'[0])){
+            if(!empty($posts['tags'][0])){
+
                 foreach($article['tags'] as $tag){
                     ArticleTag::insert([
                         'article_id' => $article_id,
@@ -89,6 +99,7 @@ class ArticlesController extends Controller
                 }
             }
         });
+    
 
         // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
     
