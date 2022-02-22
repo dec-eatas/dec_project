@@ -89,7 +89,7 @@ class ArticlesController extends Controller
 
 
             // ⬇︎index()で表示されたタグをPOSTで受け取る。nameはtags[]と配列で渡ってくる
-            if(!empty($posts['tags'][0])){
+            if(!empty($article['tags'][0])){
 
                 foreach($article['tags'] as $tag){
                     ArticleTag::insert([

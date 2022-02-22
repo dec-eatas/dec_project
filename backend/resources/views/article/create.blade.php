@@ -24,7 +24,7 @@
             @foreach($tags as $tag)
 
                 <div class="">
-                    <input  type="checkbox" name="tags[]" id="{{ $tag['id'] }}" value="$tag['id']" >
+                    <input  type="checkbox" name="tags[]" id="{{ $tag['id'] }}" value="{{ $tag['id']}}" >
                     <label for="{{ $tag['id'] }}">{{ $tag['name'] }}</label>
                 </div>
 
