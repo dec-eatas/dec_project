@@ -4,7 +4,6 @@ namespace App\Services;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\DB;
 use App\Services\TimeService;
-//コントローラーに処理を
 class ListService
 {
     /* questions */
@@ -41,7 +40,7 @@ class ListService
 
     public static function shape_question($record){
 
-        if(is_null($record)) {
+        if(!is_null($record)) {
 
             $time_ex = TimeService::get_elapse($record['updated_at']->format('Y-m-d h:m:s'));
 
