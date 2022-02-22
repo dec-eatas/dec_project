@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\DB;
 
 class ArticlesController extends Controller
 {
-    
+
     public function index()
     {
         $articles = Article::select('articles.*')
@@ -19,28 +19,39 @@ class ArticlesController extends Controller
         ->orderBy('updated_at', 'DESC')
         ->get();
         // dd($articles);
-        //ここでデータを取得
-        return view('article.index', compact('articles'));
+
+
+
+        // ⬇︎tagの表示処理追加🟡コンポーネントに合わせてできたら修正する。
+        $tags = Tag::whereNull('deleted_at')->orderBy('id','DESC')
+            ->get();
+        dd($tags);
+
+
+        return view('article.index', compact('articles', 'tags'));
 
     }
 
-    
+
+
     public function create()
     {
         return view('article.create');
     }
 
 
+
     public function store(Request $request)  // 記事をDBに追加(DB)
     {
         $article = $request->all();
+        dd('$article');
             // dd(Auth::id());
             //dd(auth()->id());dd(\Auth::id());dd(auth()->id());dd($article);
 
         // タグ追加機能 ⬇︎機能要件整理
         //  画面：インプット欄がある。入力したタグが表示される。△チェックボックスで追加か書き込んだらタグが表示されていく形、△すでに存在しているタグかわかる、
         // 機能：全ての人が共通のタグを利用。タグからデータを活用するためにタグに対して各記事、質問とユーザーがわかれば良い。△小文字と大文字は区別しない。△tagsテーブルにuser_idがあるとどんな人がタグを作るか、入力するかの分析につながりそうだがRDBではいらない
-        
+
         // トランザクションの追加＝＝＝＝＝＝＝＝＝＝
         DB::transaction(function() use($article){
             // ⬇︎△送られてきたarticle_idを取得するとともにinsertする＝＝> 結合するarticleテーブルを作成  
@@ -55,6 +66,8 @@ class ArticlesController extends Controller
                 'name', '=', $article['create_tag'])
                 ->exists();
 
+            dd($article_id,$tag_exists);
+
             // ⬇︎「新しいタグが入力されており、既存のタグがない」という条件でDBにインサートする
             if( !empty($article['create_tag']) || $article['create_tag']==="0" &&  !$tag_exists){
                 $tag_id = Tag::insertGetId( ['name' => $article['create_tag']] );
@@ -63,6 +76,17 @@ class ArticlesController extends Controller
                     'article_id' => $article_id,
                     'tag_id' => $tag_id
                 ]);
+            }
+
+
+            // ⬇︎index()で表示されたタグをPOSTで受け取る。nameはtags[]と配列で渡ってくる
+            if(!empty($article['tags'[0])){
+                foreach($article['tags'] as $tag){
+                    ArticleTag::insert([
+                        'article_id' => $article_id,
+                        'tag_id' => $tag
+                    ]);
+                }
             }
         });
 
@@ -73,12 +97,20 @@ class ArticlesController extends Controller
     }
 
 
-   
+
     public function show($id)
     {
         
         $article = Article::find($id);
         //dd($article);
+
+
+        // ⬇︎tagの表示処理追加🟡コンポーネントに合わせてできたら修正する。
+        $tags = Tag::whereNull('deleted_at')->orderBy('id','DESC')
+            ->get();
+        dd($tags);
+
+
         return view('article.show', compact('article'));
     }
 
@@ -93,6 +125,7 @@ class ArticlesController extends Controller
 
         return view('article.edit', compact('article'));
     }
+
 
 
     // ⬇︎記事を編集した内容をDBに保存(DB)
@@ -111,6 +144,7 @@ class ArticlesController extends Controller
     }
 
 
+
     public function destroy(Request $request)
     {
         $posts = $request->all();
@@ -120,4 +154,5 @@ class ArticlesController extends Controller
         return redirect( route('Art.home'));
 
     }
+
 }

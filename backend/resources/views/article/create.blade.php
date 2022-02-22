@@ -18,7 +18,17 @@
                 <p>内容</p>
                 <textarea name="content" cols="100" rows="5"></textarea>
             </div>
-            <input type="text" class="" name="create_tag" placeholder="タグを追加" > <br>
+
+            <input type="text" class="" name="create_tag" placeholder="タグを追加" > 
+            @foreach($tags as $tag)
+
+                <div class="" type="checkbox" name="tags[]" id="{{ $tag['id'} }}" value="$tag['id']" >
+                    <label for="{{ $tag['id'] }}">{{ $tag['name'] }}</label>
+                </div>
+
+            @endforeach
+
+            <br>
             <input type="submit" value="送信">
         </form>
 
