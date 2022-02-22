@@ -1,4 +1,5 @@
 @extends('layout.master')
+
 <style>
 
     .component{
@@ -30,6 +31,12 @@
 @section('title','トップページ')
 
 @section('side')
+<form action="{{ route('Art.create') }}" method="get" >
+    @csrf
+<button type="submit" class="btn btn-primary">
+    記事を作成する
+</button>
+</form>
     <div class="component">
         <div class="component_title">
             記事を検索する
@@ -46,7 +53,9 @@
 @endsection
 
 @section('main')
+
     @foreach($articles as $article)
+
     <div class="component">
         <div class="list_status">
             <div class="list_category">{{ $category ?? 'カテゴリー' }}</div>
@@ -64,9 +73,11 @@
         <p>-----------------------------------------</p>
         <div class="list_content">
             <div class="list_type type_{{ $type ?? 'Question' }}">{{ $type ?? 'Question' }}</div>
-            <a href="article/edit/{{$article['id']}}" class="card-text d-block">{{$article['title']}}</a><br>
-            <a href="article/edit/{{$article['id']}}" class="card-text d-block">{{$article['content']}}</a><br>
+            <!-- ↓route関数　 -->
+            <a href="{{ route('Art.show',['id'=>$article['id']]) }}" class="card-text d-block">{{$article['title']}}</a><br>
+            <a href="{{ route('Art.show',['id'=>$article['id']]) }}" class="card-text d-block">{{$article['content']}}</a><br>
             <div class="list_title">{{ $title ?? 'これは質問のタイトルです。' }}</div>
+            
         </div>
     </div>
     @endforeach

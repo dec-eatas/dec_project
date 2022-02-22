@@ -30,15 +30,16 @@
     .list_title{
         width:90%;}
 
+
 </style>
 
 
-@foreach ($contents ?? [''] as $row)
+@foreach ($contents as $row)
     <div class="component">
         <div class="list_status">
             <div class="list_category">{{ $row['category'] ?? 'カテゴリー' }}</div>
             <div class="list_tags">
-                @foreach($row['tags'] ?? ['タグ1あああああいいいい','タグ1あああああいいいい','タグ1あああああいいいい','タグ1あああああいいいい','タグ1あああああいいいい'] as $tag)
+                @foreach($row['tags'] ?? [''] as $tag)
                     <div class="list_tag">
                         <a>{{ $tag }}</a>
                     </div>
@@ -46,12 +47,15 @@
             </div>
             <div class="list_reaction">♡ {{ $row['reaction'] ?? '∞' }}</div>
             <div class="list_comment">💬 {{ $row['comment'] ?? '∞' }}</div>
-            <div class="list_datetime">{{ $row['datetime'] ?? '2022/02/15' }}</div>
+            <div class="list_datetime">{{ $row['diff'] ?? '2022/02/15' }}</div>
+            
         </div>
-        <div class="list_content">
-            <div class="list_type type_{{ $row['type'] ?? 'Reaction' }}">{{ $row['type'] ?? 'Reaction' }}</div>
-            <div class="list_title">{{ $row['title'] ?? 'これは質問のタイトルです。' }}</div>
-        </div>
+        <a href="{{ route($row['route'],['id'=>$row['id']]) }}">
+            <div class="list_content">
+                <div class="list_type type_{{ $row['type'] ?? 'Reaction' }}">{{ $row['type'] ?? 'Reaction' }}</div>
+                <div class="list_title">{{ $row['title'] ?? 'これは質問のタイトルです。' }}</div>
+            </div>
+        </a>
     </div>
 @endforeach
 

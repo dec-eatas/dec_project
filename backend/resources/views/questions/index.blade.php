@@ -66,28 +66,7 @@
 @endsection
 
 @section('main')
-    @foreach($questions as $question)
-    <div class="component">
-        <div class="list_status">
-            <div class="list_category">{{ $category ?? 'カテゴリー' }}</div>
-            <div class="list_tags">
-                @foreach($tags ?? ['タグ1あああああいいいい','2','3','4','5'] as $tag)
-                <div class="list_tag">
-                    <a>{{ $tag }}</a>
-                </div>
-                @endforeach
-            </div>
-            <div class="list_reaction">♡ {{ $reaction ?? '∞' }}</div>
-            <div class="list_comment">💬 {{ $comment ?? '∞' }}</div>
-            <div class="list_datetime">{{ $datetime ?? '2022/02/15' }}</div>
-        </div>
-        <p>-----------------------------------------</p>
-        <div class="list_content">
-            <div class="list_type type_{{ $type ?? 'Question' }}">{{ $type ?? 'Question' }}</div>
-            <a href="/question/{{ $question['id'] }}" class="card-text d-block">{{$question['title']}}</a><br>
-            <a href="/question/{{ $question['id'] }}/edit" class="card-text d-block">{{$question['content']}}</a><br>
-            <div class="list_title">{{ $title ?? 'これは質問のタイトルです。' }}</div>
-        </div>
-    </div>
-    @endforeach
+
+@include('components.main.list',['contents' => $questions])
+
 @endsection

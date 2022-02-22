@@ -3,82 +3,53 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Article;
+use App\Models\Question;
+use App\Models\Answer;
+use Illuminate\Support\Facades\Auth;
 
 class FavoriteController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function art_store(Article $article)
     {
-        //
+     
+        $article->users()->attach(Auth::id());//インスタンスが持ってるプロパティ arrow関数 ['id' =>$article->id])連想配列
+        return redirect()->route('Art.show',['id' =>$article->id]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    function art_destroy(Article $article)
     {
-        //
+       
+        $article->users()->detach(Auth::id());
+        return redirect()->route('Art.show',['id' =>$article->id]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function que_store(Question $question)
     {
-        //
+        
+        
+        $question->users()->attach(Auth::id());
+        return redirect()->route('Que.show',['id' =>$question->id]);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+   
+    function que_destroy(Question $question)
     {
-        //
+        $question->users()->detach(Auth::id());
+        return redirect()->route('Que.show',['id' =>$question->id]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+    public function ans_store(Answer $answer)
     {
-        //
+        $answer->users()->attach(Auth::id());
+        return redirect()->route('Que.show',['id' =>$answer->id]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+   
+    function ans_destroy(Answer $answer)
     {
-        //
+        $answer->users()->detach(Auth::id());
+        return redirect()->route('Que.show',['id' =>$answer->id]);
     }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
+    
 }
