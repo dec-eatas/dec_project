@@ -41,7 +41,7 @@ class QuestionsController extends Controller
 
         $question->title = $request->input('title');
 
-        return redirect( route('Que.home'));
+        return redirect( route('Question'));
     }
 
 

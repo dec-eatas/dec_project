@@ -45,7 +45,7 @@
         </ul>
     </nav>
     <aside>
-        <a href="/question/create" class="text-sm text-gray-700 dark:text-gray-500 underline">質問作成</a>
+        <a href="question/create" class="text-sm text-gray-700 dark:text-gray-500 underline">質問作成</a>
         @yield('side')
         @yield('create_answer')
 
