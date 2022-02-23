@@ -37,11 +37,19 @@ class QuestionsController extends Controller
     // 質問をDBに追加(DB)
     public function store(Request $request)
     {
-        $question = new Question();
-
-        $question->title = $request->input('title');
-
-        return redirect( route('Que.home'));
+        $question = $request->all();
+        Question::insert([
+            'title' => $question['title'],
+            'content' =>$question['content'],
+            'user_id' => 1
+        ]);
+       
+        return redirect( route('Question'));
+        //質問がインサートされなかったので、元に戻したよ
+        // $question = new Question();
+        // $question->title = $request->input('title');
+        // return redirect( route('Question'));
+        // return redirect( route('Question'));
     }
 
 
