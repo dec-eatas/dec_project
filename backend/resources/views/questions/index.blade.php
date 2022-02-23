@@ -43,10 +43,11 @@
             <button onclick="location.href='index'">検索</button>
         </div>
     </div>
+    <a href="{{ route('Que.create') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">質問作成</a>
 @endsection
 
 @section('main')
 
-@include('components.main.list',['contents' => $questions])
+@include('components.main.list',['contents' => $que_list])
 
 @endsection

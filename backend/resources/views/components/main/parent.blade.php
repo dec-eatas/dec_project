@@ -29,25 +29,22 @@
         <div class="question_content">{{ $content['content'] }}</div>
     </div>
     <div class="question_status">
-        <!-- ↓追加 -->
-        <!-- favorite 状態で条件分岐 以下は、モデルインスタンス-->
-        @if($question->users()->where('user_id', Auth::id())->exists())
-        <!-- unfavorite ボタン -->
-        <form action="{{ route('que.unfavorites',$question) }}" method="POST">
-          @csrf
-          <button type="submit" id="question_reaction_true">
-            ♡ {{ $question->users()->count() }}
-          </button>
-        </form>
+        @if($parent['model']->users()->where('user_id', Auth::id())->exists())
+            <!-- unfavorite ボタン -->
+            <form action="{{ route($parent['route'].'.unfavorites',$parent['model']) }}" method="POST">
+                @csrf
+                <button type="submit" id="question_reaction_true">
+                    ♡ {{ $parent['model']->users()->count() }}
+                </button>
+            </form>
         @else
-        <!-- favorite ボタン -->
-        <form action="{{ route('que.favorites',$question) }}" method="POST">
-          @csrf
-            <button type="submit" id="question_reaction_false">
-              ♡ {{ $question->users()->count() }}
-            </button>
-          </button>
-        </form>
+            <!-- favorite ボタン -->
+            <form action="{{ route($parent['route'].'.favorites',$parent['model']) }}" method="POST">
+                @csrf
+                <button type="submit" id="question_reaction_false">
+                ♡ {{ $parent['model']->users()->count() }}
+                </button>
+            </form>
         @endif
         <div class="question_comment">💬 ∞</div>
     </div>

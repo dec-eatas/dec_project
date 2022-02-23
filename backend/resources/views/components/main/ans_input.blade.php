@@ -26,7 +26,7 @@
         <input type="hidden" name="updated_at" value="{{ $content['updated_at'] }}">
         <input type="hidden" name="diff" value="{{ $content['diff'] }}">
         <div class="ans_contents">
-            <textarea class="ans_textarea" name="answer" placeholder="回答を入力">{!! nl2br($answer) }}</textarea>
+            <textarea class="ans_textarea" name="ans_confirm" placeholder="回答を入力">{!! nl2br($ans_confirm) !!}</textarea>
         </div>
         <div class="ans_main_btns">
             <button type="submit">回答する</button>

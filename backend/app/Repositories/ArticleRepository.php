@@ -1,17 +1,17 @@
 <?php
 
-
 namespace App\Repositories;
 
-use App\Repositories\Interfaces\ArticleRepositoryInterface;
+use App\Repositories\Interfaces\RepositoryInterface;
 use App\Models\Article;
+use Illuminate\Support\Collection;
+use Ramsey\Uuid\Type\Integer;
 
-class ArticleRepository implements ArticleRepositoryInterface {
+class ArticleRepository implements RepositoryInterface {
 
-
-    public function __construct(Article $article)
+    public function all():Collection
     {
-        $this->article = $article;
+        return Article::all();
     }
 
     public function find(int $article_id):Article
@@ -19,7 +19,7 @@ class ArticleRepository implements ArticleRepositoryInterface {
         return Article::find($article_id);
     }
 
-    public function getByUser(int $user_id):Article
+    public function getByUser(int $user_id):Collection
     {
         return Article::where('user_id','=',$user_id)
             ->get();
@@ -30,7 +30,7 @@ class ArticleRepository implements ArticleRepositoryInterface {
         return Article::create($data);
     }
 
-    public function update(int $article_id,array $data):Article
+    public function update(int $article_id,array $data):Integer
     {
         return Article::find($article_id)
             ->update($data);

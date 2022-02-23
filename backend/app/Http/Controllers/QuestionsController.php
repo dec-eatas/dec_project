@@ -1,104 +1,52 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use App\Models\Question;
-use App\Models\Answer;
 use Illuminate\Http\Request;
-use App\Services\ListService;
+
+use App\UseCases\Question\IndexAction;
+use App\UseCases\Question\ShowAction;
+use App\UseCases\Question\StoreAction;
+use App\UseCases\Question\EditAction;
+use App\UseCases\Question\UpdateAction;
+use App\UseCases\Question\DestroyAction;
 
 class QuestionsController extends Controller
 {
-    // ⬇︎質問一覧画面の表示
-    public function index()
+
+    public function index(IndexAction $obj)
     {
-        $questions_before = Question::select('questions.*')
-        ->whereNull('deleted_at')
-        ->orderBy('updated_at', 'DESC')
-        ->get();
-
-        $questions = ListService::shape_questions($questions_before);
-
-        return view('questions.index', compact('questions'));
+        return view('questions.index',$obj());
     }
 
-
-    
-    //⬇︎質問の作成(view)
     public function create()
     {
         return view('questions.create');
     }
-
-
-
-    // 質問をDBに追加(DB)
-    public function store(Request $request)
+    
+    public function store(Request $request,StoreAction $obj)
     {
-        $question = new Question();
-
-        $question->title = $request->input('title');
-
-        return redirect( route('Que.home'));
+        return redirect(route('Que.show',$obj($request)));
     }
 
-
-
-    // ⬇︎質問詳細画面の表示
-    public function show($id)
+    public function show(Request $request,ShowAction $obj)
     {    
-        //インスタンスの作成（$question）
-        //compact('question','que_list')
-        $question = Question::find($id);
-        $que_list = ListService::shape_question($question);
-        
-        // $answers  = Answer::get_que_answers($id);
-        $answers  = ListService::shape_answers(Answer::get_que_answers($id));
-        $answer = '';
-        return view('questions.show',compact('question','que_list','answers','answer'));
+        return view('questions.show',$obj($request));
     }
     
-    public function edit($id)
+    public function edit(Request $request,EditAction $obj)
     {
-
-        $questions = Question::select('questions.*')
-        ->whereNull('deleted_at')
-        ->orderBy('updated_at', 'DESC')
-        ->get();
-
-        $edit_question = Question::find($id);
-
-        return view('questions.edit', compact('questions', 'edit_question'));
+        return view('questions.edit',$obj($request));
     }
 
-
-
-    // ⬇︎質問を編集した内容をDBに保存(DB)
-    public function update(Request $request)
+    public function update(Request $request,UpdateAction $obj)
     {
-        $posts = $request->all();
-        // dd($posts);
-
-        Question::where('id',$posts['question_id'])
-            ->update([
-                'content' => $posts['content'],
-                'title' => $posts['title']
-            ]);
-
-        return redirect( route('Que.home'));
-
+        return redirect(route('Que.show',$obj($request)));
     }
 
-
-
-    public function destroy(Request $request)
+    public function destroy(Request $request,DestroyAction $obj)
     {
-
-        $posts = $request->all();
-
-        Question::where('id',$posts['question_id'])->update(['deleted_at' => date("Y-m-d H:i:s", time())]);
-        return redirect( route('Que.home'));
-
+        $obj($request);
+        return redirect(route('Que.home'));
     }
 
 }

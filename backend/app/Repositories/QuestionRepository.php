@@ -3,15 +3,16 @@
 
 namespace App\Repositories;
 
-use App\Repositories\Interfaces\QuestionRepositoryInterface;
+use App\Repositories\Interfaces\RepositoryInterface;
 use App\Models\Question;
+use Illuminate\Support\Collection;
+use Ramsey\Uuid\Type\Integer;
 
-class QuestionRepository implements QuestionRepositoryInterface {
+class QuestionRepository implements RepositoryInterface {
 
-
-    public function __construct(Question $question)
+    public function all():Collection
     {
-        $this->question = $question;
+        return Question::all();
     }
 
     public function find(int $question_id):Question
@@ -30,7 +31,7 @@ class QuestionRepository implements QuestionRepositoryInterface {
         return Question::create($data);
     }
 
-    public function update(int $question_id,array $data):Question
+    public function update(int $question_id,array $data):Integer
     {
         return Question::find($question_id)
             ->update($data);

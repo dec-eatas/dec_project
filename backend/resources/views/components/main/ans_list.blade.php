@@ -23,50 +23,49 @@
 
 
 </style>
-
-@foreach ($contents as $content)
-<div class="component">
-    <div class="answer_contents">
-        <div class="answer_status">
-            <div class="answer_user"><a>{{ $content['user_name'] }}</a></div>
-            <div class="answer_datetime">{{ $content['diff'] }}</div>
+@if(!is_null($contents))
+    @foreach ($contents as $content)
+    <div class="component">
+        <div class="answer_contents">
+            <div class="answer_status">
+                <div class="answer_user"><a>{{ $content['user_name'] }}</a></div>
+                <div class="answer_datetime">{{ $content['diff'] }}</div>
+            </div>
+            <div class="answer_content">{!! nl2br($content['title']) !!}</div>
         </div>
-        <div class="answer_content">{!! nl2br($content['title']) !!}</div>
-    </div>
-    <div class="answer_reaction">
-        <!-- ↓追加 -->
-                    <!-- favorite 状態で条件分岐 以下は、モデルインスタンス-->
-                    @if($answer->users()->where('user_id', Auth::id())->exists())
-                    <!-- unfavorite ボタン -->
-                    <form action="{{ route('que.unfavorites',$answer) }}" method="POST" class="text-left">
-                      @csrf
-                      <button type="submit" class="flex mr-2 ml-2 text-sm hover:bg-gray-200 hover:shadow-none text-red py-1 px-2 focus:outline-none focus:shadow-outline">
-                        <svg class="h-6 w-6 text-red-500" fill="red" viewBox="0 0 24 24" stroke="red">
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                        </svg>
-                        {{ $answer->users()->count() }}
-                        
-                      </button>
-                    </form>
-                    @else
-                    <!-- favorite ボタン -->
-                    <form action="{{ route('que.favorites',$answer) }}" method="POST" class="text-left">
-                      @csrf
-                      <button type="submit" class="flex mr-2 ml-2 text-sm hover:bg-gray-200 hover:shadow-none text-black py-1 px-2 focus:outline-none focus:shadow-outline">
-                        <svg class="h-6 w-6 text-red-500" fill="none" viewBox="0 0 24 24" stroke="black">
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                        </svg>
-                        {{ $answer->users()->count() }}
-                      </button>
-                    </form>
-                    @endif
-        <div class="answer_favorite">♡ ∞</div>
-        <div class="answer_comment">💬 ∞</div>
+        <div class="answer_reaction">
+            <!-- ↓追加 -->
+                        <!-- favorite 状態で条件分岐 以下は、モデルインスタンス-->
+                        @if($answers[$i]->users()->where('user_id', Auth::id())->exists())
+                        <!-- unfavorite ボタン -->
+                            <form action="{{ route('que.unfavorites',$answers[$i]) }}" method="POST" class="text-left">
+                                @csrf
+                                <button type="submit" class="flex mr-2 ml-2 text-sm hover:bg-gray-200 hover:shadow-none text-red py-1 px-2 focus:outline-none focus:shadow-outline">
+                                    <svg class="h-6 w-6 text-red-500" fill="red" viewBox="0 0 24 24" stroke="red">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                                    </svg>
+                                    {{ $answers[$i++]->users()->count() }}
+                                    
+                                </button>
+                            </form>
+                        @else
+                        <!-- favorite ボタン -->
+                            <form action="{{ route('que.favorites',$answers[$i]) }}" method="POST" class="text-left">
+                                @csrf
+                                <button type="submit" class="flex mr-2 ml-2 text-sm hover:bg-gray-200 hover:shadow-none text-black py-1 px-2 focus:outline-none focus:shadow-outline">
+                                    <svg class="h-6 w-6 text-red-500" fill="none" viewBox="0 0 24 24" stroke="black">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                                    </svg>
+                                    {{ $answers[$i++]->users()->count() }}
+                                </button>
+                            </form>
+                        @endif
+            <div class="answer_comment">💬 ∞</div>
 
+        </div>
     </div>
-</div>
-@endforeach
-
+    @endforeach
+@endif
 {{-- <div class="component">
     <div class="answer_contents">
         <div class="answer_datetime">{{ $contents['updated_at'] }}</div>

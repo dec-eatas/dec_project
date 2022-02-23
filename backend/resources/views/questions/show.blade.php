@@ -43,9 +43,11 @@
 
 
 @section('main')
+@include('components.main.parent',['content'=>$que_list,'parent'=>$favorites['parent']])
+{{-- @include('components.main.question',['content'=>$que_list,'question',$question]) --}}
+@include('components.main.ans_input',['content'=>$que_list,'answer'=>$ans_confirm])
+{{-- @include('components.main.ans_list',['contents'=>$ans_list]) --}}
 
-@include('components.main.question',['content'=>$que_list,'question',$question])
-@include('components.main.ans_input',['content'=>$que_list,'answer'=>$answer])
-@include('components.main.ans_list',['contents'=>$answers])
+@include('components.main.child',['contents'=>$ans_list,'child'=>$favorites['child'],$i])
 
 @endsection

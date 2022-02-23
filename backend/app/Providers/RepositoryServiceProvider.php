@@ -5,6 +5,8 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use App\Repositories\Interfaces\AnswerRepositoryInterface;
 use App\Repositories\AnswerRepository;
+use App\Models\Question;
+use App\Models\Answer;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
@@ -15,7 +17,9 @@ class RepositoryServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        app()->bind('QuestionRepository',Question::class);
+
+        app()->bind('AnswerRepository',Answer::class);
     }
 
     /**

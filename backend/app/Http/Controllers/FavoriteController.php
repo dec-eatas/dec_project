@@ -38,13 +38,13 @@ class FavoriteController extends Controller
     public function ans_store(Answer $answer)
     {
         $answer->users()->attach(Auth::id());
-        return redirect()->route('Que.show',['id' =>$answer->id]);
+        return redirect()->route('Que.show',['id' =>$answer->question_id]);
     }
 
     function ans_destroy(Answer $answer)
     {
         $answer->users()->detach(Auth::id());
-        return redirect()->route('Que.show',['id' =>$answer->id]);
+        return redirect()->route('Que.show',['id' =>$answer->question_id]);
     }
     
 }
