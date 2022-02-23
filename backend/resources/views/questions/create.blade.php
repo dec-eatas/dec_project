@@ -1,32 +1,7 @@
 @extends('layout.master')
 
 @section('main')
-    <h1 class="h5 mb-4">
-                対応顧客の目的
-                </h1>
-    <input type="checkbox" id="01-A" name="checkbox01" checked="checked">
-    <label for="01-A" class="checkbox01">ダイエット</label>
-    <input type="checkbox" id="01-B" name="checkbox01">
-    <label for="01-B" class="checkbox01">老化防止、若々しさの維持</label>
-    <input type="checkbox" id="01-C" name="checkbox01">
-    <label for="01-C" class="checkbox01">美容</label>
-    <input type="checkbox" id="01-A" name="checkbox01" checked="checked">
-    <label for="01-A" class="checkbox01">体力の維持、向上</label>
-    <input type="checkbox" id="01-B" name="checkbox01">
-    <label for="01-B" class="checkbox01">筋肉などの肉体作り</label><br>
-    <input type="checkbox" id="01-C" name="checkbox01">
-    <label for="01-C" class="checkbox01">コンディショニング</label>
-    <input type="checkbox" id="01-A" name="checkbox01" checked="checked">
-    <label for="01-A" class="checkbox01">老化の予防・改善</label>
-    <input type="checkbox" id="01-B" name="checkbox01">
-    <label for="01-B" class="checkbox01">レシピ</label>
-    <input type="checkbox" id="01-C" name="checkbox01">
-    <label for="01-C" class="checkbox01">その他</label>
-
-
-
-
-
+   
 
 
     <div class="container mt-4">
