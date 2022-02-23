@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\ListService;
 use App\Models\Article;
 use App\Models\Tag;
 use App\Models\ArticleTag;
@@ -18,6 +19,12 @@ class ArticlesController extends Controller
         ->whereNull('deleted_at')
         ->orderBy('updated_at', 'DESC')
         ->get();
+        // dd($articles);入力
+        //ここでデータを取得
+        // $articles = ListService::shape_questions($articles);
+        $search_route ='Art.search';
+        // return view　article　のindex
+        return view('article.index', compact('articles','search_route'));
         // dd($articles);
 
 
@@ -31,6 +38,20 @@ class ArticlesController extends Controller
         return view('article.index', compact('articles', 'tags'));
 
     }
+    public function search_title(Request $request)
+    {   //urlパラメーターとしてのkeywordが取れる
+        $keyword = $request->input('keyword');
+        
+        //取ってきたデータを一時保存
+        $articles = Article::where('title', 'LIKE', '%'.$keyword.'%')
+            ->orderBy('updated_at', 'DESC')
+            ->get();
+        
+        // $articles = ListService::shape_questions($questions_before);
+        $search_route ='Art.search';
+        return view('article.index', compact('articles','search_route'));
+    }
+    
 
 
 

@@ -22,6 +22,7 @@ Route::prefix('/eataslab')->group( function () {
     Route::prefix('/question')->group( function () {
 
         Route::get('/',[Que::class,'index'])->name('Question');
+        Route::post('/search',[Que::class,'search_title'])->name('Que.search'); //Queクラスを使用し、’search_title’アクションを呼び出す
         Route::get('/show/{id}/{tentative?}',[Que::class,'show'])->name('Que.show');
         Route::post('/edit',[Que::class,'edit'])->name('Que.edit');
         Route::post('/store', [Que::class, 'store'])->name('Que.store');
@@ -39,6 +40,7 @@ Route::prefix('/eataslab')->group( function () {
     Route::prefix('/answer')->group( function () {
 
         Route::post('/store',[Ans::class,'store'])->name('ans.store');
+        Route::post('/search',[Que::class,'search_title'])->name('Que.search'); //Queクラスを使用し、’search_title’アクションを呼び出す
         Route::post('/back',[Ans::class,'back'])->name('Ans.back');
         Route::post('/store',[Ans::class,'store'])->name('Ans.store');
         Route::get('/edit',[Ans::class,'store'])->name('Ans.edit');
@@ -54,6 +56,7 @@ Route::prefix('/eataslab')->group( function () {
     
 
         Route::get('/', [Art::class, 'index'])->name('Art.home');
+        Route::post('/search',[Art::class,'search_title'])->name('Art.search'); //Queクラスを使用し、’search_title’アクションを呼び出す
         Route::get('/create', [Art::class, 'create'])->name('Art.create');
         Route::post('/store', [Art::class, 'store'])->name('Art.store');
         Route::get('/show/{id}', [Art::class, 'show'])->name('Art.show');
