@@ -43,3 +43,21 @@ var_dump($article);
 処理を止める
 exit();
 
+Call to a member function users() on string 
+(View: /work/resources/views/components/main/ans_list.blade.php)
+member functionは、インスタンスが持ってる独自の関数
+→インスタンスの作成をする
+
+2/23(水)
+⭐︎コレクション型
+質問では使えるが、回答では使えなくなってしまう
+//モデルはデータを登録、更新＝データベースにアクセスする　レコードで渡す　
+//モデルのインスタンスはレコードを持っている
+//インスタンス複数件格納されているのがコレクション（高性能）
+update delete(数値しか取れないint)    create ()
+
+foreach($records as $record){
+            var_dump($record);
+            echo '<br>';
+        }
+        exit();

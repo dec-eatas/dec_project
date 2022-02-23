@@ -45,6 +45,7 @@ class FavoriteController extends Controller
     {
         $answer->users()->detach(Auth::id());
         return redirect()->route('Que.show',['id' =>$answer->question_id]);
+        
     }
     
 }

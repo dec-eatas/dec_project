@@ -30,6 +30,8 @@
 @section('title','トップページ')
 
 @section('side')
+@include('components.side.search',['route'=>$search_route])
+
     <div class="component">
         <div class="component_title">
             質問を検索する

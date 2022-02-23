@@ -31,6 +31,8 @@
 @section('title','トップページ')
 
 @section('side')
+@include('components.side.search',['route'=>$search_route])
+
 <form action="{{ route('Art.create') }}" method="get" >
     @csrf
 <button type="submit" class="btn btn-primary">
