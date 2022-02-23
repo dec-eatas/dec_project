@@ -43,6 +43,9 @@
             <button onclick="location.href='index'">検索</button>
         </div>
     </div>
+
+
+
 @endsection
 
 @section('main')
