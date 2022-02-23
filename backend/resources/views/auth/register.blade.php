@@ -60,7 +60,24 @@
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
                             </div>
                         </div>
+                        {{-- <form method="post" action="example.cgi"> --}}
+                          
+                        <p>
+                            <select name="category">
+                                <option value="1">ダイエット</option>
+                                <option value="2">美容</option>
+                                <option value="3">老化防止、若々しさの維持</option>
+                                <option value="4">体力の維持、向上</option>
+                                <option value="5">筋肉などの肉体つくり</option>
+                                <option value="6">コンディショニング（疲労回復、病気予防）</option>
+                                <option value="7">病気の予防・改善（生活習慣病）</option>
+                                <option value="8">レシピ</option>
+                                <option value="9">その他</option>
+                            </select>
+                        </p>
+                        
                             
+                            {{-- </form> --}}
                         <div class="row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
