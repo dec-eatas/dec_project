@@ -37,11 +37,19 @@ class QuestionsController extends Controller
     // 質問をDBに追加(DB)
     public function store(Request $request)
     {
-        $question = new Question();
-
-        $question->title = $request->input('title');
-
+        $question = $request->all();
+        Question::insert([
+            'title' => $question['title'],
+            'content' =>$question['content'],
+            'user_id' => 1
+        ]);
+       
         return redirect( route('Question'));
+        //質問がインサートされなかったので、元に戻したよ
+        // $question = new Question();
+        // $question->title = $request->input('title');
+        // return redirect( route('Question'));
+        // return redirect( route('Question'));
     }
 
 
@@ -53,11 +61,12 @@ class QuestionsController extends Controller
         //compact('question','que_list')
         $question = Question::find($id);
         $que_list = ListService::shape_question($question);
-        
+
+        $answer = Answer::get_que_answers($id);
         // $answers  = Answer::get_que_answers($id);
-        $answers  = ListService::shape_answers(Answer::get_que_answers($id));
-        $answer = '';
-        return view('questions.show',compact('question','que_list','answers','answer'));
+        $answers  = ListService::shape_answers($answer);
+        $ans_confirm = '';
+        return view('questions.show',compact('question','que_list','answers','answer','ans_confirm'));
     }
     
     public function edit($id)
