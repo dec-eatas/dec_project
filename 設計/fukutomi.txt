@@ -56,3 +56,8 @@ member functionは、インスタンスが持ってる独自の関数
 //インスタンス複数件格納されているのがコレクション（高性能）
 update delete(数値しか取れないint)    create ()
 
+foreach($records as $record){
+            var_dump($record);
+            echo '<br>';
+        }
+        exit();
