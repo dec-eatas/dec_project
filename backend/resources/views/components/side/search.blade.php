@@ -4,7 +4,7 @@
    
     <div class="component">
         <div class="component_title">
-            質問を検索する
+            検索する
         </div>
         <div class="input_box">
             <label class="subject">タイトル</label>
