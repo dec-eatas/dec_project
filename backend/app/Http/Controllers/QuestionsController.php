@@ -15,13 +15,27 @@ class QuestionsController extends Controller
     public function index()
     {
         $questions_before = Question::select('questions.*')
-        ->whereNull('deleted_at')
-        ->orderBy('updated_at', 'DESC')
-        ->get();
+            ->whereNull('deleted_at')
+            ->orderBy('updated_at', 'DESC')
+            ->get();
 
         $questions = ListService::shape_questions($questions_before);
+        $search_route ='Que.search';
+        return view('questions.index', compact('questions','search_route'));
+    }
 
-        return view('questions.index', compact('questions'));
+    public function search_title(Request $request)
+    {   //urlパラメーターとしてのkeywordが取れる
+        $keyword = $request->input('keyword');
+        
+        //取ってきたデータを一時保存
+        $questions_before = Question::where('title', 'LIKE', '%'.$keyword.'%')
+            ->orderBy('updated_at', 'DESC')
+            ->get();
+        
+        $questions = ListService::shape_questions($questions_before);
+        $search_route ='Que.search';//Que.searchが動く
+        return view('questions.index', compact('questions','search_route'));
     }
 
 
