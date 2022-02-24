@@ -23,9 +23,11 @@ class ShowAction{
         $answers  = $this->ans_repo->getByQuestion($id);
         $que_list = ListService::shape_show($question);
         $ans_list = ListService::shape_answers($answers);
+
+        
         $favorites = [
             'parent' => [
-                'model' => $question,
+                'model' => $question['model'],
                 'route' => 'que',
             ],
             'child' => [

@@ -22,6 +22,8 @@ class CreateArticleTagsTable extends Migration
 
             $table->foreign('article_id')->references('id')->on('articles'); 
             $table->foreign('tag_id')->references('id')->on('tags');
+            $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP')); 
+            $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP')); 
 
         });
     }

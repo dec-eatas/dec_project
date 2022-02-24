@@ -19,10 +19,9 @@ class ShowAction{
         $id = $request->route('id');
         $article = $this->art_repo->find($id);
         $art_list = ListService::shape_show($article);
-        
         $favorites = [
             'parent' => [
-                'model' => $article,
+                'model' => $article['model'],
                 'route' => 'art',
             ],
         ];

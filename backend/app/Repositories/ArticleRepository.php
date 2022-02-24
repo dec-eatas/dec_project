@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Article;
 use App\Models\ArticleTag;
 use App\Models\Tag;
+use Exception;
 use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Support\Collection;
@@ -23,18 +24,19 @@ class ArticleRepository implements RepositoryInterface {
     public function find(int $article_id):array
     {
 
-        $article = Article::join('users','article.user_id','=','users.id')
-            ->select('article.*','users.name as user_name')
-            ->where('article.id','=',$article_id)
+        $article = Article::join('users','articles.user_id','=','users.id')
+            ->join('categories','articles.category_id','categories.id')
+            ->select('articles.*','users.name as user_name','categories.name as category_name')
+            ->where('articles.id','=',$article_id)
             ->first();
 
         $tags = ArticleTag::join('tags','article_tags.tag_id','=','tags.id')
-            ->select('article_tags.*','tags.name as tag_name')
+            ->select('article_tags.tag_id','tags.name as tag_name')
             ->where('article_tags.article_id','=',$article_id)
             ->get();
 
         return [
-            'article' => $article,
+            'model' => $article,
             'tags' => $tags
         ];
     }
@@ -61,12 +63,14 @@ class ArticleRepository implements RepositoryInterface {
             $article = Article::create([
                 'title' => $data['title'],
                 'content' => $data['content'],
-                'user_id' => Auth::id()
+                'user_id' => Auth::id(),
+                'category_id' => $data['category_id'],
             ]);
 
             $tags = [];
 
             foreach($data['tags'] as $tag){
+                
                 if(mb_strlen($tag) > 0){
                     try{
                         $tags[count($tags)] = Tag::create([
@@ -74,9 +78,10 @@ class ArticleRepository implements RepositoryInterface {
                         ]); 
                     }catch(QueryException $e){
                         $error_code = $e->errorInfo[1];
-                        
                         if($error_code == 1062){
                             $tags[count($tags)] = Tag::where('name','=',$tag)->first();
+                        }else{
+                            throw new Exception ;
                         }
                     }
                 }

@@ -18,7 +18,7 @@ class AnswerRepository implements RepositoryInterface , PostRepositoryInterface{
         return Answer::all();
     }
 
-    public function find(int $answer_id):Answer
+    public function find(int $answer_id):array
     {
         return Answer::find($answer_id);
     }

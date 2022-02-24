@@ -23,53 +23,12 @@ class ArticlesController extends Controller
 
     public function index(IndexAction $obj)
     {
-<<<<<<< HEAD
-=======
-        $articles = Article::select('articles.*')
-        ->whereNull('deleted_at')
-        ->orderBy('updated_at', 'DESC')
-        ->get();
-        // dd($articles);入力
-        //ここでデータを取得
-        // $articles = ListService::shape_questions($articles);
-        $search_route ='Art.search';
-        // return view article のindex
-        return view('article.index', compact('articles','search_route'));
-        // dd($articles);
-
-
-
->>>>>>> 18388b5cdb7681cf78f35e7eb4c9022f02c21469
-        // ⬇︎tagの表示処理追加🟡コンポーネントに合わせてできたら修正する。
-        // $tags = Tag::whereNull('deleted_at')->orderBy('id','DESC')
-        //     ->get();
-        // dd($tags);
-
         return view('article.index',$obj());
-
     }
 
-<<<<<<< HEAD
     public function search_title(Request $request,SearchTitleAction $obj)
     {   
         return view('article.index',$obj($request));
-=======
-
-
-
-    public function search_title(Request $request)
-    {   //urlパラメーターとしてのkeywordが取れる
-        $keyword = $request->input('keyword');
-        
-        //取ってきたデータを一時保存
-        $articles = Article::where('title', 'LIKE', '%'.$keyword.'%')
-            ->orderBy('updated_at', 'DESC')
-            ->get();
-        
-        // $articles = ListService::shape_questions($questions_before);
-        $search_route ='Art.search';
-        return view('article.index', compact('articles','search_route'));
->>>>>>> 18388b5cdb7681cf78f35e7eb4c9022f02c21469
     }
     
 
@@ -83,18 +42,9 @@ class ArticlesController extends Controller
         return redirect( route('Art.show',$obj($request)));
     }
 
-    public function show($id)
+    public function show(Request $request,ShowAction $obj)
     {
-        
-        $article = Article::find($id);
-        //dd($article);
-        // ⬇︎tagの表示処理追加🟡コンポーネントに合わせてできたら修正する。
-        $tags = Tag::whereNull('deleted_at')->orderBy('id','DESC')
-            ->get();
-        // dd($tags);
-
-
-        return view('article.show', compact('article'));
+        return view('article.show',$obj($request));
     }
 
     // public function edit(Request $request,EditAction $obj)

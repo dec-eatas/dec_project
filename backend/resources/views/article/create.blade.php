@@ -20,6 +20,6 @@
 </style>
 @section('main')
 
-@include('components.main.create',['forms' => $forms,'route' => $route])
+@include('components.main.create',['forms' => $forms,'route' => $route ,'create_title' => $create_title])
 
 @endsection

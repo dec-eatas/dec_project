@@ -18,12 +18,10 @@
     .form_main_btns button{
         width:30%;font-size:0.8em;padding:0.5em 0;border:lightgray solid;border-width:0.5px;}
 
-
 </style>
 
-
 <div class="component">
-    <div class="component_title" id="form_title">記事を作成</div>
+    <div class="component_title" id="form_title">{{ $create_title }}を作成</div>
     <form action="{{ route($route) }}" method="post">
         @csrf
         <div class="form_contents">
@@ -34,7 +32,7 @@
                         <textarea class="form_textarea" name="{{ $form['p_name'] }}" placeholder="回答を入力"></textarea>
                     @elseif($form['type'] == 'select')
                         <select name="{{ $form['p_name'] }}">
-                            @foreach ($form['options'] ?? ['a'] as $option)
+                            @foreach ($form['options'] as $option)
                                 <option value="{{ $option['value'] }}">{{ $option['l_name'] }}</option>
                             @endforeach
                         </select>
@@ -44,11 +42,8 @@
                 </div>
             @endforeach
         </div>
-            <div class="form_main_btns">
-                <button type="submit">次へ進む</button>
-            </div>
-    
-
+        <div class="form_main_btns">
+            <button type="submit">次へ進む</button>
+        </div>
     </form>
-
 </div>

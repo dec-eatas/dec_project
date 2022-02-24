@@ -62,14 +62,18 @@ class ListService
 
     public static function shape_show($record){
 
-        $time_ex = TimeService::get_elapse($record['updated_at']->format('Y-m-d h:m:s'));
+        $model = $record['model'];
+        $tags = $record['tags'];
+
+        $time_ex = TimeService::get_elapse($model['updated_at']->format('Y-m-d h:m:s'));
 
         $status = [
-            'type' => str_replace('App\Models\\','',get_class($record)),
-            'diff' => $time_ex['diff'].$time_ex['exp']
+            'type' => str_replace('App\Models\\','',get_class($model)),
+            'diff' => $time_ex['diff'].$time_ex['exp'],
+            'tags' => $tags->toArray()
         ];
 
-        return array_merge($record->toArray(),$status);
+        return array_merge($model->toArray(),$status);
 
     }
 
@@ -222,38 +226,22 @@ class ListService
 
     }
 
-    public static function shape_articles($records){
+    public static function category_opt($categorys){
 
         $contents = [];
 
-        foreach($records as $record){
+        foreach($categorys as $category){
 
-            $time_ex = TimeService::get_elapse($record['updated_at']->format('Y-m-d h:m:s'));
-
-            $content = [
-                'id' => $record['id'],
-                'user' => $record['user_id'],
-                'type' => 'Question',
-                'title' => $record['title'],
-                // 'category' => 'カテゴリ名',
-                // 'tags' => ['タグ1','タグ2','タグ3','タグ4','タグ5'],
-                // 'reaction' => $record[''],
-                // 'comment' => '回答やコメントの数',
-                'updated_at' => $record['updated_at'],
-                'diff' => $time_ex['diff'].$time_ex['exp'], 
-                'route' => 'Que.show',
-                'route_param' => ['id' => $record['id']]
+            $contents[count($contents)] = [
+                'value' => $category->id,
+                'l_name' => $category->name,
             ];
-
-            $contents[count($contents)] = $content;
 
         }
 
         return $contents;
 
     }
-
-
 }
 
 ?>

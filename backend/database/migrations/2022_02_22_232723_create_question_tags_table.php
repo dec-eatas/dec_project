@@ -21,6 +21,8 @@ class CreateQuestionTagsTable extends Migration
 
             $table->foreign('question_id')->references('id')->on('questions'); 
             $table->foreign('tag_id')->references('id')->on('tags');
+            $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP')); 
+            $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP')); 
         });
     }
 

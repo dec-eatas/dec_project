@@ -63,8 +63,8 @@ Route::prefix('/eataslab')->group( function () {
         Route::post('/show', [Art::class, 'edit'])->name('Art.edit');
         Route::post('/update', [Art::class, 'update'])->name('Art.update');
         Route::post('/destroy', [Art::class, 'destroy'])->name('Art.destroy');
-        Route::post('/favorites/{article}', [Fav::class, 'art_store'])->name('favorites');
-        Route::post('/un.favorites/{article}', [Fav::class, 'art_destroy'])->name('un.favorites');
+        Route::post('/favorites/{article}', [Fav::class, 'art_store'])->name('art.favorites');
+        Route::post('/un.favorites/{article}', [Fav::class, 'art_destroy'])->name('art.un.favorites');
 
 });
 

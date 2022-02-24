@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 
 use App\UseCases\Question\IndexAction;
 use App\UseCases\Question\SearchTitleAction;
+use App\UseCases\Question\CreateAction;
 use App\UseCases\Question\ShowAction;
 use App\UseCases\Question\StoreAction;
 use App\UseCases\Question\EditAction;
@@ -25,10 +26,12 @@ class QuestionsController extends Controller
         return view('questions.index',$obj($request));
     }
 
-    public function create()
+
+    public function create(CreateAction $obj)
     {
-        return view('questions.create');
+        return view('questions.create',$obj());
     }
+
     
     public function store(Request $request,StoreAction $obj)
     {       

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\UseCases\Article;
+namespace App\UseCases\Question;
 use App\Repositories\CategoryRepository;
 use App\Services\ListService;
 
@@ -49,8 +49,8 @@ class CreateAction
 
         return [
             'forms' => $forms,
-            'route' => 'Art.store',
-            'create_title' => '記事'
+            'route' => 'Que.store',
+            'create_title' => '質問'
         ];
 
     }

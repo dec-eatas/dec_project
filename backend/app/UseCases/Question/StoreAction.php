@@ -16,7 +16,8 @@ class StoreAction
 
     public function __invoke($request)
     {
-        $param = $request->only(['title','content']);
+
+        $param = $request->only(['title','content','tags','category_id']);
         $param = array_merge(['user_id'=>Auth::id()],$param);
         $question = $this->que_repo->store($param);
 
