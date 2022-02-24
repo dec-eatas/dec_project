@@ -23,7 +23,7 @@ class ArticlesController extends Controller
         //ここでデータを取得
         // $articles = ListService::shape_questions($articles);
         $search_route ='Art.search';
-        // return view　article　のindex
+        // return view article のindex
         return view('article.index', compact('articles','search_route'));
         // dd($articles);
 
@@ -38,6 +38,10 @@ class ArticlesController extends Controller
         return view('article.index', compact('articles', 'tags'));
 
     }
+
+
+
+
     public function search_title(Request $request)
     {   //urlパラメーターとしてのkeywordが取れる
         $keyword = $request->input('keyword');
@@ -140,7 +144,7 @@ class ArticlesController extends Controller
         // ⬇︎tagの表示処理追加🟡コンポーネントに合わせてできたら修正する。
         $tags = Tag::whereNull('deleted_at')->orderBy('id','DESC')
             ->get();
-        dd($tags);
+        // dd($tags);
 
 
         return view('article.show', compact('article'));
