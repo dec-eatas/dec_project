@@ -30,6 +30,7 @@ class ShowAction{
         return [
             'art_list' => $art_list,
             'favorites' => $favorites,
+            'trend' => $request->session()->get('trend'),
         ];
     }
 }

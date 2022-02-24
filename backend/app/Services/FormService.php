@@ -42,6 +42,27 @@ class FormService
 
     }
 
+    public static function sharp_search($search_material){
+
+        $search_material['keyword'] = mb_convert_kana($search_material['keyword'],'s', 'UTF-8');
+        $search_material['keyword'] = preg_split('/[\s,]+/',$search_material['keyword']);
+
+        $tags = $search_material['keyword'];
+
+        for($i=0; $i<count($tags); $i++){
+            $tags[$i] = addcslashes($tags[$i],'%_\\').'%';
+        }
+
+        $category_id = ($search_material['category_id'] == 0) ? [1,2,3,4,5,6,7,8,9] : [$search_material['category_id']];
+
+        return [
+            'tags' => $tags,
+            'keyword' => $search_material['keyword'],
+            'category_id' => $category_id
+        ];
+
+    }
+
 }
     
 ?>

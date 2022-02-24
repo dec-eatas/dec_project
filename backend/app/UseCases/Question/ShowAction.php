@@ -42,6 +42,7 @@ class ShowAction{
             'favorites' => $favorites,
             'i' => 0,
             'ans_confirm' => $request->route('tentative'),
+            'trend' => $request->session()->get('trend'),
         ];
     }
 }

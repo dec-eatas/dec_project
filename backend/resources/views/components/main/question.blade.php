@@ -14,7 +14,7 @@
     #question_reaction_true{
         width:15%;color:orangered;white-space: nowrap;}
     #question_reaction_false{
-        width:15%;color:#2D2D2D;text-align:right;white-space: nowrap;}
+        width:15%;color:#AAA;text-align:right;white-space: nowrap;}
     .question_comment{
         width:10%;color:green;text-align:right;}
 
@@ -49,7 +49,6 @@
           </button>
         </form>
         @endif
-        <div class="question_comment">💬 ∞</div>
     </div>
     
 </div>

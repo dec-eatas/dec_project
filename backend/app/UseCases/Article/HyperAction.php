@@ -3,8 +3,9 @@
 namespace App\UseCases\Article;
 use App\Repositories\ArticleRepository;
 use App\Services\ListService;
+use App\Services\FormService;
 
-class SearchTitleAction
+class HyperAction
 {
 
     public $art_repo;
@@ -16,20 +17,17 @@ class SearchTitleAction
 
     public function __invoke($request)
     {
+    
+        $param = $request->only(['category_id','keyword','mode']);
+        $search_material = FormService::sharp_search($param);
+        $article = $this->art_repo->hyperSearch($search_material);
 
-        $keyword = $request->input('keyword');
-        
-        //取ってきたデータを一時保存
-        $article = $this->art_repo->searchByTitle($keyword);
-        $search_route ='Art.search';//Que.searchが動く
-        
         $art_list = ListService::shape_index($article,'Art.show',['id'=>'id'],'Art.tag_search');
-
+    
         return [
             'art_list' => $art_list,
-            'search_route' => $search_route
+            'keyword' => $param['keyword'],
+            'trend' => $request->session()->get('trend'),
         ];
-
     }
-
 }

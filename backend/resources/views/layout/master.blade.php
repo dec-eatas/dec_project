@@ -9,7 +9,7 @@
     <style>
 
         body{
-            height:100%;min-height:100vh;width:100%;background:whitesmoke;}
+            height:100%;min-height:100vh;width:100%;background:#222}
         button{
             background-color:transparent;border:none;
             cursor:pointer;outline:none;padding:0;appearance:none;}
@@ -20,12 +20,12 @@
         a:hover{border-bottom:lightgrey solid;border-width:0.5px;}
         input{border:solid gray;border-width: 0.5px;}
         *{box-sizing:border-box;margin:0;padding:0;color:#3D3D3D;}
-        nav{height:10vh;width:100%;background-color:#222;
+        nav{height:10vh;width:100%;background-color:rgb(80, 0, 0);
             display:flex;list-style:none;overflow:hidden;}
         #menu{display:flex;width:100%;height:100%;list-style-type:none;
             text-align:center;align-items: center;}
         #menu li{text-decoration:none;width:25%;}
-        #menu li a{text-decoration:none;font-weight:bold;color:white;}
+        #menu li a{text-decoration:none;font-weight:bold;color:rgb(255, 255, 255);}
         #menu li a:hover{border-width:medium;}
         aside{width:25%;height:90vh;float:left;padding:1ex;overflow:auto;-ms-overflow-style:none;
         scrollbar-width:none;}
@@ -39,7 +39,7 @@
             <li><a href="{{ route('eataslab') }}">e+lab</a></li>
             <li><a href="{{ route('Que.home') }}">Q & A</a></li>
             <li><a href="{{ route('Art.home') }}">Article</a></li>
-            <li><a href="/account">Account</a></li>
+            <li><a href="{{ route('Acc.home') }}">Account</a></li>
         </ul>
     </nav>
     <aside>

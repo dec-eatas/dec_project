@@ -29,7 +29,10 @@
 </style>
 
 @section('side')
-    
+@include('components.side.hyper_search',['route'=>'Art.hyper'])
+@include('components.side.create',['route'=>'Art.create'])
+@include('components.side.trend',['trend' => $trend['art_tags']])
+
 @endsection
 @section('main')
 @include('components.main.parent',['content'=>$art_list,'parent'=>$favorites['parent']])

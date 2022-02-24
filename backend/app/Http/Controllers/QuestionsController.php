@@ -5,6 +5,8 @@ use Illuminate\Http\Request;
 
 use App\UseCases\Question\IndexAction;
 use App\UseCases\Question\SearchTitleAction;
+use App\UseCases\Question\TagSearchAction;
+use App\UseCases\Question\HyperAction;
 use App\UseCases\Question\CreateAction;
 use App\UseCases\Question\ShowAction;
 use App\UseCases\Question\StoreAction;
@@ -16,9 +18,9 @@ use App\UseCases\Question\DestroyAction;
 class QuestionsController extends Controller
 {
 
-    public function index(IndexAction $obj)
+    public function index(Request $request,IndexAction $obj)
     {
-        return view('questions.index',$obj());
+        return view('questions.index',$obj($request));
     }
 
     public function search_title(Request $request,SearchTitleAction $obj)
@@ -26,10 +28,14 @@ class QuestionsController extends Controller
         return view('questions.index',$obj($request));
     }
 
-
-    public function create(CreateAction $obj)
+    public function hyper(Request $request,HyperAction $obj)
     {
-        return view('questions.create',$obj());
+        return redirect('article.index',$obj($request));
+    }
+
+    public function create(Request $request,CreateAction $obj)
+    {
+        return view('questions.create',$obj($request));
     }
 
     

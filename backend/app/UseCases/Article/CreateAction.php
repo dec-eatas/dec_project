@@ -14,7 +14,7 @@ class CreateAction
         $this->cate_repo = new CategoryRepository;
     } 
 
-    public function __invoke()
+    public function __invoke($request)
     {
         
         $category = ListService::category_opt($this->cate_repo->all());
@@ -50,7 +50,8 @@ class CreateAction
         return [
             'forms' => $forms,
             'route' => 'Art.store',
-            'create_title' => '記事'
+            'create_title' => '記事',
+            'trend' => $request->session()->get('trend'),
         ];
 
     }

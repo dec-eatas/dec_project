@@ -53,7 +53,6 @@
                     </button>
                 </form>
             @endif
-            <div class="answer_comment">💬 ∞</div>
         </div>
     </div>
     @endforeach

@@ -30,9 +30,9 @@
 @section('title','トップページ')
 
 @section('side')
-@include('components.side.search',['route'=>$search_route])
-@include('components.side.create',['route'=>$create_route ])
-
+@include('components.side.hyper_search',['route'=>'Que.hyper'])
+@include('components.side.create',['route'=>'Que.create'])
+@include('components.side.trend',['trend' => $trend['que_tags']])
 @endsection
 
 

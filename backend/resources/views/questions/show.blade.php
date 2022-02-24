@@ -23,31 +23,17 @@
 </style>
 
 @section('side')
-
-<div class="component">
-    <div class="component_title">
-        質問を検索する
-    </div>
-    <div class="input_box">
-        <label class="subject">キーワード</label>
-        <input type="text" name="keyword" class="input">
-    </div>
-
-    <div class="side_btns">
-        <button onclick="location.href='index'">検索</button>
-    </div>
-</div>
-
+@include('components.side.hyper_search',['route'=>'Que.hyper'])
+@include('components.side.create',['route'=>'Que.create'])
+@include('components.side.trend',['trend' => $trend['que_tags']])
 @endsection
 
 
 
 @section('main')
-@include('components.main.parent',['content'=>$que_list,'parent'=>$favorites['parent']])
-{{-- @include('components.main.question',['content'=>$que_list,'question',$question]) --}}
-@include('components.main.ans_input',['content'=>$que_list,'answer'=>$ans_confirm])
-{{-- @include('components.main.ans_list',['contents'=>$ans_list]) --}}
 
+@include('components.main.parent',['content'=>$que_list,'parent'=>$favorites['parent']])
+@include('components.main.ans_input',['content'=>$que_list,'answer'=>$ans_confirm])
 @include('components.main.child',['contents'=>$ans_list,'child'=>$favorites['child'],$i])
 
 @endsection

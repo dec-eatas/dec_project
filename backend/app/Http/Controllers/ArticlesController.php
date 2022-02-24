@@ -2,17 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\ListService;
-use App\Models\Article;
-use App\Models\Tag;
-use App\Models\ArticleTag;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
-
 use App\UseCases\Article\IndexAction;
 use App\UseCases\Article\CreateAction;
 use App\UseCases\Article\SearchTitleAction;
+use App\UseCases\Article\TagSearchAction;
+use App\UseCases\Article\HyperAction;
 use App\UseCases\Article\StoreAction;
 use App\UseCases\Article\ShowAction;
 use App\UseCases\Article\UpdateAction;
@@ -21,20 +16,24 @@ use App\UseCases\Article\DeletedAction;
 class ArticlesController extends Controller
 {
 
-    public function index(IndexAction $obj)
+    public function index(Request $request,IndexAction $obj)
     {
-        return view('article.index',$obj());
+        return view('article.index',$obj($request));
     }
 
     public function search_title(Request $request,SearchTitleAction $obj)
     {   
         return view('article.index',$obj($request));
     }
-    
 
-    public function create(CreateAction $obj)
+    public function hyper(Request $request,HyperAction $obj)
     {
-        return view('article.create',$obj());
+        return view('article.index',$obj($request));
+    }
+
+    public function create(Request $request,CreateAction $obj)
+    {
+        return view('article.create',$obj($request));
     }
 
     public function store(Request $request,StoreAction $obj)  // 記事をDBに追加(DB)

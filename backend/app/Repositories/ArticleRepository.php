@@ -16,9 +16,28 @@ use Ramsey\Uuid\Type\Integer;
 
 class ArticleRepository implements RepositoryInterface {
 
-    public function all():Collection
+    public function all()
     {
-        return Article::all();
+        $articles = Article::join('users','articles.user_id','=','users.id')
+        ->join('categories','articles.category_id','categories.id')
+        ->select('articles.*','users.name as user_name','categories.name as category_name')
+        ->get();
+
+        $tags = [];
+
+        foreach($articles as $article){
+            $tag = ArticleTag::join('tags','article_tags.tag_id','=','tags.id')
+                ->select('article_tags.tag_id','tags.name as tag_name')
+                ->where('article_tags.article_id','=',$article->id)
+                ->get();
+
+            $tags[count($tags)] = $tag->toArray();
+        }
+
+        return [
+            'model' => $articles,
+            'tags' => $tags
+        ];
     }
 
     public function find(int $article_id):array
@@ -41,17 +60,114 @@ class ArticleRepository implements RepositoryInterface {
         ];
     }
 
-    public function getByUser(int $user_id):Collection
+    public function getByUser(int $user_id):array
     {
-        return Article::where('user_id','=',$user_id)
-            ->get();
+        $articles = Article::join('users','articles.user_id','=','users.id')
+        ->join('categories','articles.category_id','categories.id')
+        ->select('articles.*','users.name as user_name','categories.name as category_name')
+        ->where('articles.user_id','=',$user_id)
+        ->get();
+
+        $tags = [];
+
+        foreach($articles as $article){
+            $tag = ArticleTag::join('tags','article_tags.tag_id','=','tags.id')
+                ->select('article_tags.tag_id','tags.name as tag_name')
+                ->where('article_tags.article_id','=',$article->id)
+                ->get();
+
+            $tags[count($tags)] = $tag->toArray();
+        }
+
+        return [
+            'model' => $articles,
+            'tags' => $tags
+        ];
     }
 
-    public function searchByTitle(String $keyword):Collection
+    public function searchByTitle(String $keyword):array
     {
-       return Article::where('title', 'LIKE', '%'.$keyword.'%')
+        $articles = Article::join('users','articles.user_id','=','users.id')
+            ->join('categories','articles.category_id','categories.id')
+            ->select('articles.*','users.name as user_name','categories.name as category_name')
+            ->where('title', 'LIKE', '%'.$keyword.'%')
             ->orderBy('updated_at', 'DESC')
             ->get();
+
+        $tags = [];
+
+        foreach($articles as $question){
+            $tag = ArticleTag::join('tags','article_tags.tag_id','=','tags.id')
+                ->select('article_tags.tag_id','tags.name as tag_name')
+                ->where('article_tags.article_id','=',$question->id)
+                ->get();
+            $tags[count($tags)] = [
+                'article_id' => $question->id,
+                'tags' => $tag->toArray()
+            ];
+        }
+
+        return [
+            'model' => $articles,
+            'tags' => $tags
+        ];
+    }
+
+    // public function searchByTag(String $keyword):array
+    // {
+    //     $tags = Tag::select('id')
+    //     ->where('name','LIKE',$keyword)
+    //     ->get();
+    // }
+
+    public function hyperSearch(array $search_material):array
+    {
+
+        $article_tags = [];
+
+        foreach($search_material['tags'] as $tag){
+            $tags = Tag::select('id')
+                ->where('name','LIKE',$tag)
+                ->get();
+            
+            foreach($tags as $tag){
+                $article_tags[count($article_tags)] = $tag->id;
+            }
+        }
+
+        $article_tag = ArticleTag::select('article_id')
+            ->whereIn('tag_id',$article_tags)
+            ->groupBy('article_id')
+            ->get()->toArray();
+
+        $article_ids = [];
+
+        foreach($article_tag as $tag_id){
+            $article_ids[count($article_ids)] = $tag_id['article_id'];
+        }
+
+        $articles = Article::join('users','articles.user_id','=','users.id')
+            ->join('categories','articles.category_id','categories.id')
+            ->select('articles.*','users.name as user_name','categories.name as category_name')
+            ->whereIn('articles.id',$article_ids)
+            ->whereIn('articles.category_id',$search_material['category_id'])
+            ->orderBy('articles.updated_at', 'DESC')
+            ->get();
+
+        $tags = [];
+
+        foreach($articles as $article){
+            $tag = ArticleTag::join('tags','article_tags.tag_id','=','tags.id')
+                ->select('article_tags.tag_id','tags.name as tag_name')
+                ->where('article_tags.article_id','=',$article->id)
+                ->get();
+            $tags[count($tags)] = $tag->toArray();
+        }
+
+        return [
+            'model' => $articles,
+            'tags' => $tags
+        ];
     }
 
 

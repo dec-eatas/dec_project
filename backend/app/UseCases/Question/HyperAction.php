@@ -3,11 +3,12 @@
 namespace App\UseCases\Question;
 use App\Repositories\QuestionRepository;
 use App\Services\ListService;
+use App\Services\FormService;
 
-class SearchTitleAction
+class HyperAction
 {
 
-    public $que_repo;
+    public $art_repo;
 
     function __construct()
     {
@@ -16,15 +17,14 @@ class SearchTitleAction
 
     public function __invoke($request)
     {
-        $keyword = $request->input('keyword');
-        //取ってきたデータを一時保存
-        $question = $this->que_repo->searchByTitle($keyword);
+        $param = $request->onry(['category_id','keyword']);
+        $search_material = FormService::sharp_search($param);
+        $question = $this->que_repo->hyperSearch($search_material);
         $que_list = ListService::shape_index($question,'Que.show',['id'=>'id'],'Que.tag_search');
 
         return [
             'que_list' => $que_list,
-            'search_route' => 'Que.search',
-            'create_route' => 'Que.create',
+            'keyword' => $param['keyword'],
             'trend' => $request->session()->get('trend'),
         ];
     }

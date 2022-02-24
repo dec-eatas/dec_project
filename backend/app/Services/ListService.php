@@ -7,10 +7,13 @@ use App\Services\TimeService;
 class ListService
 {    
 
-    public static function shape_index($records,$route,$route_param){
+    public static function shape_index($records,$route,$route_param,$tag_route){
 
-        $records->map(function($v)use($route,$route_param){
-
+        $model = $records['model'];
+        $tags = $records['tags'];
+    
+        $model->map(function($v)use($route,$route_param,$tag_route){
+         
             if( !isset($v['title']) ){
                 $v['title'] = $v['content'];
                 unset($v['content']);
@@ -21,11 +24,20 @@ class ListService
             $v['route'] = $route;
             $v['diff'] = $time_ex['diff'].$time_ex['exp'];
             $v['route_param'] = $route_param;
-        
+            $v['tags'] = '';
+            $v['tag_route'] = $tag_route;
+            $v['reaction'] = $v->users()->count();
+    
             return $v->toArray();
         });
 
-        return $records->toArray();
+        $model = $model->toArray();
+        
+        for($i=0; $i<count($model); $i++){
+            $model[$i]['tags'] = $tags[$i];
+        }
+
+        return $model;
     }
 
     /* questions */
@@ -180,6 +192,43 @@ class ListService
 
         return $contents;
 
+    }
+
+    public static function shape_primitive($records,$route,$route_param,$tag_route){
+        $model = $records['model'];
+        $tags = $records['tags'];
+    
+        $model->map(function($v)use($route,$route_param,$tag_route){
+         
+            if( !isset($v['title']) ){
+                $v['title'] = $v['content'];
+                unset($v['content']);
+            }
+
+            $time_ex = TimeService::get_elapse($v['updated_at']->format('Y-m-d h:m:s'));
+            $v['type'] = str_replace('App\Models\\','',get_class($v));
+            $v['route'] = $route;
+            $v['diff'] = $time_ex['diff'].$time_ex['exp'];
+            $v['route_param'] = $route_param;
+            $v['tags'] = '';
+            $v['tag_route'] = $tag_route;
+            $v['reaqtion'] = $v->users()->count();
+    
+            return $v;
+        });
+        
+        for($i=0; $i<count($model); $i++){
+            $model[$i]['tags'] = $tags[$i];
+        }
+
+        return $model;
+    }
+
+    public static function fusion_list($fusions){
+
+        $fusion = $fusions['que']->union($fusions['art'])->sortByDesc('updated_at');
+
+        return $fusion;
     }
 
     public static function shape_article($record){

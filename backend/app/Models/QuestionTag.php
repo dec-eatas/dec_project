@@ -9,4 +9,11 @@ class QuestionTag extends Model
 {
     use HasFactory;
     protected $guarded  = ['created_at','updated_at'];
+
+  
+    public function questions()
+    {
+        return $this->belongsToMany(Tag::class);
+    }
+
 }

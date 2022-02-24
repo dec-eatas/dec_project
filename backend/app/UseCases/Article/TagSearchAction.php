@@ -4,7 +4,7 @@ namespace App\UseCases\Article;
 use App\Repositories\ArticleRepository;
 use App\Services\ListService;
 
-class SearchTitleAction
+class TagSearchAction
 {
 
     public $art_repo;
@@ -17,10 +17,10 @@ class SearchTitleAction
     public function __invoke($request)
     {
 
-        $keyword = $request->input('keyword');
+        $keyword = $request->input('id');
         
         //取ってきたデータを一時保存
-        $article = $this->art_repo->searchByTitle($keyword);
+        $article = $this->art_repo->searchByTag($keyword);
         $search_route ='Art.search';//Que.searchが動く
         
         $art_list = ListService::shape_index($article,'Art.show',['id'=>'id'],'Art.tag_search');

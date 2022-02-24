@@ -34,7 +34,7 @@
             @endforeach
         </div>
         <div class="parent_title">{{ $content['title'] }}</div>
-        <div class="parent_content">{{ $content['content'] }}</div>
+        <div class="parent_content">{!! nl2br($content['content']) !!}</div>
     </div>
     <div class="parent_status">
         @if($parent['model']->users()->where('user_id', Auth::id())->exists())
@@ -54,8 +54,7 @@
                 </button>
             </form>
         @endif
-        <div class="parent_comment">💬 ∞</div>
-         <div class="parent_datetime">{{ $content['diff'] }}</div>
+        <div class="parent_datetime">{{ $content['diff'] }}</div>
     </div>
     
 </div>

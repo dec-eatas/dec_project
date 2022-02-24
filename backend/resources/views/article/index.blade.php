@@ -31,8 +31,9 @@
 @section('title','トップページ')
 
 @section('side')
-@include('components.side.search',['route'=>$search_route])
-@include('components.side.create',['route'=>$create_route])
+@include('components.side.hyper_search',['route'=>'Art.hyper'])
+@include('components.side.create',['route'=>'Art.create'])
+@include('components.side.trend',['trend' => $trend['art_tags']])
 @endsection
 
 @section('main')
