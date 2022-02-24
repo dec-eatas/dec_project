@@ -12,22 +12,18 @@ class FavoriteController extends Controller
 {
     public function art_store(Article $article)
     {
-     
         $article->users()->attach(Auth::id());//インスタンスが持ってるプロパティ arrow関数 ['id' =>$article->id])連想配列
         return redirect()->route('Art.show',['id' =>$article->id]);
     }
 
     function art_destroy(Article $article)
-    {
-       
+    {  
         $article->users()->detach(Auth::id());
         return redirect()->route('Art.show',['id' =>$article->id]);
     }
 
     public function que_store(Question $question)
     {
-        
-        
         $question->users()->attach(Auth::id());
         return redirect()->route('Que.show',['id' =>$question->id]);
     }
@@ -45,13 +41,11 @@ class FavoriteController extends Controller
         return redirect()->route('Que.show',['id' =>$answer->question_id]);
     }
 
-   
     function ans_destroy(Answer $answer)
     {
         $answer->users()->detach(Auth::id());
         return redirect()->route('Que.show',['id' =>$answer->question_id]);
         
-    
     }
     
 }

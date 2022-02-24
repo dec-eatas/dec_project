@@ -21,6 +21,7 @@ class CreateAnswerTagsTable extends Migration
 
             $table->foreign('answer_id')->references('id')->on('answers'); 
             $table->foreign('tag_id')->references('id')->on('tags');
+            
         });
     }
 

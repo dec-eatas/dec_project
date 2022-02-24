@@ -26,21 +26,12 @@
     <div class="component_title">
         {{ $user->name ?? 'Laravelさん' }}
     </div>
-    <div id="eval_box">
-        <div class="eval">質問数 {{ 1 }}</div>
-        <div class="eval">回答数 {{ 1 }}</div>
-        <div class="eval">記事数 {{ 1 }}</div>
-        <div class="eval">閲覧数 {{ 1 }}</div>
-        <div class="eval">反応数 {{ 1 }}</div>
-        <div class="eval">参考数 {{ 1 }}</div>
-    </div>
-    <div class="side_btns">
-        @if( 0 == 0 )
-            <button onclick="location.href='account/detail'">詳細を見る</button>
-        @elseif($follow_switch ?? '0' == 1)
-            <button>フォローする</button>
-        @else
-            <button>フォローを外す</button>
-        @endif
-    </div>
+    {{-- <div id="eval_box">
+        <div class="eval">質問数 {{ 7 }}</div>
+        <div class="eval">回答数 {{ 5 }}</div>
+        <div class="eval">記事数 {{ 4 }}</div>
+        <div class="eval">閲覧数 {{ 5 }}</div>
+        <div class="eval">反応数 {{ 12 }}</div>
+        <div class="eval">検索数 {{ 34 }}</div>
+    </div> --}}
 </div>

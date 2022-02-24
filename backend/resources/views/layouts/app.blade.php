@@ -32,15 +32,6 @@
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
-                    <ul id="menu" class="navbar-nav me-auto">
-                        <!-- （ updated 動作確認してからpushしてもらえるとありがたい）route関数使った形に変えてたみたいだけど、web.phpの方でrouteの名前の追加がされてなかったから今後注意で！ -->
-                        <li><a href="{{ route('eataslab') }}">e+lab</a></li>
-                        <li><a href="/question">Q & A</a></li>
-                        <li><a href="/article">Article</a></li>
-                        <li><a href="/account">Account</a></li>
-                        <!-- //knowledge sharing// groupにはroute名つけれないみたい！遷移先prefixに行けるように「/」の形にするのが適切なのかな。 -->
-                    </ul>
-
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ms-auto">
                         <!-- Authentication Links -->

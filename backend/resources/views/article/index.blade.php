@@ -31,56 +31,11 @@
 @section('title','トップページ')
 
 @section('side')
-@include('components.side.search',['route'=>$search_route])
-
-<form action="{{ route('Art.create') }}" method="get" >
-    @csrf
-<button type="submit" class="btn btn-primary">
-    記事を作成する
-</button>
-</form>
-    <div class="component">
-        <div class="component_title">
-            記事を検索する
-        </div>
-        <div class="input_box">
-            <label class="subject">キーワード</label>
-            <input type="text" name="keyword" class="input">
-        </div>
-
-        <div class="side_btns">
-            <button onclick="location.href='index'">検索</button>
-        </div>
-    </div>
+@include('components.side.hyper_search',['route'=>'Art.hyper'])
+@include('components.side.create',['route'=>'Art.create'])
+@include('components.side.trend',['trend' => $trend['art_tags']])
 @endsection
 
 @section('main')
-
-    @foreach($articles as $article)
-
-    <div class="component">
-        <div class="list_status">
-            <div class="list_category">{{ $category ?? 'カテゴリー' }}</div>
-            <div class="list_tags">
-                @foreach($tags ?? ['タグ1あああああいいいい','2','3','4','5'] as $tag)
-                <div class="list_tag">
-                    <a>{{ $tag }}</a>
-                </div>
-                @endforeach
-            </div>
-            <div class="list_reaction">♡ {{ $reaction ?? '∞' }}</div>
-            <div class="list_comment">💬 {{ $comment ?? '∞' }}</div>
-            <div class="list_datetime">{{ $datetime ?? '2022/02/15' }}</div>
-        </div>
-        <p>-----------------------------------------</p>
-        <div class="list_content">
-            <div class="list_type type_{{ $type ?? 'Question' }}">{{ $type ?? 'Question' }}</div>
-            <!-- ↓route関数　 -->
-            <a href="{{ route('Art.show',['id'=>$article['id']]) }}" class="card-text d-block">{{$article['title']}}</a><br>
-            <a href="{{ route('Art.show',['id'=>$article['id']]) }}" class="card-text d-block">{{$article['content']}}</a><br>
-            <div class="list_title">{{ $title ?? 'これは質問のタイトルです。' }}</div>
-            
-        </div>
-    </div>
-    @endforeach
+@include('components.main.list',['contents'=>$art_list])
 @endsection
