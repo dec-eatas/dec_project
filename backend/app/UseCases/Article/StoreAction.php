@@ -16,10 +16,11 @@ class StoreAction
 
     public function __invoke($request)
     {
-        $param = $request->only(['title','content']);
+
+        $param = $request->only(['title','content','tags']);
         $param = array_merge(['user_id'=>Auth::id()],$param);
         $article = $this->art_repo->store($param);
-
+        
         return [
             'id' => $article->id,
         ];

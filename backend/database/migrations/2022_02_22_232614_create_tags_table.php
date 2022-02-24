@@ -17,7 +17,7 @@ class CreateTagsTable extends Migration
     {
         Schema::create('tags', function (Blueprint $table) {
             $table->unsignedBigInteger('id', true); 
-            $table->string('name');
+            $table->string('name')->unique();
             $table->unsignedBigInteger('user_id'); 
             $table->softDeletes(); 
             // timestampと書いてしまうと、レコード挿入時、更新時に値が入らないので、DB::rawで直接書いてます 

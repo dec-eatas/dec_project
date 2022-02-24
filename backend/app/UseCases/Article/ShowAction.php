@@ -10,7 +10,7 @@ class ShowAction{
 
     function __construct()
     {
-        $this->art_repo = new ArticleRepository;;
+        $this->art_repo = new ArticleRepository;
     } 
 
     public function __invoke($request)
@@ -19,6 +19,7 @@ class ShowAction{
         $id = $request->route('id');
         $article = $this->art_repo->find($id);
         $art_list = ListService::shape_show($article);
+        
         $favorites = [
             'parent' => [
                 'model' => $article,

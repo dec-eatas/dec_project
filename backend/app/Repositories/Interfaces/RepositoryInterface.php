@@ -8,7 +8,7 @@ Interface RepositoryInterface {
 
     public function all();
 
-    public function find(int $question_id):Model;
+    public function find(int $question_id):array;
 
     public function store(array $data):Model;
 
