@@ -1,46 +1,50 @@
 @extends('layout.master')
 
+
 @section('main')
 
+{{--
+<!-- @include('components.main.question',['content'=>$que_list,'question'=>$question])
+@include('components.main.ans_input',['content'=>$que_list,'answer'=>$answer])
+@include('components.main.ans_list',['contents'=>$answers]) -->
+<!-- ⬇︎変更  □コンポ作る  □listService追記  △🟡記事に対しての回答,コメントのキー名はどうする -->
+@include('components.main.article',['content'=>$art_list,'article'=>$article])
+@include('components.main.com_input',['content'=>$art_list,'comment'=>$comment])
+@include('components.main.com_list',['contents'=>$commets])
+--}}
+
+
+<!-- 🟡aタグで編集リンク追加 -->
 
     <div class="container mt-4">
         <div class="border p-4">
             <h1 class="h5 mb-4">
                 記事の詳細
-                {{-- <form class="card-body" action="{{ route('Artdestroy') }}" method="POST">
-                    @csrf
-                    <input type="hidden" name="article_id" value="{{ $edit_article['id']  }}">
-                    <button type="submit">削除</button> --}}
-                {{-- </form> --}}
             </h1>
+<p>-------------------------------------</p>
 
-            {{-- <form method="POST" action="{{ route('Artupdate') }}">
-                @csrf --}}
                 <!-- 更新のeditメソッドを実行するのに実行するのに、question id のものを編集するかわかるようにpost時の連想配列に追加 -->
-                {{-- <input type="hidden" name="article_id" value="{{ $edit_article['id']  }}"> --}}
+                {{-- <input type="hidden" name="article_id" value="{{ $edit_article['id']  }}">  --}}
 
-                <fieldset class="mb-4">
+
                     <div class="form-group">
-                        <label for="title">
+                        <h3>
                             タイトル
-                        </label>
-                        <input id="title" name="title" class="form-control " value="{{$article->title}}" type="text">
-                            <div class="invalid-feedback">
-                            </div>
+                        </h3>
+                        <p>{{$article->title}}</p>
+                        {{--<input id="title" name="title" class="form-control " value="articleタイトル{{$article->title}}" type="text">--}}
+
                     </div>
 
                     <div class="form-group">
-                        <label for="content">
+                        <h3>
                             本文
-                        </label>
-                        <textarea id="content" name="content" class="form-control" rows="4">
+                        </h3>
+                        <p id="content" name="content" class="form-control" rows="4">
                             {{$article['content']}}
-                        </textarea>
-                            <div class="invalid-feedback">
-                            </div>
+                        </p>
                     </div>
-
-                    {{-- z--}}
+<p>----------------------</p>
                     
                         <form action="{{ route('Art.edit') }}" method="post" >
                             @csrf
@@ -52,6 +56,9 @@
                             編集する
                         </button>
                         </form>
+
+
+
                         <!-- ↓追加 -->
                     <!-- favorite 状態で条件分岐 -->
                     @if($article->users()->where('user_id', Auth::id())->exists())
@@ -78,8 +85,10 @@
                     </form>
                     @endif
                     </div>
-                </fieldset>
-            </form>
+
+
         </div>
     </div>
 @endsection
+
+
