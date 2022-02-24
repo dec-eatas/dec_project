@@ -21,6 +21,8 @@ class IndexAction
 
         return [
             'art_list' => $art_list,
+            'search_route' => 'Art.search',
+            'create_route' => 'Art.create'
         ];
 
     }

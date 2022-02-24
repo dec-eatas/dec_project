@@ -25,6 +25,14 @@ class ArticleRepository implements RepositoryInterface {
             ->get();
     }
 
+    public function searchByTitle(String $keyword):Collection
+    {
+       return Article::where('title', 'LIKE', '%'.$keyword.'%')
+            ->orderBy('updated_at', 'DESC')
+            ->get();
+    }
+
+
     public function store(array $data):Article
     {    
         return Article::create($data);

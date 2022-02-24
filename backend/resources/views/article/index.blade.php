@@ -32,28 +32,9 @@
 
 @section('side')
 @include('components.side.search',['route'=>$search_route])
-
-<form action="{{ route('Art.create') }}" method="get" >
-    @csrf
-<button type="submit" class="btn btn-primary">
-    記事を作成する
-</button>
-</form>
-    <div class="component">
-        <div class="component_title">
-            記事を検索する
-        </div>
-        <div class="input_box">
-            <label class="subject">キーワード</label>
-            <input type="text" name="keyword" class="input">
-        </div>
-
-        <div class="side_btns">
-            <button onclick="location.href='index'">検索</button>
-        </div>
-    </div>
+@include('components.side.create',['route'=>$create_route])
 @endsection
 
 @section('main')
-@include('components.main.list',['contents' => $art_list])
+@include('components.main.list',['contents'=>$art_list])
 @endsection

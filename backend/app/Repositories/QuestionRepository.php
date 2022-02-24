@@ -20,6 +20,13 @@ class QuestionRepository implements RepositoryInterface {
         return Question::find($question_id);
     }
 
+    public function searchByTitle(String $keyword):Collection
+    {
+       return Question::where('title', 'LIKE', '%'.$keyword.'%')
+            ->orderBy('updated_at', 'DESC')
+            ->get();
+    }
+
     public function getByUser(int $user_id):Question
     {
         return Question::where('user_id','=',$user_id)

@@ -10,50 +10,34 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
+use App\UseCases\Article\IndexAction;
+use App\UseCases\Article\SearchTitleAction;
+use App\UseCases\Article\StoreAction;
+use App\UseCases\Article\ShowAction;
+use App\UseCases\Article\UpdateAction;
+use App\UseCases\Article\DeletedAction;
+
 class ArticlesController extends Controller
 {
 
-    public function index()
+    public function index(IndexAction $obj)
     {
-        $articles = Article::select('articles.*')
-        ->whereNull('deleted_at')
-        ->orderBy('updated_at', 'DESC')
-        ->get();
-        // dd($articles);入力
-        //ここでデータを取得
-        // $articles = ListService::shape_questions($articles);
-        $search_route ='Art.search';
-        // return view　article　のindex
-        return view('article.index', compact('articles','search_route'));
-        // dd($articles);
-
-
 
         // ⬇︎tagの表示処理追加🟡コンポーネントに合わせてできたら修正する。
-        $tags = Tag::whereNull('deleted_at')->orderBy('id','DESC')
-            ->get();
+        // $tags = Tag::whereNull('deleted_at')->orderBy('id','DESC')
+        //     ->get();
         // dd($tags);
 
 
-        return view('article.index', compact('articles', 'tags'));
+        return view('article.index',$obj());
 
-    }
-    public function search_title(Request $request)
-    {   //urlパラメーターとしてのkeywordが取れる
-        $keyword = $request->input('keyword');
-        
-        //取ってきたデータを一時保存
-        $articles = Article::where('title', 'LIKE', '%'.$keyword.'%')
-            ->orderBy('updated_at', 'DESC')
-            ->get();
-        
-        // $articles = ListService::shape_questions($questions_before);
-        $search_route ='Art.search';
-        return view('article.index', compact('articles','search_route'));
     }
     
-
-
+    public function search_title(Request $request,SearchTitleAction $obj)
+    {   
+        return view('article.index',$obj($request));
+    }
+    
 
     public function create()
     {

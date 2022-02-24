@@ -6,11 +6,11 @@ use App\Repositories\ArticleRepository;
 class DestroyAction
 {
 
-    public $artrepo;
+    public $art_repo;
 
     function __construct()
     {
-        $this->artrepo = new ArticleRepository;
+        $this->art_repo = new ArticleRepository;
     } 
 
     public function __invoke($request)

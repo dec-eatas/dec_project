@@ -31,22 +31,10 @@
 
 @section('side')
 @include('components.side.search',['route'=>$search_route])
+@include('components.side.create',['route'=>$create_route ])
 
-    <div class="component">
-        <div class="component_title">
-            質問を検索する
-        </div>
-        <div class="input_box">
-            <label class="subject">キーワード</label>
-            <input type="text" name="keyword" class="input">
-        </div>
-
-        <div class="side_btns">
-            <button onclick="location.href='index'">検索</button>
-        </div>
-    </div>
-    <a href="{{ route('Que.create') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">質問作成</a>
 @endsection
+
 
 @section('main')
 

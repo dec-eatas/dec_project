@@ -17,9 +17,11 @@ class IndexAction
     public function __invoke()
     {
         $que_list = ListService::shape_index($this->que_repo->all(),'Que.show',['id'=>'id']);
-
+        $search_route ='Que.search';//Que.searchが動く
+        
         return [
             'que_list' => $que_list,
+            'search_route' => $search_route
         ];
 
     }
