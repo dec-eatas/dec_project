@@ -3,9 +3,42 @@
     .parent_contents{
         width:100%;padding:0.5em 0 0.5em 0;}
     .parent_tags{
-        width:100%;padding:0.3em 0;display:flex;border-bottom:lightgrey solid;border-width:0.5px;}
+        width:100%;padding:0.3em 0 0.6em;display:flex;border-bottom:lightgrey solid;border-width:0.5px;}
+
+    .list_category{
+        font-weight: bold;
+    }
     .parent_tag{
-        width:20%;font-size:0.8em;}
+        display: inline-block;
+        margin: 0 .33em 00 0;
+        padding: .4em .6em;
+        line-height: 1;
+        text-decoration: none;
+        color: #222222;
+        background-color: #fff;
+        border: 1px solid #222;
+        border-radius: 2em;
+    }
+    .parent_tag:before {
+        content: "#";
+    }
+    .list_tag_question{
+        display: inline-block;margin: 0 .33em 00 0;padding: .4em .6em;line-height: 1;text-decoration: none;color: royalblue;background-color: #fff;border: 1px solid royalblue;border-radius: 2em;
+    }
+    .list_tag_answer{
+        display: inline-block;margin: 0 .33em 00 0;padding: .6em;line-height: 1;text-decoration: none;color: orangered;background-color: #fff;border: 1px solid orangered;border-radius: 2em;
+    }
+    .list_tag_article{
+        display: inline-block;margin: 0 .33em 00 0;padding: .6em;line-height: 1;text-decoration: none;color: forestgreen;background-color: #fff;border: 1px solid forestgreen;border-radius: 2em;
+    }
+    .list_tag_reaction{
+        display: inline-block;margin: 0 .33em 00 0;padding: .6em;line-height: 1;text-decoration: none;color: mediumvioletred;background-color: #fff;border: 1px solid mediumvioletred;border-radius: 2em;
+    }
+    .list_tag_question:before {content: "#";}
+    .list_tag_answer:before {content: "#";}
+    .list_tag_article:before {content: "#";}
+    .list_tag_reaction:before {content: "#";}
+
     .parent_title{
         width:100%;font-weight:bold;font-size:1.5em;padding:0.3em 0 0.3em 0;}
     .parent_content{
@@ -21,6 +54,15 @@
         width:10%;color:green;text-align:right;}
     .parent_datetime{
         width:10%;text-align:right;}
+    .type_question{
+        color:royalblue;}
+    .type_answer{
+        color:orangered;}
+    .type_article{
+        color:forestgreen;}
+    .type_reaction{
+        color:mediumvioletred}
+
 
 </style>
 
@@ -28,9 +70,12 @@
 <div class="component">
 
     <div class="parent_contents">
+        <div class="list_category">{{ $content['category_name'] }}</div>
         <div class="parent_tags">
             @foreach ($content['tags'] as $tag)
-                <div class="parent_tag"><a>{{ $tag['tag_name'] }}</a></div>
+                <div class="list_tag_{{$content['type']}}">
+                    <a class="type_{{ $content['type'] }}">{{ $tag['tag_name'] }}</a>
+                </div>
             @endforeach
         </div>
         <div class="parent_title">{{ $content['title'] }}</div>

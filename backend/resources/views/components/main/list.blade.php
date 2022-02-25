@@ -7,8 +7,22 @@
         width:fit-content;margin-right:2em;font-weight:bold;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;}
     .list_tags{
         width:60%;display:flex;}
-    .list_tag{
-        width:fit-content;margin-right:2em; white-space:nowrap;text-overflow:ellipsis;overflow:hidden;}
+    .list_tag_question{
+        display: inline-block;margin: 0 .33em 00 0;padding: .6em;line-height: 1;text-decoration: none;color: royalblue;background-color: #fff;border: 1px solid royalblue;border-radius: 2em;
+    }
+    .list_tag_answer{
+        display: inline-block;margin: 0 .33em 00 0;padding: .6em;line-height: 1;text-decoration: none;color: orangered;background-color: #fff;border: 1px solid orangered;border-radius: 2em;
+    }
+    .list_tag_article{
+        display: inline-block;margin: 0 .33em 00 0;padding: .6em;line-height: 1;text-decoration: none;color: forestgreen;background-color: #fff;border: 1px solid forestgreen;border-radius: 2em;
+    }
+    .list_tag_reaction{
+        display: inline-block;margin: 0 .33em 00 0;padding: .6em;line-height: 1;text-decoration: none;color: mediumvioletred;background-color: #fff;border: 1px solid mediumvioletred;border-radius: 2em;
+    }
+    .list_tag_question:before {content: "#";}
+    .list_tag_answer:before {content: "#";}
+    .list_tag_article:before {content: "#";}
+    .list_tag_reaction:before {content: "#";}
     .list_reaction{
         width:8%;color:orangered;position:absolute;margin-left:86%}
     .list_datetime{
@@ -31,6 +45,7 @@
         width:90%;}
 
 
+
 </style>
 
 @foreach ($contents as $row)
@@ -39,8 +54,8 @@
             <div class="list_category">{{ $row['category_name'] }}</div>
             <div class="list_tags">
                 @foreach($row['tags'] as $tag)
-                    <div class="list_tag">
-                        <a>{{ $tag['tag_name'] }}</a>
+                    <div class="list_tag_{{ $row['type'] }}">
+                        <a class="type_{{ $row['type'] }}">{{ $tag['tag_name'] }}</a>
                     </div>
                 @endforeach
             </div>
